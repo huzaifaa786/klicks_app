@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:klicks_app/main/main_screen.dart';
+import 'package:klicks_app/splash/splash_screen.dart';
+
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+       theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+      title: "Klicks",
+      initialRoute: 'home',
+      routes: {
+        'splash': (context) => const SplashScreen(),
+        'home': (context) => const MainScreen(),
+      },
+    );
+  }
+}
