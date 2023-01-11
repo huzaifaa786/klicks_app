@@ -36,7 +36,7 @@ class LargeButton extends StatelessWidget {
           primary: color,
           shadowColor: mainColor,
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: BorderRadius.all(Radius.circular(6)),
           ),
         ),
         child: Row(
@@ -46,9 +46,9 @@ class LargeButton extends StatelessWidget {
               title,
               style: TextStyle(
                 color: textcolor,
-                // fontFamily: 'Opensans',
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontFamily: 'Poppins',
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
