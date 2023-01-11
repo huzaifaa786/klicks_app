@@ -56,7 +56,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               DropdownField(
-                // imageIcon: Icons.location_on_outlined,
+                imageIcon: 'assets/images/location.png',
                 // selectedvalue: '',
                 text: "Choose City",
                 items: ["1", "2"],
@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               DropdownField(
-                // imageIcon: Icons.home,
+                imageIcon: 'assets/images/mall.png',
                 // selectedvalue: '',
                 text: "Choose Mall",
                 items: ["1", "2"],

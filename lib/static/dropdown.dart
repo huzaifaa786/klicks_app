@@ -40,9 +40,10 @@ class DropdownField extends StatelessWidget {
         child: DropdownButton2(
           hint: Row(
             children: [
-              ImageIcon(AssetImage(imageIcon)),
+              Image(image: AssetImage(imageIcon),color: Colors.black,),
+              // ImageIcon(AssetImage(imageIcon)),
               Padding(
-                padding: const EdgeInsets.only(left: 4.0),
+                padding: const EdgeInsets.only(left: 6.0),
                 child: Text(
                   text,
                   style: TextStyle(
@@ -69,8 +70,8 @@ class DropdownField extends StatelessWidget {
             onChange(value);
           },
           buttonHeight: 50,
-          buttonWidth: MediaQuery.of(context).size.width * 0.9,
-          buttonPadding: EdgeInsets.only(left: 10, right: 10),
+          buttonWidth: MediaQuery.of(context).size.width,
+          buttonPadding: EdgeInsets.only(left: 12, right: 12),
           itemHeight: 40,
           icon: icon,
           buttonDecoration: BoxDecoration(
