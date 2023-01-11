@@ -1,6 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/dropdown.dart';
 import 'package:klicks_app/static/topbar.dart';
+import 'package:klicks_app/values/colors.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -10,6 +15,21 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  String? cityvalue;
+  String? mallValue;
+  int _current = 0;
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+  final List<String> imgList = [
+    'assets/images/car_wash.jpg',
+    'assets/images/logo1.png',
+    'assets/images/car_wash.jpg',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,16 +38,16 @@ class _MainScreenState extends State<MainScreen> {
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Topbar(),
               Padding(
                 padding: EdgeInsets.only(top: 20, bottom: 8),
                 child: Text(
                   "Hello, Amal!",
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24,
-                  ),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24,
+                      fontFamily: 'poppins'),
                 ),
               ),
               Text(
@@ -38,11 +58,59 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 30),
-                child: Image(
-                  image: AssetImage(
-                    'assets/images/car_wash.jpg',
-                  ),
+                padding: const EdgeInsets.only(top: 30),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          },
+                        ),
+                        items: imgList.map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                child: Image.asset(
+                                  i,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      right: 150,
+                      child: Row(
+                        children: [1, 2, 3]
+                            .map((i) => Container(
+                                  width: 8.0,
+                                  height: 8.0,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: _current == i - 1
+                                          ? mainColor
+                                          : Colors.white),
+                                ))
+                            .toList(),
+                      ),
+                    )
+                  ],
                 ),
               ),
               Padding(
@@ -57,10 +125,15 @@ class _MainScreenState extends State<MainScreen> {
               ),
               DropdownField(
                 imageIcon: 'assets/images/location.png',
-                // selectedvalue: '',
+                selectedvalue: cityvalue,
                 text: "Choose City",
-                items: ["1", "2"],
+                items: items,
                 icon: ImageIcon(AssetImage('assets/images/drop_arrow.png')),
+                onChange: (val) {
+                  setState(() {
+                    cityvalue = val;
+                  });
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20.0),
@@ -74,10 +147,21 @@ class _MainScreenState extends State<MainScreen> {
               ),
               DropdownField(
                 imageIcon: 'assets/images/mall.png',
-                // selectedvalue: '',
+                selectedvalue: mallValue,
                 text: "Choose Mall",
-                items: ["1", "2"],
+                items: items,
                 icon: ImageIcon(AssetImage('assets/images/drop_arrow.png')),
+                onChange: (val) {
+                  setState(() {
+                    mallValue = val;
+                  });
+                },
+              ),
+              Padding(padding: EdgeInsets.only(top: 60)),
+              LargeButton(
+                title: "Submit",
+                onPressed: () {},
+                textcolor: Colors.white,
               )
             ],
           ),
