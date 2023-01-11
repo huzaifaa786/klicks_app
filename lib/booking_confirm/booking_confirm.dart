@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class BookingConfirm extends StatefulWidget {
@@ -25,16 +26,20 @@ class _BookingConfirmState extends State<BookingConfirm> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(top: 24,),
+                  padding: EdgeInsets.only(top: 21,),
                   child: Text(
                     'Booking Confirmed!',
-                    style: TextStyle(color: Colors.white, fontSize: 24 ),
+                    style: TextStyle(color: Colors.white, fontSize: 24 ,fontWeight: FontWeight . w400,),
                   )),
                   Padding(padding: EdgeInsets.only(top: 8),
                   
-                 child: Text('Your order has been placed successfully.', style: TextStyle(color: Colors.white),), ),
-                  Text('Order Tracking Id: #2344',style: TextStyle(color: Colors.white),)
-                
+                 child: Text('Your order has been placed successfully.', style: TextStyle(color: Colors.white,fontSize: 13,fontWeight: FontWeight .w400),), ),
+
+                  Text('Order Tracking Id: #2344',style: TextStyle(color: Colors.white,fontSize: 13 ,fontWeight: FontWeight .w400),),
+                Padding(
+                  padding: const EdgeInsets.only(top: 49),
+                  child: LargeButton(title: 'Got IT', sreenRatio: 0.75,onPressed: (){},color: Colors.white, textcolor: Colors.black,),
+                )
             ],
           ),
         ),
