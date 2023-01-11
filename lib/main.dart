@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:klicks_app/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/main/main_screen.dart';
 import 'package:klicks_app/splash/splash_screen.dart';
 
@@ -24,10 +25,11 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
       title: "Klicks",
-      initialRoute: 'home',
+      initialRoute: 'booking_confirm',
       routes: {
         'splash': (context) => const SplashScreen(),
         'home': (context) => const MainScreen(),
+        'booking_confirm': (context) => const BookingConfirm(),
       },
     );
   }
