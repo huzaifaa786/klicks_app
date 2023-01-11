@@ -41,13 +41,13 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               Topbar(),
               Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 8),
+                padding: EdgeInsets.only(top: 20, bottom: 4),
                 child: Text(
                   "Hello, Amal!",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 24,
-                      fontFamily: 'poppins'),
+                      fontFamily: 'Poppins'),
                 ),
               ),
               Text(
@@ -55,6 +55,7 @@ class _MainScreenState extends State<MainScreen> {
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
+                  fontFamily: 'Poppins'
                 ),
               ),
               Padding(
@@ -120,6 +121,7 @@ class _MainScreenState extends State<MainScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 15,
+                    fontFamily: 'Poppins'
                   ),
                 ),
               ),
@@ -136,12 +138,13 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: EdgeInsets.only(top: 15.0),
                 child: Text(
                   "Select Location",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 15,
+                    fontFamily: 'Poppins'
                   ),
                 ),
               ),
@@ -157,11 +160,13 @@ class _MainScreenState extends State<MainScreen> {
                   });
                 },
               ),
-              Padding(padding: EdgeInsets.only(top: 60)),
-              LargeButton(
-                title: "Submit",
-                onPressed: () {},
-                textcolor: Colors.white,
+              Padding(
+                padding: EdgeInsets.only(top: 60),
+                child: LargeButton(
+                  title: "Submit",
+                  onPressed: () {},
+                  textcolor: Colors.white,
+                ),
               )
             ],
           ),
