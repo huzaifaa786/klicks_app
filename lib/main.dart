@@ -3,7 +3,7 @@ import 'package:klicks_app/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/intro/fragments/fragment_1.dart';
 import 'package:klicks_app/main/main_screen.dart';
 import 'package:klicks_app/splash/splash_screen.dart';
-
+import 'package:klicks_app/values/styles.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,9 +22,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-       theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+      theme: Styles.lightTheme,
       title: "Klicks",
       initialRoute: 'home',
       routes: {

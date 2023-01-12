@@ -4,10 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/dropdown.dart';
-import 'package:klicks_app/static/icon_button.dart';
-import 'package:klicks_app/static/icon_inputfield.dart';
-import 'package:klicks_app/static/password_inputfield.dart';
-import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/static/topbar.dart';
 import 'package:klicks_app/values/colors.dart';
 
@@ -178,7 +174,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     SizedBox(
                       height: 20,
-                    )
+                    ),
                   ],
                 ),
               ),

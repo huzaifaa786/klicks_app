@@ -1,11 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/values/colors.dart';
 
-class InputFieldPassword extends StatelessWidget {
-  const InputFieldPassword(
+class InputFieldPasswordTwo extends StatelessWidget {
+  const InputFieldPasswordTwo(
       {Key? key,
       this.controller,
       this.hint,
@@ -44,14 +43,6 @@ class InputFieldPassword extends StatelessWidget {
         style: const TextStyle(fontSize: 17),
         controller: controller,
         decoration: InputDecoration(
-          prefixIcon: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: SvgPicture.asset(
-              imageIcon,
-              height: 22,
-              width: 22,
-            ),
-          ),
           suffixIcon: IconButton(
             icon: Icon(
               obscure ? Icons.visibility : Icons.visibility_off,

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, deprecated_member_use, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:klicks_app/values/colors.dart';
