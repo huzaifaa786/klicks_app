@@ -52,15 +52,16 @@ class InputFieldPassword extends StatelessWidget {
               width: 22,
             ),
           ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              obscure ? Icons.visibility : Icons.visibility_off,
-              color: Colors.black,
-            ),
-            onPressed: () {
+          suffixIcon: GestureDetector(
+            onTap: (){
               toggle();
             },
+            child: Icon(
+                obscure ? Icons.visibility_off_outlined: Icons.visibility_outlined ,
+                color: Colors.black,
+              ),
           ),
+            
           filled: true,
           fillColor: fieldColor,
           hintText: hint,

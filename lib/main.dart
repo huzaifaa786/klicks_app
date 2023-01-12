@@ -3,6 +3,7 @@ import 'package:klicks_app/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/intro/fragments/fragment_1.dart';
 import 'package:klicks_app/intro/fragments/fragment_2.dart';
 import 'package:klicks_app/intro/fragments/fragment_3.dart';
+import 'package:klicks_app/login/login.dart';
 import 'package:klicks_app/main/main_screen.dart';
 import 'package:klicks_app/splash/splash_screen.dart';
 import 'package:klicks_app/values/styles.dart';
@@ -29,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: 'fragment_3',
       routes: {
         'splash': (context) => const SplashScreen(),
+        'login': (context) => const LoginScreen(),
         'home': (context) => const MainScreen(),
         'booking_confirm': (context) => const BookingConfirm(),
          'fragment_1': (context) => const FragmentOne(),
