@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/booking_confirm/booking_confirm.dart';
+import 'package:klicks_app/intro/fragments/fragment_1.dart';
 import 'package:klicks_app/main/main_screen.dart';
 import 'package:klicks_app/splash/splash_screen.dart';
 
@@ -30,6 +31,7 @@ class _MyAppState extends State<MyApp> {
         'splash': (context) => const SplashScreen(),
         'home': (context) => const MainScreen(),
         'booking_confirm': (context) => const BookingConfirm(),
+        //  'fragment_1': (context) => const FragmentOne(),
       },
     );
   }
