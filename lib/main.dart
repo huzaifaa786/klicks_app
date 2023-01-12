@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         'splash': (context) => const SplashScreen(),
         'home': (context) => const MainScreen(),
         'booking_confirm': (context) => const BookingConfirm(),
-        //  'fragment_1': (context) => const FragmentOne(),
+         'fragment_1': (context) => const FragmentOne(),
       },
     );
   }
