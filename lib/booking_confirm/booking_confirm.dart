@@ -38,7 +38,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                   Text('Order Tracking Id: #2344',style: TextStyle(color: Colors.white,fontSize: 13 ,fontWeight: FontWeight .w400),),
                 Padding(
                   padding: const EdgeInsets.only(top: 49),
-                  child: LargeButton(title: 'Got IT', sreenRatio: 0.75,onPressed: (){},color: Colors.white, textcolor: Colors.black,),
+                  child: LargeButton(title: 'Got IT', screenRatio: 0.75,onPressed: (){},color: Colors.white, textcolor: Colors.black,),
                 )
             ],
           ),

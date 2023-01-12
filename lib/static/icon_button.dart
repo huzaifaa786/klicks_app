@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:klicks_app/values/colors.dart';
 
-class LargeButton extends StatelessWidget {
-  const LargeButton(
+class IconsButton extends StatelessWidget {
+  const IconsButton(
       {Key? key,
       @required this.title,
       @required this.onPressed,
@@ -35,12 +35,18 @@ class LargeButton extends StatelessWidget {
           primary: color,
           shadowColor: mainColor,
           shape: RoundedRectangleBorder(
-            borderRadius: rounded == true ?BorderRadius.all(Radius.circular(45)):BorderRadius.all(Radius.circular(6)),
+            borderRadius: rounded == true
+                ? BorderRadius.all(Radius.circular(45))
+                : BorderRadius.all(Radius.circular(6)),
           ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(Icons.check),
+            ),
             Text(
               title,
               style: TextStyle(
