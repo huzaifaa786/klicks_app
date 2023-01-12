@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
       title: "Klicks",
-      initialRoute: 'fragment_1',
+      initialRoute: 'home',
       routes: {
         'splash': (context) => const SplashScreen(),
         'home': (context) => const MainScreen(),

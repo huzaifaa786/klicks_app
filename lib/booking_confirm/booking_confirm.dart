@@ -63,7 +63,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                 padding: const EdgeInsets.only(top: 49),
                 child: LargeButton(
                   title: 'Got IT',
-                  sreenRatio: 0.75,
+                  screenRatio: 0.75,
                   onPressed: () {},
                   color: Colors.white,
                   textcolor: Colors.black,

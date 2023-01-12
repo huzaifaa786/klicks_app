@@ -4,8 +4,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/dropdown.dart';
+import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
+import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/static/topbar.dart';
 import 'package:klicks_app/values/colors.dart';
 
@@ -38,142 +40,147 @@ class _MainScreenState extends State<MainScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 3.0, right: 20),
-              child: Topbar(),
-            ),
-            Padding(
+            Topbar(),
+            Container(
               padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 4),
-                    child: Text(
-                      "Hello, Amal!",
+              height: MediaQuery.of(context).size.height * 0.89,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, bottom: 4),
+                      child: Text(
+                        "Hello, Amal!",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                            fontFamily: 'Poppins'),
+                      ),
+                    ),
+                    Text(
+                      "Tuesday, January 3rd",
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
                           fontFamily: 'Poppins'),
                     ),
-                  ),
-                  Text(
-                    "Tuesday, January 3rd",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                        fontFamily: 'Poppins'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                          height: 200,
-                          child: CarouselSlider(
-                            options: CarouselOptions(
-                              autoPlay: true,
-                              viewportFraction: 1,
-                              enlargeCenterPage: false,
-                              onPageChanged: (index, reason) {
-                                setState(() {
-                                  _current = index;
-                                });
-                              },
-                            ),
-                            items: imgList.map((i) {
-                              return Builder(
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Image.asset(
-                                      i,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  );
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            height: 200,
+                            child: CarouselSlider(
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                viewportFraction: 1,
+                                enlargeCenterPage: false,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    _current = index;
+                                  });
                                 },
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          right: 150,
-                          child: Row(
-                            children: [1, 2, 3]
-                                .map((i) => Container(
-                                      width: 8.0,
-                                      height: 8.0,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 10.0, horizontal: 2.0),
+                              ),
+                              items: imgList.map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: _current == i - 1
-                                              ? mainColor
-                                              : Colors.white),
-                                    ))
-                                .toList(),
+                                        color: Colors.white,
+                                      ),
+                                      child: Image.asset(
+                                        i,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        )
-                      ],
+                          Positioned(
+                            bottom: 10,
+                            right: 150,
+                            child: Row(
+                              children: [1, 2, 3]
+                                  .map((i) => Container(
+                                        width: 8.0,
+                                        height: 8.0,
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 10.0, horizontal: 2.0),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: _current == i - 1
+                                                ? mainColor
+                                                : Colors.white),
+                                      ))
+                                  .toList(),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Text(
-                      "Select Location",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          fontFamily: 'Poppins'),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        "Select Location",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            fontFamily: 'Poppins'),
+                      ),
                     ),
-                  ),
-                  DropdownField(
-                    imageIcon: 'assets/images/location.svg',
-                    selectedvalue: cityvalue,
-                    text: "Choose City",
-                    items: items,
-                    icon: ImageIcon(AssetImage('assets/images/drop_arrow.png')),
-                    onChange: (val) {
-                      setState(() {
-                        cityvalue = val;
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 15.0),
-                    child: Text(
-                      "Select Location",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          fontFamily: 'Poppins'),
+                    DropdownField(
+                      imageIcon: 'assets/images/location.svg',
+                      selectedvalue: cityvalue,
+                      text: "Choose City",
+                      items: items,
+                      icon:
+                          ImageIcon(AssetImage('assets/images/drop_arrow.png')),
+                      onChange: (val) {
+                        setState(() {
+                          cityvalue = val;
+                        });
+                      },
                     ),
-                  ),
-                  DropdownField(
-                    imageIcon: 'assets/images/mall.svg',
-                    selectedvalue: mallValue,
-                    text: "Choose Mall",
-                    items: items,
-                    icon: ImageIcon(AssetImage('assets/images/drop_arrow.png')),
-                    onChange: (val) {
-                      setState(() {
-                        mallValue = val;
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 60),
-                    child: LargeButton(
-                      title: "Submit",
-                      onPressed: () {},
-                      textcolor: Colors.white,
+                    Padding(
+                      padding: EdgeInsets.only(top: 15.0),
+                      child: Text(
+                        "Select Location",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            fontFamily: 'Poppins'),
+                      ),
                     ),
-                  ),
-                ],
+                    DropdownField(
+                      imageIcon: 'assets/images/mall.svg',
+                      selectedvalue: mallValue,
+                      text: "Choose Mall",
+                      items: items,
+                      icon:
+                          ImageIcon(AssetImage('assets/images/drop_arrow.png')),
+                      onChange: (val) {
+                        setState(() {
+                          mallValue = val;
+                        });
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 60),
+                      child: LargeButton(
+                        title: "Submit",
+                        onPressed: () {},
+                        textcolor: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
               ),
             ),
           ],
