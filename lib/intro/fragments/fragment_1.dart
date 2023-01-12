@@ -39,11 +39,11 @@ class _FragmentOneState extends State<FragmentOne> {
                   GestureDetector(
                     onTap: () {},
                     child: Text(
-                      'skip',
+                      'Skip',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins'),
                     ),
                   )
@@ -66,23 +66,32 @@ class _FragmentOneState extends State<FragmentOne> {
                   left: 110,
                   child: Text(
                     'Klicks Wash Service',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'OpenSans'),
                   ),
                 ),
                 Positioned(
                   bottom: 20,
-                  left: 70,
+                  left: 95,
                   child: Text(
                     'Lorem ipsum dolor sit amet ',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins'),
                   ),
                 ),
                 Positioned(
                   bottom: 2,
-                  left: 70,
+                  left:75,
                   child: Text(
                     'consectetur. Elementum purus id',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins'),
                   ),
                 )
               ],
