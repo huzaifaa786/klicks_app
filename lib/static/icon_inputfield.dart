@@ -66,8 +66,8 @@ class IconInputField extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: SvgPicture.asset(
               imageIcon,
-              height: 22,
-              width: 22,
+              height: 18,
+              width: 18,
             ),
           ),
           border: OutlineInputBorder(
