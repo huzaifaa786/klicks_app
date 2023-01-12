@@ -2,6 +2,7 @@
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class DropdownField extends StatelessWidget {
@@ -40,8 +41,14 @@ class DropdownField extends StatelessWidget {
         child: DropdownButton2(
           hint: Row(
             children: [
-              Image(image: AssetImage(imageIcon),color: Colors.black,),
-              // ImageIcon(AssetImage(imageIcon)),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SvgPicture.asset(
+                  imageIcon,
+                  height: 18,
+                  width: 18,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 6.0),
                 child: Text(
