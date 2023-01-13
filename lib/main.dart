@@ -5,6 +5,7 @@ import 'package:klicks_app/intro/fragments/fragment_2.dart';
 import 'package:klicks_app/intro/fragments/fragment_3.dart';
 import 'package:klicks_app/login/login.dart';
 import 'package:klicks_app/main/main_screen.dart';
+import 'package:klicks_app/order%20status/order_status.dart';
 import 'package:klicks_app/splash/splash_screen.dart';
 import 'package:klicks_app/values/styles.dart';
 
@@ -27,7 +28,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'fragment_3',
+      initialRoute: 'order_status',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
          'fragment_1': (context) => const FragmentOne(),
          'fragment_2': (context) => const FragmentTwo(),
          'fragment_3': (context) => const FragmentThree(),
+         'order_status': (context) => const OrderStatus(),
       },
     );
   }
