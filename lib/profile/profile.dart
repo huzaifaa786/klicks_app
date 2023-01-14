@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:klicks_app/static/icon_button.dart';
+import 'package:klicks_app/static/logoutTile.dart';
+import 'package:klicks_app/static/profile.tile.dart';
 import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/values/colors.dart';
 
@@ -69,7 +72,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                                 title: 'Add Fund',
                                 onPressed: () {},
                                 iconTrue: false,
-                                imgicon:  'assets/images/voilt.svg',
+                                imgicon: 'assets/images/voilt.svg',
                                 screenRatio: 0.3,
                                 color: Colors.white,
                                 textcolor: Colors.black,
@@ -78,12 +81,40 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                           ],
                         ),
                       )),
-                      
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: ProfileTile(
+                      image: 'assets/images/profile.svg',
+                      text: 'Edit Profile',
+                      ontap: () {},
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ProfileTile(
+                      image: 'assets/images/language.svg',
+                      text: 'Language',
+                      ontap: () {},
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ProfileTile(
+                      image: 'assets/images/setting.svg',
+                      text: 'Edit Profile',
+                      ontap: () {},
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 14),
+                    child: LogOutTile(
+                        image: 'assets/images/logout.svg',
+                        text: 'Log out',
+                        ontap: () {}),
+                  )
                 ],
-
               ),
-            )
-
+            ),
           ],
         ),
       ),

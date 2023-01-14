@@ -14,7 +14,7 @@ class ProfileTile extends StatelessWidget {
     return InkWell(
       onTap: ontap,
       child: SizedBox(
-        height: 40,
+        height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -25,11 +25,11 @@ class ProfileTile extends StatelessWidget {
                 SizedBox(width: 12),
                 Text(
                   text,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                 )
               ],
             ),
-            SvgPicture.asset('assets/images/arrow_right.svg'),
+            SvgPicture.asset('assets/images/arrow_right.svg',color: Colors.black,),
           ],
         ),
       ),
