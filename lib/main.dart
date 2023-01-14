@@ -5,6 +5,7 @@ import 'package:klicks_app/intro/fragments/fragment_2.dart';
 import 'package:klicks_app/intro/fragments/fragment_3.dart';
 import 'package:klicks_app/login/login.dart';
 import 'package:klicks_app/main/main_screen.dart';
+import 'package:klicks_app/select_car/select_car.dart';
 import 'package:klicks_app/splash/splash_screen.dart';
 import 'package:klicks_app/values/styles.dart';
 
@@ -27,15 +28,16 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'fragment_3',
+      initialRoute: 'login',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
         'home': (context) => const MainScreen(),
         'booking_confirm': (context) => const BookingConfirm(),
-         'fragment_1': (context) => const FragmentOne(),
-         'fragment_2': (context) => const FragmentTwo(),
-         'fragment_3': (context) => const FragmentThree(),
+        'fragment_1': (context) => const FragmentOne(),
+        'fragment_2': (context) => const FragmentTwo(),
+        'fragment_3': (context) => const FragmentThree(),
+        'select_car': (context) => const CarSelect(),
       },
     );
   }

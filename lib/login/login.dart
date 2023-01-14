@@ -98,7 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 25.0, bottom: 30),
                     child: LargeButton(
                       title: "Sign in",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'home');
+                      },
                     ),
                   ),
                   Row(

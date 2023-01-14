@@ -19,7 +19,7 @@ class InputField extends StatelessWidget {
       this.validate,
       this.icon,
       this.type = TextInputType.text,
-      this.fontSize = 17.0,
+      this.fontSize = 14.0,
       this.onpressed})
       : super(key: key);
 

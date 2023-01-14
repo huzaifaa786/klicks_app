@@ -41,7 +41,7 @@ class InputFieldPassword extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: TextFormField(
-        style: const TextStyle(fontSize: 17),
+        style: const TextStyle(fontSize: 14),
         controller: controller,
         decoration: InputDecoration(
           prefixIcon: FittedBox(

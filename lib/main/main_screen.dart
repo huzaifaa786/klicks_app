@@ -168,7 +168,9 @@ class _MainScreenState extends State<MainScreen> {
                       padding: EdgeInsets.only(top: 60),
                       child: LargeButton(
                         title: "Submit",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'select_car');
+                        },
                         textcolor: Colors.white,
                       ),
                     ),

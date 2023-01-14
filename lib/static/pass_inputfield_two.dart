@@ -40,7 +40,7 @@ class InputFieldPasswordTwo extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: TextFormField(
-        style: const TextStyle(fontSize: 17),
+        style: const TextStyle(fontSize: 14),
         controller: controller,
         decoration: InputDecoration(
           suffixIcon: IconButton(

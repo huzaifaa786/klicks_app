@@ -21,7 +21,7 @@ class IconInputField extends StatelessWidget {
       this.validate,
       this.icon,
       this.type = TextInputType.text,
-      this.fontSize = 17.0,
+      this.fontSize = 14.0,
       this.onpressed})
       : super(key: key);
 
@@ -61,6 +61,7 @@ class IconInputField extends StatelessWidget {
           filled: true,
           fillColor: fieldColor,
           hintText: hint,
+          contentPadding: EdgeInsets.only(top: 2),
           hintStyle: TextStyle(color: hintColor),
           prefixIcon: FittedBox(
             fit: BoxFit.scaleDown,
