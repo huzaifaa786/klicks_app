@@ -5,11 +5,13 @@ import 'package:klicks_app/intro/fragments/fragment_2.dart';
 import 'package:klicks_app/intro/fragments/fragment_3.dart';
 import 'package:klicks_app/login/login.dart';
 import 'package:klicks_app/main/main_screen.dart';
+import 'package:klicks_app/order_history/order_histary.dart';
 import 'package:klicks_app/select_car/select_car.dart';
 import 'package:klicks_app/notification/notification.dart';
 import 'package:klicks_app/order%20status/order_status.dart';
 import 'package:klicks_app/profile/profile.dart';
 import 'package:klicks_app/splash/splash_screen.dart';
+import 'package:klicks_app/top_up/top_up.dart';
 import 'package:klicks_app/values/styles.dart';
 
 void main() {
@@ -31,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'login',
+      initialRoute: 'top_up',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
@@ -44,6 +46,8 @@ class _MyAppState extends State<MyApp> {
          'order_status': (context) => const OrderStatus(),
          'notification': (context) => const NotificationScreen(),
          'profile': (context) => const ProfileScreeen(),
+         'order_histary': (context) => const OrderHistry(),
+         'top_up': (context) => const TopUp(),
 
       },
     );
