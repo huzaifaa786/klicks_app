@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/booking_confirm/booking_confirm.dart';
+import 'package:klicks_app/checkout/checkout.dart';
 import 'package:klicks_app/intro/fragments/fragment_1.dart';
 import 'package:klicks_app/intro/fragments/fragment_2.dart';
 import 'package:klicks_app/intro/fragments/fragment_3.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'login',
+      initialRoute: 'checkOut',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
@@ -44,7 +45,7 @@ class _MyAppState extends State<MyApp> {
          'order_status': (context) => const OrderStatus(),
          'notification': (context) => const NotificationScreen(),
          'profile': (context) => const ProfileScreeen(),
-
+         'checkOut': (context) => const CheckOutScreen(),
       },
     );
   }
