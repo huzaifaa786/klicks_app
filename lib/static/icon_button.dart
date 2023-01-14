@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class IconsButton extends StatelessWidget {
@@ -10,20 +11,23 @@ class IconsButton extends StatelessWidget {
       @required this.onPressed,
       this.textcolor,
       this.icon,
-      this.buttonWidth = 0.8,
+      this.imgicon,
+      this.iconTrue = true,
       this.screenRatio = 0.9,
       this.rounded = false,
       this.color = mainColor})
       : super(key: key);
 
   final title;
+  final imgicon;
+  final iconTrue;
   final onPressed;
   final screenRatio;
   final color;
   final textcolor;
   final icon;
   final rounded;
-  final buttonWidth;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -45,7 +49,9 @@ class IconsButton extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(Icons.check),
+              child: iconTrue == true
+                  ? Icon(Icons.check)
+                  : SvgPicture.asset(imgicon),
             ),
             Text(
               title,

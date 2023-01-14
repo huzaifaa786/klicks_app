@@ -35,7 +35,9 @@ class LargeButton extends StatelessWidget {
           primary: color,
           shadowColor: mainColor,
           shape: RoundedRectangleBorder(
-            borderRadius: rounded == true ?BorderRadius.all(Radius.circular(45)):BorderRadius.all(Radius.circular(6)),
+            borderRadius: rounded == true
+                ? BorderRadius.all(Radius.circular(45))
+                : BorderRadius.all(Radius.circular(6)),
           ),
         ),
         child: Row(
