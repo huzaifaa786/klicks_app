@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Topbar extends StatelessWidget {
-  const Topbar({super.key, this.ontap});
-  final ontap;
+  const Topbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,9 @@ class Topbar extends StatelessWidget {
             width: 63,
           ),
           GestureDetector(
-            onTap: ontap,
+            onTap: (){
+              Navigator.pushNamed(context, 'notification');
+            },
             child: SvgPicture.asset('assets/images/bell.svg'),
           )
         ],
