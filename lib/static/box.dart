@@ -31,7 +31,7 @@ class Box extends StatelessWidget {
             child: Text(
           title,
           style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+              color:selected == false? Colors.black:White, fontSize: 16, fontWeight: FontWeight.w600),
         )),
       ),
     );

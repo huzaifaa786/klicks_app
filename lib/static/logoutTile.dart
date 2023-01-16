@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class LogOutTile extends StatelessWidget {
   const LogOutTile({super.key, this.image, this.text, this.ontap});
+  
   final image;
   final text;
   final ontap;

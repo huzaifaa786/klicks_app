@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'top_up',
+      initialRoute: 'order_histary',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
