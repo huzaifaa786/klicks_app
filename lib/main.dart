@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:klicks_app/booking_confirm/booking_confirm.dart';
-import 'package:klicks_app/checkout/checkout.dart';
-import 'package:klicks_app/intro/fragments/fragment_1.dart';
-import 'package:klicks_app/intro/fragments/fragment_2.dart';
-import 'package:klicks_app/intro/fragments/fragment_3.dart';
-import 'package:klicks_app/login/login.dart';
-import 'package:klicks_app/main/main_screen.dart';
-import 'package:klicks_app/order_history/order_histary.dart';
-import 'package:klicks_app/select_car/select_car.dart';
-import 'package:klicks_app/notification/notification.dart';
-import 'package:klicks_app/order%20status/order_status.dart';
-import 'package:klicks_app/profile/profile.dart';
-import 'package:klicks_app/splash/splash_screen.dart';
-import 'package:klicks_app/top_up/top_up.dart';
+import 'package:klicks_app/screen/booking_confirm/booking_confirm.dart';
+import 'package:klicks_app/screen/checkout/checkout.dart';
+import 'package:klicks_app/screen/main/intro/fragments/fragment_1.dart';
+import 'package:klicks_app/screen/main/intro/fragments/fragment_2.dart';
+import 'package:klicks_app/screen/main/intro/fragments/fragment_3.dart';
+import 'package:klicks_app/screen/main/login/login.dart';
+import 'package:klicks_app/screen/main/main_screen.dart';
+import 'package:klicks_app/screen/order_history/order_histary.dart';
+import 'package:klicks_app/screen/select_car/select_car.dart';
+import 'package:klicks_app/screen/notification/notification.dart';
+import 'package:klicks_app/screen/order%20status/order_status.dart';
+import 'package:klicks_app/screen/profile/profile.dart';
+import 'package:klicks_app/screen/splash/splash_screen.dart';
+import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/values/styles.dart';
 
 void main() {
