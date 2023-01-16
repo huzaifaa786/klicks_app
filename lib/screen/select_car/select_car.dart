@@ -205,7 +205,9 @@ class _CarSelectState extends State<CarSelect> {
                     ),
                     SizedBox(height: 12),
                     CheckOutButton(
-                      ontap: () {},
+                      ontap: () {
+                        Navigator.pushNamed(context, 'checkOut');
+                      },
                       price: '45.00',
                     )
                   ],

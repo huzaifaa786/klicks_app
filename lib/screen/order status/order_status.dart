@@ -24,12 +24,12 @@ class _OrderStatusState extends State<OrderStatus> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 80,left: 20,right: 20),
+              padding: const EdgeInsets.only(top: 80, left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right:12.0),
+                    padding: const EdgeInsets.only(right: 12.0),
                     child: Text(
                       'Order Detail',
                       style: TextStyle(

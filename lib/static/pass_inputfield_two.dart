@@ -45,7 +45,7 @@ class InputFieldPasswordTwo extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: IconButton(
             icon: Icon(
-              obscure ? Icons.visibility : Icons.visibility_off,
+              obscure ? Icons.visibility_off_outlined: Icons.visibility_outlined ,
               color: Colors.black,
             ),
             onPressed: () {
@@ -56,7 +56,7 @@ class InputFieldPasswordTwo extends StatelessWidget {
           fillColor: fieldColor,
           hintText: hint,
           hintStyle: TextStyle(color: hintColor),
-          contentPadding: const EdgeInsets.only(left: 3.0),
+          contentPadding: const EdgeInsets.only(left: 12.0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(6)),
             borderSide: BorderSide.none,

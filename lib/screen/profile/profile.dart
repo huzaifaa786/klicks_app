@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
 import 'package:klicks_app/static/profile.tile.dart';
@@ -22,7 +23,9 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
           children: [
             TitleTopbar(
               text: 'My Profile',
-              ontap: () {},
+              ontap: () {
+                Navigator.popAndPushNamed(context, 'home');
+              },
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -86,7 +89,9 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     child: ProfileTile(
                       image: 'assets/images/profile.svg',
                       text: 'Edit Profile',
-                      ontap: () {},
+                      ontap: () {
+                        Navigator.pushNamed(context, 'edit_profile');
+                      },
                     ),
                   ),
                   Padding(
@@ -101,7 +106,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     padding: const EdgeInsets.only(top: 10),
                     child: ProfileTile(
                       image: 'assets/images/setting.svg',
-                      text: 'Edit Profile',
+                      text: 'Settings',
                       ontap: () {},
                     ),
                   ),
