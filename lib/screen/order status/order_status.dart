@@ -86,11 +86,11 @@ class _OrderStatusState extends State<OrderStatus> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 17, left: 20),
+                              padding: const EdgeInsets.only(top: 15, left: 20),
                               child: Text(
                                 'Mall ',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                             ),
                             Padding(
@@ -98,7 +98,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'Dubai Mall',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -111,7 +111,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'Company ',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                             ),
                             Padding(
@@ -119,7 +119,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'BMW',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -132,7 +132,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'Floor ',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                             ),
                             Padding(
@@ -140,7 +140,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 '3rd',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -153,7 +153,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'Number Plate ',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                             ),
                             Padding(
@@ -161,7 +161,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'FA23',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -174,7 +174,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'Parking Number ',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                             ),
                             Padding(
@@ -182,7 +182,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 '23',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -195,7 +195,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'Car Type',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                             ),
                             Padding(
@@ -203,7 +203,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               child: Text(
                                 'Sweden',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
@@ -220,7 +220,7 @@ class _OrderStatusState extends State<OrderStatus> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5, right: 10),
+                              padding: const EdgeInsets.only(top: 8, right: 8),
                               child: Badge(
                                 title: 'Complete',
                                 color: badgeGreen,
