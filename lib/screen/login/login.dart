@@ -47,18 +47,25 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      Positioned(
-                        bottom: 10,
-                        left: 55,
-                        child: Text(
-                          "Sign in to continue",
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      )
+                      // Positioned(
+                      //   bottom: 10,
+                      //   left: 55,
+                      //   child: Text(
+                      //     "Sign in to continue",
+                      //     style: TextStyle(
+                      //       fontSize: 26,
+                      //       fontWeight: FontWeight.w600,
+                      //     ),
+                      //   ),
+                      // )
                     ],
+                  ),
+                  Text(
+                    "Sign in to continue",
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 40.0),

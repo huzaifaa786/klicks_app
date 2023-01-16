@@ -29,7 +29,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
     return GestureDetector(
       onTap: widget.onchaged,
       child: Container(
-        margin: EdgeInsets.only(left: 34, top: 10),
+        margin: EdgeInsets.only(left: 34),
         padding: EdgeInsets.only(top: 7, bottom: 7),
         width: MediaQuery.of(context).size.width,
         child: Column(

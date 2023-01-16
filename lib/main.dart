@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/screen/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
-import 'package:klicks_app/screen/main/intro/fragments/fragment_1.dart';
-import 'package:klicks_app/screen/main/intro/fragments/fragment_2.dart';
-import 'package:klicks_app/screen/main/intro/fragments/fragment_3.dart';
-import 'package:klicks_app/screen/main/login/login.dart';
+import 'package:klicks_app/screen/edit_profile.dart/edit_profile.dart';
+import 'package:klicks_app/screen/home/navigation_screen.dart';
+import 'package:klicks_app/screen/fragments/fragment_1.dart';
+import 'package:klicks_app/screen/fragments/fragment_2.dart';
+import 'package:klicks_app/screen/fragments/fragment_3.dart';
+import 'package:klicks_app/screen/login/login.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
 import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/select_car/select_car.dart';
@@ -34,11 +36,12 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'order_histary',
+      initialRoute: 'login',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
-        'home': (context) => const MainScreen(),
+
+        'home': (context) => const BottomNavScreen(),
         'booking_confirm': (context) => const BookingConfirm(),
         'fragment_1': (context) => const FragmentOne(),
         'fragment_2': (context) => const FragmentTwo(),
@@ -50,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         'checkOut': (context) => const CheckOutScreen(),
         'order_histary': (context) => const OrderHistry(),
         'top_up': (context) => const TopUp(),
+        'edit_profile': (context) => const EditProfile(),
       },
     );
   }

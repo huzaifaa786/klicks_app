@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
+import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -14,12 +15,12 @@ class CheckOutScreen extends StatefulWidget {
   State<CheckOutScreen> createState() => _CheckOutScreenState();
 }
 
-enum payMethod { materCard, googlePay, applePay }
+enum PayMethod { materCard, googlePay, applePay }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   bool val = false;
-  payMethod _site = payMethod.materCard;
-  void toggleplan(payMethod value) {
+  PayMethod _site = PayMethod.materCard;
+  void toggleplan(PayMethod value) {
     setState(() {
       _site = value;
     });
@@ -137,13 +138,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 fontWeight: FontWeight.w600, fontSize: 20),
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text('41.00',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w600, fontSize: 20)),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20)),
                               Text('AED',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w600, fontSize: 20))
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20))
                             ],
                           )
                         ],
@@ -181,40 +184,53 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Text(
                           "Select your payment method ",
                           style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14,color: hintColor),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: hintColor),
                         ),
                       ),
                       PaymentMethod(
                         title: 'Mastercard',
                         image: "assets/images/masterCard.png",
                         groupvalue: _site,
-                        value: payMethod.materCard,
+                        value: PayMethod.materCard,
                         onchaged: () {
-                          toggleplan(payMethod.materCard);
+                          toggleplan(PayMethod.materCard);
                         },
                       ),
                       PaymentMethod(
                         title: 'Google Pay',
                         image: "assets/images/google.png",
-                        value: payMethod.googlePay,
+                        value: PayMethod.googlePay,
                         groupvalue: _site,
                         onchaged: () {
-                          toggleplan(payMethod.googlePay);
+                          toggleplan(PayMethod.googlePay);
                         },
                       ),
                       PaymentMethod(
                         title: 'Apple Pay',
                         image: "assets/images/apple.png",
                         groupvalue: _site,
-                        value: payMethod.applePay,
+                        value: PayMethod.applePay,
                         onchaged: () {
-                          toggleplan(payMethod.applePay);
+                          toggleplan(PayMethod.applePay);
                         },
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 20,)
+                SizedBox(
+                  height: 20,
+                ),
+                LargeButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'booking_confirm');
+                  },
+                  title: "continue",
+                ),
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
