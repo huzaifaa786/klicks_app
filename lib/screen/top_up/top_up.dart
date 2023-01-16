@@ -29,17 +29,25 @@ class _TopUpState extends State<TopUp> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10,right: 20,left: 20),
+            padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
             child: Container(
-
-              height: 105,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: Colors.white,
-                            border: Border.all(width: 2, color: Colors.black),
-                        ),
-            ),
+                height: 105,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: Colors.white,
+                  border: Border.all(width: 1, color: Colors.black),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'AED 10',
+                      style:
+                          TextStyle(fontSize: 45, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                )),
           )
         ],
       )),
