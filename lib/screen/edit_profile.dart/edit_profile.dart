@@ -88,7 +88,7 @@ class _EditProfileState extends State<EditProfile> {
                         ? Padding(
                             padding: const EdgeInsets.only(bottom: 12),
                             child: LargeButton(
-                                title: "title",
+                                title: "Update Profile",
                                 onPressed: () {
                                   setState(() {
                                     show = !show;
