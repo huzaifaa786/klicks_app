@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:klicks_app/screen/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/edit_profile.dart/edit_profile.dart';
+import 'package:klicks_app/screen/fragments/fragment.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/fragments/fragment_1.dart';
 import 'package:klicks_app/screen/fragments/fragment_2.dart';
@@ -36,16 +37,16 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'login',
+      initialRoute: 'fragment',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
 
         'home': (context) => const BottomNavScreen(),
         'booking_confirm': (context) => const BookingConfirm(),
-        'fragment_1': (context) => const FragmentOne(),
-        'fragment_2': (context) => const FragmentTwo(),
-        'fragment_3': (context) => const FragmentThree(),
+        // 'fragment_1': (context) => const FragmentOne(),
+        // 'fragment_2': (context) => const FragmentTwo(),
+        // 'fragment_3': (context) => const FragmentThree(),
         'select_car': (context) => const CarSelect(),
         'order_status': (context) => const OrderStatus(),
         'notification': (context) => const NotificationScreen(),
@@ -54,6 +55,8 @@ class _MyAppState extends State<MyApp> {
         'order_histary': (context) => const OrderHistry(),
         'top_up': (context) => const TopUp(),
         'edit_profile': (context) => const EditProfile(),
+         'fragment': (context) => const Fragment(),
+
       },
     );
   }

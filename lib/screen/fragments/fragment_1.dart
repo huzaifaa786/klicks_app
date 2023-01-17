@@ -6,23 +6,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:scroll_indicator/scroll_indicator.dart';
 
 class FragmentOne extends StatefulWidget {
-  const FragmentOne({super.key});
+  const FragmentOne({super.key, required this.controller});
+  final PageController controller;
 
   @override
   State<FragmentOne> createState() => _FragmentOneState();
 }
 
 class _FragmentOneState extends State<FragmentOne> {
-  void initState() {
-    ScrollController scrollController = ScrollController();
-    ScrollController scrollController2 = ScrollController();
-    ScrollController scrollController3 = ScrollController();
-
-    double pixels = 0.0;
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,25 +22,6 @@ class _FragmentOneState extends State<FragmentOne> {
         padding: EdgeInsets.only(top: 40, right: 20),
         child: Column(
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      'Skip',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins'),
-                    ),
-                  )
-                ],
-              ),
-            ),
             Stack(
               // ignore: prefer_const_literals_to_create_immutables
               children: [
@@ -85,7 +57,7 @@ class _FragmentOneState extends State<FragmentOne> {
                 ),
                 Positioned(
                   bottom: 2,
-                  left:75,
+                  left: 75,
                   child: Text(
                     'consectetur. Elementum purus id',
                     style: TextStyle(
@@ -96,19 +68,6 @@ class _FragmentOneState extends State<FragmentOne> {
                 )
               ],
             ),
-
-            // ScrollIndicator(
-            //   scrollController: ScrollController,
-            //   width: 50,
-            //   height: 5,
-            //   indicatorWidth: 20,
-            //   decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(10),
-            //       color: Colors.grey[300]),
-            //   indicatorDecoration: BoxDecoration(
-            //       color: Colors.deepOrange,
-            //       borderRadius: BorderRadius.circular(10)),
-            // ),
           ],
         ),
       )),

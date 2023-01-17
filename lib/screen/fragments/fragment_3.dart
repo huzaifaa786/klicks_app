@@ -6,8 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FragmentThree extends StatefulWidget {
-  const FragmentThree({super.key});
-
+  const FragmentThree({super.key, required this.controller});
+final PageController controller;
   @override
   State<FragmentThree> createState() => _FragmentThreeState();
 }
@@ -19,17 +19,7 @@ class _FragmentThreeState extends State<FragmentThree> {
       body: SafeArea(
           child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 40, left: 25),
-                    child: SvgPicture.asset('assets/images/backArrow.svg'),
-                  )),
-            ],
-          ),
+         
           Padding(
               padding: const EdgeInsets.only(top: 90, right: 30),
               child: SvgPicture.asset('assets/images/frag3.svg')),
