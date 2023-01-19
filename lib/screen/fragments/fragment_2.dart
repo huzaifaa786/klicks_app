@@ -15,10 +15,9 @@ class _FragmentTwoState extends State<FragmentTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.only(top: 40, left: 60,),
+          child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             
             SvgPicture.asset('assets/images/frag2.svg'),

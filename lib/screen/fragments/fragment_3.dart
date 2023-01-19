@@ -17,15 +17,15 @@ class _FragmentThreeState extends State<FragmentThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        
           child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
         children: [
          
-          Padding(
-              padding: const EdgeInsets.only(top: 90, right: 30),
-              child: SvgPicture.asset('assets/images/frag3.svg')),
+          SvgPicture.asset('assets/images/frag3.svg'),
           // ignore: prefer_const_constructors
           Padding(
-            padding: const EdgeInsets.only(top: 13, right: 12),
+            padding: const EdgeInsets.only(top: 20),
             child: Text(
               'Friendly Environemnt',
               style: TextStyle(

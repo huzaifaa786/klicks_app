@@ -33,7 +33,7 @@ class _FragmentState extends State<Fragment> {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.53,
+                  height: MediaQuery.of(context).size.height * 0.70,
                   child: PageView(
                     controller: controller,
                     onPageChanged: (index) {
