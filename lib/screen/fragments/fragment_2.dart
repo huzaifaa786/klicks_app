@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class FragmentTwo extends StatefulWidget {
   const FragmentTwo({super.key, required this.controller});
-final PageController controller;
+  final PageController controller;
   @override
   State<FragmentTwo> createState() => _FragmentTwoState();
 }
@@ -15,13 +15,17 @@ class _FragmentTwoState extends State<FragmentTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Center(
+          child: Container(
+        padding: EdgeInsets.only(top: 20),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
-            SvgPicture.asset('assets/images/frag2.svg'),
-            
+            SvgPicture.asset(
+              'assets/images/frag2.svg',
+              height: 280,
+            ),
             Text(
               ' Happy Clients',
               style: TextStyle(
@@ -46,14 +50,13 @@ class _FragmentTwoState extends State<FragmentTwo> {
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Poppins'),
             ),
-              Text(
+            Text(
               ' pellentesque',
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Poppins'),
             ),
-
           ],
         ),
       )),

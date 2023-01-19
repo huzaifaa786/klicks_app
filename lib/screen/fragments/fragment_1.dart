@@ -18,54 +18,44 @@ class _FragmentOneState extends State<FragmentOne> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  Image(
-                    image: AssetImage(
-                      'assets/images/logo1.png',
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 110,
-                    child: Text(
-                      'Klicks Wash Service',
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: 'OpenSans'),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 20,
-                    left: 95,
-                    child: Text(
-                      'Lorem ipsum dolor sit amet ',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Poppins'),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 2,
-                    left: 75,
-                    child: Text(
-                      'consectetur. Elementum purus id',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Poppins'),
-                    ),
-                  )
-                ],
+          child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image(
+              image: AssetImage(
+                'assets/images/logo1.png',
               ),
-            ],
-          )),
+              height: 300,
+            ),
+            Text(
+              'Klicks Wash Service',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'OpenSans'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                'Lorem ipsum dolor sit amet ',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'OpenSans'),
+              ),
+            ),
+            Text(
+              'consectetur. Elementum purus id',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'OpenSans'),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }
