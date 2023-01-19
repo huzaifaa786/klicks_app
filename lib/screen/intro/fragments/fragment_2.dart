@@ -20,7 +20,6 @@ class _FragmentTwoState extends State<FragmentTwo> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
               'assets/images/frag2.svg',
