@@ -1,25 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:klicks_app/main.dart';
-import 'package:klicks_app/screen/fragments/fragment_1.dart';
-import 'package:klicks_app/screen/fragments/fragment_2.dart';
-import 'package:klicks_app/screen/fragments/fragment_3.dart';
-import 'package:klicks_app/static/box.dart';
+import 'package:klicks_app/screen/intro/fragments/fragment_1.dart';
+import 'package:klicks_app/screen/intro/fragments/fragment_2.dart';
+import 'package:klicks_app/screen/intro/fragments/fragment_3.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Fragment extends StatefulWidget {
-  const Fragment({super.key});
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
 
   @override
-  State<Fragment> createState() => _FragmentState();
+  State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _FragmentState extends State<Fragment> {
+class _IntroScreenState extends State<IntroScreen> {
   int slideIndex = 0;
   PageController? controller;
 
@@ -45,8 +41,11 @@ class _FragmentState extends State<Fragment> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             GestureDetector(
-                              onTap: () {},
-                              child: Text("Skip"),
+                              onTap: () {
+                                Navigator.pushNamed(context, 'login');
+                              },
+                              child:
+                                  Text("Skip", style: TextStyle(fontSize: 16)),
                             )
                           ],
                         ),
@@ -70,8 +69,11 @@ class _FragmentState extends State<Fragment> {
                                     child: SvgPicture.asset(
                                         'assets/images/backArrow.svg')),
                                 GestureDetector(
-                                  onTap: () {},
-                                  child: Text("Skip"),
+                                  onTap: () {
+                                    Navigator.pushNamed(context, 'login');
+                                  },
+                                  child: Text("Skip",
+                                      style: TextStyle(fontSize: 16)),
                                 ),
                               ],
                             ),
@@ -239,7 +241,9 @@ class _FragmentState extends State<Fragment> {
                                   children: [
                                     Text(''),
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.pushNamed(context, 'login');
+                                      },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,

@@ -25,7 +25,7 @@ class Box extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           color: selected == false ? Colors.white : mainColor,
-          border: Border.all(width: 1, color: Colors.black),
+          border: Border.all(color: Colors.grey),
         ),
         child: Center(
             child: Text(

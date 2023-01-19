@@ -69,14 +69,17 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
+                            Container(
+                              height: 60,
+                              padding: const EdgeInsets.only(top: 10),
                               child: IconsButton(
                                 title: 'Add Fund',
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, 'top_up');
+                                },
                                 iconTrue: false,
                                 imgicon: 'assets/images/voilt.svg',
-                                screenRatio: 0.3,
+                                screenRatio: 0.32,
                                 color: Colors.white,
                                 textcolor: Colors.black,
                               ),

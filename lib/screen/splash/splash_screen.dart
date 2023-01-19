@@ -11,6 +11,21 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    super.initState();
+    initscreen();
+  }
+
+  void initscreen() async {
+    await Future.delayed(
+        const Duration(
+          seconds: 3,
+        ), () {
+      Navigator.popAndPushNamed(context, 'intro');
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(

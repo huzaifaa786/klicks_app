@@ -64,7 +64,9 @@ class _BookingConfirmState extends State<BookingConfirm> {
                 child: LargeButton(
                   title: 'Got IT',
                   screenRatio: 0.75,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'home');
+                  },
                   color: Colors.white,
                   textcolor: Colors.black,
                 ),
