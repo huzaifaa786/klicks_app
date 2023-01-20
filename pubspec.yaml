@@ -43,6 +43,9 @@ dependencies:
   introduction_screen: ^3.1.4
   smooth_page_indicator: ^1.0.0+2
   flutter_launcher_icons: ^0.11.0
+  dio: ^4.0.6
+  intl: ^0.18.0
+  intl_phone_field: ^3.1.0
 
 dev_dependencies:
   flutter_test:
