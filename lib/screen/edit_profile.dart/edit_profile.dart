@@ -6,6 +6,7 @@ import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/inputfield.dart';
 import 'package:klicks_app/static/pass_inputfield_two.dart';
 import 'package:klicks_app/static/title_topbar.dart';
+import 'package:klicks_app/values/colors.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -71,10 +72,22 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                          child: Text(
-                            "Password",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Password",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 16),
+                              ),
+                              Text(
+                                "Chnage Password",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: mainColor),
+                              ),
+                            ],
                           ),
                         ),
                         InputFieldPasswordTwo(

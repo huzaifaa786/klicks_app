@@ -1,11 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:klicks_app/screen/edit_profile.dart/edit_profile.dart';
-import 'package:klicks_app/screen/home/bottom_navi.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
 import 'package:klicks_app/screen/order%20status/order_status.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
+import 'package:klicks_app/values/colors.dart';
 
 class BottomNavScreen extends StatefulWidget {
   const BottomNavScreen({Key? key, this.selectedIndex}) : super(key: key);
@@ -51,11 +50,107 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: mainColor,
+          onPressed: () {
+            // Do something
+          },
+          child: Icon(Icons.qr_code,color: White,),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SafeArea(
           child: _fragments[_navigationMenuIndex],
         ),
-        bottomNavigationBar: ClipRRect(
-            child: BottomNavigation(_navigationMenuIndex, switchFragment)),
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          notchMargin: 5,
+          child: SizedBox(
+            height: 60,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: Material(
+                    color: White,
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _navigationMenuIndex = 0;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.home_filled,
+                              color: _navigationMenuIndex == 0
+                                  ? mainColor
+                                  : hintColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: Container()),
+                Expanded(child: Container()),
+                Expanded(
+                  child: Material(
+                    color: White,
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _navigationMenuIndex = 1;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.menu_book_outlined,
+                              color: _navigationMenuIndex == 1
+                                  ? mainColor
+                                  : hintColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Material(
+                    color: White,
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _navigationMenuIndex = 2;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.person_outlined,
+                              color: _navigationMenuIndex == 2
+                                  ? mainColor
+                                  : hintColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
