@@ -10,6 +10,7 @@ import 'package:klicks_app/screen/select_car/select_car.dart';
 import 'package:klicks_app/screen/notification/notification.dart';
 import 'package:klicks_app/screen/order%20status/order_status.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
+import 'package:klicks_app/screen/signup/signup.dart';
 import 'package:klicks_app/screen/splash/splash_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/values/styles.dart';
@@ -33,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: Styles.lightTheme,
       title: "Klicks",
-      initialRoute: 'splash',
+      initialRoute: 'signup',
       routes: {
         'splash': (context) => const SplashScreen(),
         'login': (context) => const LoginScreen(),
@@ -48,6 +49,7 @@ class _MyAppState extends State<MyApp> {
         'top_up': (context) => const TopUp(),
         'edit_profile': (context) => const EditProfile(),
         'intro': (context) => const IntroScreen(),
+        'signup': (context) => const SignUp(),
       },
     );
   }
