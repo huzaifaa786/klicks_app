@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
 import 'package:klicks_app/screen/order%20status/order_status.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
+import 'package:klicks_app/screen/qrcode/qr_code.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -20,6 +21,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
   // final GlobalKey<ChatsFragmentState> chatFragmentState = GlobalKey<ChatsFragmentState>();
 
   int _navigationMenuIndex = 0;
+  bool _isScanning = false;
+
+  void _scanQR() {
+    setState(() {
+      _isScanning = true;
+    });
+  }
 
   switchFragment(int index) {
     setState(() {
@@ -52,10 +60,12 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: mainColor,
-          onPressed: () {
-            // Do something
-          },
-          child: Icon(Icons.qr_code,color: White,),
+          onPressed: () => Navigator.push(
+              context, new MaterialPageRoute(builder: (context) => QrCodeScreen())),
+          child: Icon(
+            Icons.qr_code,
+            color: White,
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SafeArea(
