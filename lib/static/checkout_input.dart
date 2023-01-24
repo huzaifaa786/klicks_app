@@ -20,13 +20,15 @@ class CheckOutInputField extends StatelessWidget {
       this.icon,
       this.type = TextInputType.text,
       this.fontSize = 14.0,
-      this.onpressed})
+      this.onpressed,
+      this.color =White})
       : super(key: key);
 
   final controller;
   final validator;
   final bool? validate;
   final hint;
+  final color;
   final type;
   final imageIcon;
   final icon;
@@ -59,7 +61,7 @@ class CheckOutInputField extends StatelessWidget {
           //         : AutovalidateMode.onUserInteraction),
           decoration: InputDecoration(
             filled: true,
-            fillColor: White,
+            fillColor: color,
             hintText: hint,
             suffixIcon: InkWell(
               onTap: onpressed,

@@ -19,6 +19,9 @@ enum PayMethod { materCard, googlePay, applePay }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   bool val = false;
+  bool val1 = false;
+
+  bool tip = false;
   PayMethod _site = PayMethod.materCard;
   void toggleplan(PayMethod value) {
     setState(() {
@@ -92,6 +95,57 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   readOnly: val,
                 ),
                 SizedBox(height: 12),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      tip = !tip;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
+                    decoration: BoxDecoration(
+                      color: White,
+                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Add Tip'),
+                            tip == false?
+                            Icon(Icons.add,color: mainColor,):Icon(Icons.close,color: Colors.red,)
+                          ],
+                        ),
+                        tip == true
+                            ? Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: CheckOutInputField(
+                                color: fieldColor ,
+                                  hint: 'Enter Tip',
+                                  type: TextInputType.number,
+                                  onpressed: () {
+                                    setState(() {
+                                      val1 = !val1;
+                                    });
+                                  },
+                                  readOnly: val1,
+                                ),
+                            )
+                            : Container()
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12),
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -117,6 +171,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             children: [Text('AED'), Text(' 45.00')],
                           )
                         ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Tip"),
+                            // Text("data"),
+                            Row(
+                              children: [Text('AED'), Text(' 5.00')],
+                            )
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 12.0),
