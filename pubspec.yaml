@@ -46,11 +46,7 @@ dependencies:
   dio: ^4.0.6
   intl: ^0.18.0
   intl_phone_field: ^3.1.0
-<<<<<<< HEAD
-  scan: ^1.6.0
-=======
   mobile_scanner: ^2.0.0
->>>>>>> 9f559396e07f6d56ef969efc314bcc8b9f85eac7
 
 dev_dependencies:
   flutter_test:
