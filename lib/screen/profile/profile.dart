@@ -105,14 +105,14 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                       ontap: () {},
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: ProfileTile(
-                      image: 'assets/images/setting.svg',
-                      text: 'Settings',
-                      ontap: () {},
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 10),
+                  //   child: ProfileTile(
+                  //     image: 'assets/images/setting.svg',
+                  //     text: 'Settings',
+                  //     ontap: () {},
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 14),
                     child: LogOutTile(

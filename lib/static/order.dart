@@ -12,12 +12,14 @@ class Order extends StatelessWidget {
     this.text,
     this.icon,
     this.color,
+    this.ontap,
     this.imageicon,
     this.shadowColor,
   }) : super(key: key);
   final text;
   final icon;
   final color;
+  final ontap;
   final imageicon;
   final shadowColor;
   @override
@@ -27,41 +29,44 @@ class Order extends StatelessWidget {
       child: SizedBox(
         height: 80,
         width: MediaQuery.of(context).size.width,
-        child: Card(
-          shadowColor: Colors.black,
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Order ID :F5345'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          imageicon,
-                          height: 40,
-                          width: 40,
-                        ),
-                        Column(
-                          children: [
-                            Text('BMW'),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Text('SWEDAN'),
+        child: GestureDetector(
+          onTap: ontap,
+          child: Card(
+            shadowColor: Colors.black,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Order ID :F5345'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            imageicon,
+                            height: 40,
+                            width: 40,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('BMW'),
+                                Text('SWEDAN'),
+                              ],
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                        Text('jan 12 2023'),
-
-                  ],
-                ),
-              ],
+                          ),
+                        ],
+                      ),
+                      Text('jan 12 2023'),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

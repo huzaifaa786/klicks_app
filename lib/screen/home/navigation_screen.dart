@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
 import 'package:klicks_app/screen/order%20status/order_status.dart';
+import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/qrcode/qr_code.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -52,7 +53,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
     // ignore: no_leading_underscores_for_local_identifiers
     var _fragments = [
       const MainScreen(),
-      const OrderStatus(),
+      const OrderHistry(),
       const ProfileScreeen(),
     ];
     return WillPopScope(

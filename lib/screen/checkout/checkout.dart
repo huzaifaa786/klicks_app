@@ -6,6 +6,7 @@ import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
+import 'package:klicks_app/static/tip_field.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -128,7 +129,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         tip == true
                             ? Padding(
                               padding: const EdgeInsets.only(top: 8),
-                              child: CheckOutInputField(
+                              child: TipInputField(
                                 color: fieldColor ,
                                   hint: 'Enter Tip',
                                   type: TextInputType.number,

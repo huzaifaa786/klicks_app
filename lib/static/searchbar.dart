@@ -16,14 +16,12 @@ class SearchBar extends StatelessWidget {
       this.obscure = false,
       this.toggle,
       this.onChange,
-      
       this.type = TextInputType.text,
       this.onpressed})
       : super(key: key);
 
   final controller;
 
-  
   final obscure;
   final hint;
   final type;
@@ -36,33 +34,25 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
-      height: 50,
-      child: TextFormField(
-        style: const TextStyle(fontSize: 14),
-        controller: controller,
-        decoration: InputDecoration(
-          prefixIcon: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Image(image: AssetImage(imageIcon)),
-          ),
-          suffixIcon: Image(image: AssetImage('assets/images/search-bar.png')),
-            
-          filled: true,
-          fillColor: fieldColor,
-          hintText: hint,
-          hintStyle: TextStyle(color: hintColor),
-          contentPadding: const EdgeInsets.only(left: 3.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide.none,
-          ),
+    return TextFormField(
+      style: const TextStyle(fontSize: 14),
+      controller: controller,
+      decoration: InputDecoration(
+        prefixIcon: Image(image: AssetImage(imageIcon)),
+        suffixIcon: Image(image: AssetImage('assets/images/search-bar.png')),
+        filled: true,
+        fillColor: fieldColor,
+        hintText: hint,
+        hintStyle: TextStyle(color: hintColor),
+        contentPadding: const EdgeInsets.only(left: 3.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide.none,
         ),
-    
-        //     (validate == true
-        //         ? AutovalidateMode.always
-       ) //         : AutovalidateMode.onUserInteraction),
-      
+      ),
+
+      //     (validate == true
+      //         ? AutovalidateMode.always
     );
   }
 }
