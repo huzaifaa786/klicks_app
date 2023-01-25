@@ -19,7 +19,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Scan Ownership Card'),
+          title: const Text('Scaner'),
           actions: [
             IconButton(
               color: Colors.white,
