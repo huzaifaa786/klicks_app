@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height*0.97,
+                  height: MediaQuery.of(context).size.height * 0.97,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -90,7 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10.0, bottom: 8),
+                              padding:
+                                  const EdgeInsets.only(top: 10.0, bottom: 8),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -108,7 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 25.0, bottom: 30),
+                              padding:
+                                  const EdgeInsets.only(top: 25.0, bottom: 30),
                               child: LargeButton(
                                 title: "Sign in",
                                 onPressed: () {
@@ -124,7 +126,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 12.0, right: 12.0),
                                   child: Text("OR"),
                                 ),
                                 Expanded(
@@ -143,14 +146,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Image(
-                                      image: AssetImage('assets/images/facebook.png')),
+                                    image: AssetImage(
+                                        'assets/images/facebook.png'),
+                                    height: 50,
+                                    width: 50,
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Image(
-                                      image: AssetImage('assets/images/google.png')),
+                                    image:
+                                        AssetImage('assets/images/google.png'),
+                                    height: 50,
+                                    width: 50,
+                                  ),
                                 ),
-                                Image(image: AssetImage('assets/images/apple.png'))
+                                Image(
+                                  image: AssetImage('assets/images/apple.png'),
+                                  height: 50,
+                                  width: 50,
+                                )
                               ],
                             ),
                           ],

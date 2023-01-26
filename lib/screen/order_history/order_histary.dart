@@ -18,38 +18,36 @@ class _OrderHistryState extends State<OrderHistry> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-        child: Column(
-          children: [
-            TitleTopbar(
-              text: 'Order History',
-              ontap: () {},
+          child: Column(
+        children: [
+          TitleTopbar(
+            text: 'Order History',
+            ontap: () {
+              Navigator.popAndPushNamed(context, 'home');
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SearchBar(
+                    imageIcon: 'assets/images/search.png',
+                    hint: 'search',
+                  ),
+                ),
+                SizedBox(height: 20),
+                Order(
+                  imageicon: 'assets/images/car_order.svg',
+                  ontap: () {
+                    Navigator.pushNamed(context, 'order_status');
+                  },
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SearchBar(
-                imageIcon: 'assets/images/search.png',
-                hint: 'search',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Order(
-                imageicon: 'assets/images/car_order.svg',
-              ),
-            ),
-             Order(
-              imageicon: 'assets/images/car_order.svg',
-            ),
-             Order(
-              imageicon: 'assets/images/car_order.svg',
-            ),
-             Order(
-              imageicon: 'assets/images/car_order.svg',
-            ),
-          ],
-        ),
+          ),
+        ],
       )),
     );
   }
