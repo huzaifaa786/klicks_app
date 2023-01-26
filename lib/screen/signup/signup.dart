@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/inputfield.dart';
@@ -17,10 +19,98 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController cpasswordController = TextEditingController();
+
+  bool checkboxval = false;
+  bool _passwordVisible = true;
+  bool _cpasswordVisible = true;
+  bool nameValid = false;
+  bool emailValid = false;
+
+  _togglecheckbox() {
+    print(checkboxval);
+    setState(() {
+      checkboxval = !checkboxval;
+    });
+  }
+
+  register() async {
+    if (checkboxval == false) {
+      // Fluttertoast.showToast(msg: 'Please Accept Terms and Conditions');
+    } else {
+      if (!emailValid ||
+          !nameValid ||
+          nameController.text == '' ||
+          emailController.text == '' ||
+          passwordController.text == '' ||
+          cpasswordController.text == '') {
+        // Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
+      } else {
+        if (await AuthApi.register(
+          nameController,
+          emailController,
+          passwordController,
+          cpasswordController,
+        )) 
+        Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => BottomNavScreen()));
+      }
+    }
+  }
+
+  void _toggle() {
+    setState(() {
+      _passwordVisible = !_passwordVisible;
+    });
+  }
+
+  void _toggle1() {
+    setState(() {
+      _cpasswordVisible = !_cpasswordVisible;
+    });
+  }
+
+  onNameChanged(value) {
+    if (value.length > 3) {
+      setState(() {
+        nameValid = true;
+      });
+    } else {
+      setState(() {
+        nameValid = false;
+      });
+    }
+  }
+
+  onEmailChanged(value) {
+    if (RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value)) {
+      setState(() {
+        emailValid = true;
+      });
+    } else {
+      setState(() {
+        emailValid = false;
+      });
+    }
+  }
+
+  gotoBack() {
+    Navigator.pop(context);
+  }
+
+
+
+
+
   bool _obscureText = true;
   bool show = false;
 
-  void _toggle() {
+  void _toggle2() {
     setState(() {
       _obscureText = !_obscureText;
     });
@@ -101,7 +191,7 @@ class _SignUpState extends State<SignUp> {
               ),
               InputFieldPasswordTwo(
                 hint: 'Password',
-                toggle: _toggle,
+                toggle: _toggle2,
                 obscure: _obscureText,
               ),
                Padding(
@@ -113,7 +203,7 @@ class _SignUpState extends State<SignUp> {
               ),
               InputFieldPasswordTwo(
                 hint: 'Confirm Password',
-                toggle: _toggle,
+                toggle: _toggle2,
                 obscure: _obscureText,
               ),
                Padding(

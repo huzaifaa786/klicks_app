@@ -14,6 +14,34 @@ class AuthApi {
     
 
   }
+  static register(name, email, password, cpassword) async {
+    // LoadingHelper.show();
+    var url = BASE_URL + 'register';
+    var data;
+    data = {
+      'name': name.text.toString(),
+      'email': email.text.toString(),
+       'phone_number': email.text.toString(),
+      'password': password.text.toString(),
+      'password_confirmation': cpassword.text.toString(),
+    };
+
+    var response = await Api.execute(
+      url: url,
+      data: data,
+    );
+    print(response);
+    // LoadingHelper.dismiss();
+    // if (!response['error']) {
+    //   User user = User(response['user']);
+    //   Auth.login(user);
+    //   // print(response);
+    //   return true;
+    // } else {
+    //   Fluttertoast.showToast(msg: response['error_data']);
+    //   return null;
+    // }
+  }
 
  
 
