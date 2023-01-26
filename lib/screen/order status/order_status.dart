@@ -21,7 +21,7 @@ class _OrderStatusState extends State<OrderStatus> {
     return Scaffold(
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20,top: 30),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -76,9 +76,17 @@ class _OrderStatusState extends State<OrderStatus> {
                   'Order status',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-                Badge(
-                  title: 'Complete',
-                  color: badgeGreen,
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  child: Row(
+                    children: [
+                      Badge(
+                        title: 'Complete',
+                        color: badgeGreen,
+                      ),
+                      Text('')
+                    ],
+                  ),
                 )
               ],
             )

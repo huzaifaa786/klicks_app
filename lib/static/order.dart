@@ -56,7 +56,7 @@ class Order extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('BMW'),
-                                Text('SWEDAN'),
+                                Text('SEDAN'),
                               ],
                             ),
                           ),

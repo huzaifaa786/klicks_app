@@ -39,7 +39,10 @@ class SearchBar extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         prefixIcon: Image(image: AssetImage(imageIcon)),
-        suffixIcon: Image(image: AssetImage('assets/images/search-bar.png')),
+        suffixIcon: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: SvgPicture.asset("assets/images/search_bar.svg",
+                height: 18, width: 18)),
         filled: true,
         fillColor: fieldColor,
         hintText: hint,

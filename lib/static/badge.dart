@@ -24,7 +24,7 @@ class Badge extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-            color: fieldColor, fontSize: 18, fontWeight: FontWeight.w400),
+            color: fieldColor, fontSize: 14, fontWeight: FontWeight.w400),
       ),
     );
   }
