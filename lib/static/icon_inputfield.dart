@@ -49,6 +49,7 @@ class IconInputField extends StatelessWidget {
       child: TextFormField(
         readOnly: readOnly,
         enabled: enabled,
+        onChanged: onChange,
         controller: controller,
         style: TextStyle(fontSize: fontSize),
         keyboardType: type,

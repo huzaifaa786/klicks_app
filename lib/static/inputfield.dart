@@ -49,6 +49,7 @@ class InputField extends StatelessWidget {
         controller: controller,
         style: TextStyle(fontSize: fontSize),
         keyboardType: type,
+        onChanged: onChange,
         validator: validator,
         // autovalidateMode: autovalidateMode ??
         //     (validate == true

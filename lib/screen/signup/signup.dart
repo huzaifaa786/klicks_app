@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -19,14 +21,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-TextEditingController emailController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController cpasswordController = TextEditingController();
 
   bool checkboxval = false;
   bool _passwordVisible = true;
   bool _cpasswordVisible = true;
+  bool phoneValid = false;
   bool nameValid = false;
   bool emailValid = false;
 
@@ -38,26 +42,28 @@ TextEditingController emailController = TextEditingController();
   }
 
   register() async {
-    if (checkboxval == false) {
-      // Fluttertoast.showToast(msg: 'Please Accept Terms and Conditions');
+    if (emailValid == false ||
+        nameValid == false ||
+        nameController.text == '' ||
+        phoneController.text == '' ||
+        emailController.text == '' ||
+        passwordController.text == '' ||
+        cpasswordController.text == '') {
+      print("");
+      // print(emailValid);
+      // print(nameValid);
+      // Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
     } else {
-      if (!emailValid ||
-          !nameValid ||
-          nameController.text == '' ||
-          emailController.text == '' ||
-          passwordController.text == '' ||
-          cpasswordController.text == '') {
-        // Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
-      } else {
-        if (await AuthApi.register(
-          nameController,
-          emailController,
-          passwordController,
-          cpasswordController,
-        )) 
-        Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => BottomNavScreen()));
-      }
+      print('object');
+      if (await AuthApi.register(
+        nameController,
+        emailController,
+        phoneController,
+        passwordController,
+        cpasswordController,
+      ))
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BottomNavScreen()));
     }
   }
 
@@ -77,6 +83,7 @@ TextEditingController emailController = TextEditingController();
     if (value.length > 3) {
       setState(() {
         nameValid = true;
+        log(nameValid.toString());
       });
     } else {
       setState(() {
@@ -102,10 +109,6 @@ TextEditingController emailController = TextEditingController();
   gotoBack() {
     Navigator.pop(context);
   }
-
-
-
-
 
   bool _obscureText = true;
   bool show = false;
@@ -151,6 +154,9 @@ TextEditingController emailController = TextEditingController();
               ),
               InputField(
                 hint: 'Enter Username',
+                //  obscure: false,
+                controller: nameController,
+                onChange: onNameChanged,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 12.0, bottom: 6),
@@ -160,17 +166,16 @@ TextEditingController emailController = TextEditingController();
                 ),
               ),
               IntlPhoneField(
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: fieldColor,
-                          border: InputBorder.none,
-                        ),
-                        initialCountryCode: 'AE',
-                        onChanged: (phone) {
-                        },
-                        keyboardType: TextInputType.phone,
-                      ),
-             
+                controller: phoneController,
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: fieldColor,
+                  border: InputBorder.none,
+                ),
+                initialCountryCode: 'AE',
+                onChanged: (phone) {},
+                keyboardType: TextInputType.phone,
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 12.0, bottom: 6),
                 child: Text(
@@ -179,6 +184,8 @@ TextEditingController emailController = TextEditingController();
                 ),
               ),
               IconInputField(
+                onChange: onEmailChanged,
+                controller: emailController,
                 imageIcon: 'assets/images/email.svg',
                 hint: 'Email',
               ),
@@ -190,11 +197,12 @@ TextEditingController emailController = TextEditingController();
                 ),
               ),
               InputFieldPasswordTwo(
+                controller: passwordController,
                 hint: 'Password',
                 toggle: _toggle2,
                 obscure: _obscureText,
               ),
-               Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 12.0, bottom: 6),
                 child: Text(
                   "Confirm Password",
@@ -202,20 +210,20 @@ TextEditingController emailController = TextEditingController();
                 ),
               ),
               InputFieldPasswordTwo(
+                controller: cpasswordController,
                 hint: 'Confirm Password',
                 toggle: _toggle2,
                 obscure: _obscureText,
               ),
-               Padding(
-                      padding: const EdgeInsets.only(top: 25.0, bottom: 30),
-                      child: LargeButton(
-                        title: "Sign up",
-                        onPressed: () {
-                         
-                        },
-                      ),
-                    ),
-              
+              Padding(
+                padding: const EdgeInsets.only(top: 25.0, bottom: 30),
+                child: LargeButton(
+                  title: "Sign up",
+                  onPressed: () {
+                    register();
+                  },
+                ),
+              ),
             ],
           ),
         ),

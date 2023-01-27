@@ -1,1 +1,1 @@
-const BASE_URL = "http://127.0.0.1:8000/public/api/";
+const BASE_URL = "http://192.168.18.34/klicks/public/api/";
