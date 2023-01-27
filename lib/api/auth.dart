@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/model/User.dart';
 import 'package:klicks_app/values/string.dart';
@@ -7,7 +9,19 @@ class AuthApi {
   static login(email, password) async {
     var url = BASE_URL + 'login';
     var data = {'email': email.text, 'password': password.text};
+  
     var response = await Api.execute(url: url, data: data);
+      print(Response);
+    if (!response['error']) {
+      User user = User(response['user']);
+      // Auth.login(user);
+      // print(response);
+      return true;
+    } else {
+      print('error');
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
+    }
   }
 
   static register(name, email, phone, password) async {
@@ -25,7 +39,7 @@ class AuthApi {
       url: url,
       data: data,
     );
-     print('hfgh');
+    print('hfgh');
     print(response);
     // LoadingHelper.dismiss();
     if (!response['error']) {

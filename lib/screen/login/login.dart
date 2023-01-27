@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
@@ -14,6 +16,35 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  bool checkboxval = false;
+  bool _passwordVisible = true;
+
+  bool emailValid = false;
+
+  _togglecheckbox() {
+    print(checkboxval);
+    setState(() {
+      checkboxval = !checkboxval;
+    });
+  }
+
+  login() async {
+    if (emailController.text == '' || passwordController.text == '') {
+      // Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
+    } else {
+      if (await AuthApi.login(
+        emailController,
+        passwordController,
+      ))
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BottomNavScreen()));
+    }
+  }
+
   bool _obscureText = true;
 
   void _toggle() {
@@ -76,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),
                               child: IconInputField(
+                                controller: emailController,
                                 imageIcon: 'assets/images/email.svg',
                                 hint: 'Email',
                               ),
@@ -83,6 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 12.0),
                               child: InputFieldPassword(
+                                controller: passwordController,
                                 imageIcon: 'assets/images/lock.svg',
                                 hint: 'Password',
                                 toggle: _toggle,
@@ -114,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: LargeButton(
                                 title: "Sign in",
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'home');
+                                  login();
                                 },
                               ),
                             ),
