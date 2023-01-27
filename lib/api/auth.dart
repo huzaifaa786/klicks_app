@@ -1,4 +1,5 @@
 import 'package:klicks_app/api/api.dart';
+import 'package:klicks_app/model/User.dart';
 import 'package:klicks_app/values/string.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -9,7 +10,7 @@ class AuthApi {
     var response = await Api.execute(url: url, data: data);
   }
 
-  static register(name, email, phone, password, cpassword) async {
+  static register(name, email, phone, password) async {
     // LoadingHelper.show();
     var url = BASE_URL + 'register';
     var data;
@@ -18,7 +19,6 @@ class AuthApi {
       'email': email.text.toString(),
       'phone': phone.text.toString(),
       'password': password.text.toString(),
-      // 'password_confirmation': cpassword.text.toString(),
     };
 
     var response = await Api.execute(
@@ -28,14 +28,15 @@ class AuthApi {
      print('hfgh');
     print(response);
     // LoadingHelper.dismiss();
-    // if (!response['error']) {
-    //   User user = User(response['user']);
-    //   Auth.login(user);
-    //   // print(response);
-    //   return true;
-    // } else {
-    //   Fluttertoast.showToast(msg: response['error_data']);
-    //   return null;
-    // }
+    if (!response['error']) {
+      User user = User(response['user']);
+      // Auth.login(user);
+      // print(response);
+      return true;
+    } else {
+      print('error');
+      // Fluttertoast.showToast(msg: response['error_data']);
+      return null;
+    }
   }
 }

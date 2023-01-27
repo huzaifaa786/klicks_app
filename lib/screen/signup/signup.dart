@@ -49,18 +49,13 @@ class _SignUpState extends State<SignUp> {
         emailController.text == '' ||
         passwordController.text == '' ||
         cpasswordController.text == '') {
-      print("");
-      // print(emailValid);
-      // print(nameValid);
       // Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
     } else {
-      print('object');
       if (await AuthApi.register(
         nameController,
         emailController,
         phoneController,
         passwordController,
-        cpasswordController,
       ))
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => BottomNavScreen()));
