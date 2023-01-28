@@ -2,6 +2,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:klicks_app/api/city.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/dropdown.dart';
 import 'package:klicks_app/static/topbar.dart';
@@ -15,6 +16,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  getcity() {
+   var cities = CityApi.getcities();
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getcity();
+  }
+
   String? cityvalue;
   String? mallValue;
   int _current = 0;
@@ -83,7 +95,8 @@ class _MainScreenState extends State<MainScreen> {
                                   return Builder(
                                     builder: (BuildContext context) {
                                       return Container(
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                         ),
@@ -134,8 +147,8 @@ class _MainScreenState extends State<MainScreen> {
                         selectedvalue: cityvalue,
                         text: "Choose City",
                         items: items,
-                        icon:
-                            ImageIcon(AssetImage('assets/images/drop_arrow.png')),
+                        icon: ImageIcon(
+                            AssetImage('assets/images/drop_arrow.png')),
                         onChange: (val) {
                           setState(() {
                             cityvalue = val;
@@ -157,11 +170,11 @@ class _MainScreenState extends State<MainScreen> {
                         selectedvalue: mallValue,
                         text: "Choose Mall",
                         items: items,
-                        icon:
-                            ImageIcon(AssetImage('assets/images/drop_arrow.png')),
+                        icon: ImageIcon(
+                            AssetImage('assets/images/drop_arrow.png')),
                         onChange: (val) {
                           setState(() {
-                            mallValue = val;
+                            
                           });
                         },
                       ),

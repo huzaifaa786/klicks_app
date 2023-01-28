@@ -2,7 +2,7 @@ import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/values/string.dart';
 
 class CityApi {
-  static getall() async {
+  static getcities() async {
     var url = BASE_URL + 'city/all';
 
     var response = await Api.execute(url: url);
