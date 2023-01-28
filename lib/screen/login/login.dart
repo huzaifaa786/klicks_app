@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   login() async {
     if (emailController.text == '' || passwordController.text == '') {
-      // Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
+      Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
     } else {
       if (await AuthApi.login(
         emailController,

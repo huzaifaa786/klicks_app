@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
@@ -49,16 +51,20 @@ class _SignUpState extends State<SignUp> {
         emailController.text == '' ||
         passwordController.text == '' ||
         cpasswordController.text == '') {
-      // Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
+      Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
     } else {
-      if (await AuthApi.register(
-        nameController,
-        emailController,
-        phoneController,
-        passwordController,
-      ))
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BottomNavScreen()));
+      if (passwordController.text != cpasswordController.text) {
+        Fluttertoast.showToast(msg: 'Password and Confirm Password field are not same');
+      } else {
+        if (await AuthApi.register(
+          nameController,
+          emailController,
+          phoneController,
+          passwordController,
+        ))
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BottomNavScreen()));
+      }
     }
   }
 

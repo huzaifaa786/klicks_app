@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/edit_profile.dart/edit_profile.dart';
@@ -19,6 +21,8 @@ void main() {
   runApp(const MyApp());
 }
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -27,30 +31,44 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
+  update() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    LoadingHelper.onChangeAbsorbClick = update;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: Styles.lightTheme,
-      title: "Klicks",
-      initialRoute: 'splash',
-      routes: {
-        'splash': (context) => const SplashScreen(),
-        'login': (context) => const LoginScreen(),
-        'home': (context) => const BottomNavScreen(),
-        'booking_confirm': (context) => const BookingConfirm(),
-        'select_car': (context) => const CarSelect(),
-        'order_status': (context) => const OrderStatus(),
-        'notification': (context) => const NotificationScreen(),
-        'profile': (context) => const ProfileScreeen(),
-        'checkOut': (context) => const CheckOutScreen(),
-        'order_histary': (context) => const OrderHistry(),
-        'top_up': (context) => const TopUp(),
-        'edit_profile': (context) => const EditProfile(),
-        'intro': (context) => const IntroScreen(),
-        'signup': (context) => const SignUp(),
-      },
+    return AbsorbPointer(
+      absorbing: LoadingHelper.absorbClick,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        builder: EasyLoading.init(),
+        theme: Styles.lightTheme,
+        title: "Klicks",
+        initialRoute: 'splash',
+        routes: {
+          'splash': (context) => const SplashScreen(),
+          'login': (context) => const LoginScreen(),
+          'home': (context) => const BottomNavScreen(),
+          'booking_confirm': (context) => const BookingConfirm(),
+          'select_car': (context) => const CarSelect(),
+          'order_status': (context) => const OrderStatus(),
+          'notification': (context) => const NotificationScreen(),
+          'profile': (context) => const ProfileScreeen(),
+          'checkOut': (context) => const CheckOutScreen(),
+          'order_histary': (context) => const OrderHistry(),
+          'top_up': (context) => const TopUp(),
+          'edit_profile': (context) => const EditProfile(),
+          'intro': (context) => const IntroScreen(),
+          'signup': (context) => const SignUp(),
+        },
+      ),
     );
   }
 }

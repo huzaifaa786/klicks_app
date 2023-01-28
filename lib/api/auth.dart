@@ -1,31 +1,33 @@
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/api.dart';
+import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/User.dart';
 import 'package:klicks_app/values/string.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 class AuthApi {
   static login(email, password) async {
+    LoadingHelper.show();
     var url = BASE_URL + 'login';
     var data = {'email': email.text, 'password': password.text};
   
     var response = await Api.execute(url: url, data: data);
       print(Response);
+      LoadingHelper.dismiss();
     if (!response['error']) {
       User user = User(response['user']);
+      SharedPreferencesHelper.setString('api_token', user.apiToken!);
       // Auth.login(user);
-      // print(response);
       return true;
     } else {
-      print('error');
       Fluttertoast.showToast(msg: response['error_data']);
       return false;
     }
   }
 
   static register(name, email, phone, password) async {
-    // LoadingHelper.show();
+    LoadingHelper.show();
     var url = BASE_URL + 'register';
     var data;
     data = {
@@ -39,18 +41,16 @@ class AuthApi {
       url: url,
       data: data,
     );
-    print('hfgh');
     print(response);
-    // LoadingHelper.dismiss();
+    LoadingHelper.dismiss();
     if (!response['error']) {
       User user = User(response['user']);
-      // Auth.login(user);
-      // print(response);
+      SharedPreferencesHelper.setString('api_token', user.apiToken!);
       return true;
     } else {
       print('error');
-      // Fluttertoast.showToast(msg: response['error_data']);
-      return null;
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
     }
   }
 }

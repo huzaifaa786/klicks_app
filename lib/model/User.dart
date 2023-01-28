@@ -4,7 +4,6 @@ class User {
   String? email;
   String? apiToken;
    String? phone;
-  //  bool? showProfile;
  
   User(user) {
     id = user['id'];
@@ -12,6 +11,5 @@ class User {
     email = user['email'];
     apiToken = user['api_token'] ?? '';
     phone = user['phone'];
-    // showProfile = user['show_profile'] ?? true;
   }
 }
