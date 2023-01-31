@@ -5,11 +5,10 @@ import 'package:klicks_app/helpers/url.dart';
 
 class Api {
   static execute({url, data}) async {
-    print("called");
     var result;
 
     Dio dio = Dio();
-    print('TestUrl : ' + url + URL.toGetString(data));
+    // print('TestUrl : ' + url + URL.toGetString(data));
     print(url);
     print(data);
 

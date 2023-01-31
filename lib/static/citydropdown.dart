@@ -3,10 +3,11 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/values/colors.dart';
 
-class DropdownField extends StatelessWidget {
-  const DropdownField(
+class CityDropdownField extends StatelessWidget {
+  const CityDropdownField(
       {Key? key,
       this.controller,
       this.selectedvalue,
@@ -22,7 +23,7 @@ class DropdownField extends StatelessWidget {
       : super(key: key);
 
   final controller;
-  final List<String>? items;
+  final List? items;
   final selectedvalue;
   final type;
   final text;
@@ -32,6 +33,7 @@ class DropdownField extends StatelessWidget {
   final maxlines;
   final onChange;
   final onpressed;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +64,10 @@ class DropdownField extends StatelessWidget {
             ],
           ),
           items: items!
-              .map((item) => DropdownMenuItem<String>(
+              .map((item) => DropdownMenuItem<City>(
                     value: item,
                     child: Text(
-                      item,
+                      item.name.toString(),
                       style: const TextStyle(
                         fontSize: 14,
                       ),

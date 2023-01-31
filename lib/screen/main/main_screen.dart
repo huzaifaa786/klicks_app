@@ -2,9 +2,13 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:klicks_app/api/city.dart';
+import 'package:intl_phone_field/countries.dart';
+import 'package:klicks_app/api/city_api.dart';
+import 'package:klicks_app/model/City.dart';
+import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/static/button.dart';
-import 'package:klicks_app/static/dropdown.dart';
+import 'package:klicks_app/static/citydropdown.dart';
+import 'package:klicks_app/static/mallsdropdown.dart';
 import 'package:klicks_app/static/topbar.dart';
 import 'package:klicks_app/values/colors.dart';
 
@@ -16,27 +20,37 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  getcity() {
-   var cities = CityApi.getcities();
+  List<dynamic> cities = [];
+  List<dynamic> malls = [];
+  String? name;
+  City? cityvalue;
+  Mall? mallValue;
+  getcity() async {
+    cities = [];
+    var mcities = await CityApi.getcities();
+    setState(() {
+      cities = mcities;
+    });
+  }
 
+  getmalls(id) async {
+    var mMalls = await CityApi.getmall(id);
+    setState(() {
+      mallValue = null;
+      malls = mMalls;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    getcity();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getcity();
+    });
   }
 
-  String? cityvalue;
-  String? mallValue;
   int _current = 0;
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
+
   final List<String> imgList = [
     'assets/images/car_wash.jpg',
     'assets/images/logo1.png',
@@ -142,17 +156,18 @@ class _MainScreenState extends State<MainScreen> {
                               fontFamily: 'Poppins'),
                         ),
                       ),
-                      DropdownField(
+                      CityDropdownField(
                         imageIcon: 'assets/images/location.svg',
-                        selectedvalue: cityvalue,
                         text: "Choose City",
-                        items: items,
+                        selectedvalue: cityvalue,
+                        items: cities.toList(),
                         icon: ImageIcon(
                             AssetImage('assets/images/drop_arrow.png')),
-                        onChange: (val) {
+                        onChange: (value) {
                           setState(() {
-                            cityvalue = val;
+                            cityvalue = value;
                           });
+                          getmalls(value.id);
                         },
                       ),
                       Padding(
@@ -165,16 +180,16 @@ class _MainScreenState extends State<MainScreen> {
                               fontFamily: 'Poppins'),
                         ),
                       ),
-                      DropdownField(
+                      MallsDropdownField(
                         imageIcon: 'assets/images/mall.svg',
-                        selectedvalue: mallValue,
                         text: "Choose Mall",
-                        items: items,
+                        selectedvalue: mallValue,
+                        items: malls,
                         icon: ImageIcon(
                             AssetImage('assets/images/drop_arrow.png')),
-                        onChange: (val) {
+                        onChange: (value) {
                           setState(() {
-                            
+                            mallValue = value;
                           });
                         },
                       ),

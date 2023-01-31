@@ -46,6 +46,8 @@ class AuthApi {
     if (!response['error']) {
       User user = User(response['user']);
       SharedPreferencesHelper.setString('api_token', user.apiToken!);
+      SharedPreferencesHelper.setString('name', user.name!);
+
       return true;
     } else {
       print('error');
