@@ -14,7 +14,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool authCheck = false;
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
@@ -34,12 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new IntroScreen()));
     }
-  }
-
-  Future checkAuth() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? authCheck = prefs.getString('api_token');
-    setState(() {});
   }
 
   @override

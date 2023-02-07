@@ -11,14 +11,13 @@ class AuthApi {
     LoadingHelper.show();
     var url = BASE_URL + 'login';
     var data = {'email': email.text, 'password': password.text};
-  
+
     var response = await Api.execute(url: url, data: data);
-      print(Response);
-      LoadingHelper.dismiss();
+    print(Response);
+    LoadingHelper.dismiss();
     if (!response['error']) {
       User user = User(response['user']);
       SharedPreferencesHelper.setString('api_token', user.apiToken!);
-      // Auth.login(user);
       return true;
     } else {
       Fluttertoast.showToast(msg: response['error_data']);
@@ -46,7 +45,6 @@ class AuthApi {
     if (!response['error']) {
       User user = User(response['user']);
       SharedPreferencesHelper.setString('api_token', user.apiToken!);
-      SharedPreferencesHelper.setString('name', user.name!);
 
       return true;
     } else {
