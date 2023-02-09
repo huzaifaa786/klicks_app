@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
+import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/values/string.dart';
 
 class CityApi {
@@ -30,5 +31,18 @@ class CityApi {
       malls.add(Mall(mall));
     }
     return malls;
+  }
+   static getcompany(id) async {
+    var url = BASE_URL + 'mall/companys';
+
+    var data = {'mall_id': id};
+
+    var response = await Api.execute(url: url, data: data);
+    print(response['companys']);
+    List<Company> companys = <Company>[];
+    for (var company in response['companys']) {
+      companys.add(Company(company));
+    }
+    return companys;
   }
 }

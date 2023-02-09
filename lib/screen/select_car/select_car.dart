@@ -8,18 +8,23 @@ import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/topbar.dart';
 
 class CarSelect extends StatefulWidget {
-  const CarSelect({super.key});
+  CarSelect({Key? key, required this.companyId}) : super(key: key);
 
+  final int companyId;
   @override
-  State<CarSelect> createState() => _CarSelectState();
+  State<CarSelect> createState() => _CarSelectState(companyId);
 }
 
 class _CarSelectState extends State<CarSelect> {
+  _CarSelectState(this.companyId);
+  int? companyId;
+
   String? Selectedvalue = "sedan";
   bool SelectedoilService = false;
   bool SelectedtyreService = false;
   bool SelectedengineService = false;
   bool SelectedinteriorService = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

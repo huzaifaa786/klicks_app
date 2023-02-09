@@ -6,8 +6,11 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:klicks_app/api/city_api.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
+import 'package:klicks_app/model/company.dart';
+import 'package:klicks_app/screen/select_car/select_car.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/citydropdown.dart';
+import 'package:klicks_app/static/company.dart';
 import 'package:klicks_app/static/mallsdropdown.dart';
 import 'package:klicks_app/static/topbar.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -22,9 +25,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   List<dynamic> cities = [];
   List<dynamic> malls = [];
+  List<dynamic> companys = [];
   String? name;
   City? cityvalue;
   Mall? mallValue;
+  Company? companyValue;
   getcity() async {
     cities = [];
     var mcities = await CityApi.getcities();
@@ -38,6 +43,14 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       mallValue = null;
       malls = mMalls;
+    });
+  }
+
+  getcomapnys(id) async {
+    var mCompanys = await CityApi.getcompany(id);
+    setState(() {
+      companyValue = null;
+      companys = mCompanys;
     });
   }
 
@@ -191,6 +204,30 @@ class _MainScreenState extends State<MainScreen> {
                           setState(() {
                             mallValue = value;
                           });
+                          getcomapnys(value.id);
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 15.0),
+                        child: Text(
+                          "Select Company",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              fontFamily: 'Poppins'),
+                        ),
+                      ),
+                      CompanysDropdownField(
+                        imageIcon: 'assets/images/mall.svg',
+                        text: "Choose Company",
+                        selectedvalue: companyValue,
+                        items: companys,
+                        icon: ImageIcon(
+                            AssetImage('assets/images/drop_arrow.png')),
+                        onChange: (value) {
+                          setState(() {
+                            companyValue = value;
+                          });
                         },
                       ),
                       Padding(
@@ -198,7 +235,12 @@ class _MainScreenState extends State<MainScreen> {
                         child: LargeButton(
                           title: "Submit",
                           onPressed: () {
-                            Navigator.pushNamed(context, 'select_car');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CarSelect(
+                                          companyId:,
+                                        )));
                           },
                           textcolor: Colors.white,
                         ),
