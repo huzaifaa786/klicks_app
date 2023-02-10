@@ -239,7 +239,8 @@ class _MainScreenState extends State<MainScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CarSelect(
-                                          companyId:,
+                                      mall: mallValue!,
+                                          company: companyValue!,
                                         )));
                           },
                           textcolor: Colors.white,

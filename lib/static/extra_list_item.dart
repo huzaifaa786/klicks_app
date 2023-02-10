@@ -20,7 +20,7 @@ class ExtraListTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image(
-              image: AssetImage(image),
+              image: NetworkImage(image),
               height: 35,
               width: 35,
             ),

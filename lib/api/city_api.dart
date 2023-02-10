@@ -4,6 +4,7 @@ import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
+import 'package:klicks_app/model/services.dart';
 import 'package:klicks_app/values/string.dart';
 
 class CityApi {
@@ -45,4 +46,26 @@ class CityApi {
     }
     return companys;
   }
+  static getservice(id) async {
+    // LoadingHelper.show();
+    var url = BASE_URL + 'allservices';
+    var data;
+   
+
+    data = {'id' : id};
+    print(data);
+    var response = await Api.execute(
+      url: url,
+      data: data,
+    );
+    // print(response);
+    // LoadingHelper.dismiss();
+    List<ExtraService> extraservices = <ExtraService>[];
+    for (var extraservice in response['services']) {
+      extraservices.add(ExtraService(extraservice));
+    }
+    return extraservices;
+  }
+
+
 }

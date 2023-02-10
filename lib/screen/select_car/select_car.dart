@@ -1,29 +1,59 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:klicks_app/api/city_api.dart';
+import 'package:klicks_app/model/Mall.dart';
+import 'package:klicks_app/model/company.dart';
+import 'package:klicks_app/model/services.dart';
 import 'package:klicks_app/static/checkoutBtn.dart';
 import 'package:klicks_app/static/extra_list_item.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/topbar.dart';
+import 'package:multi_select_flutter/chip_field/multi_select_chip_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class CarSelect extends StatefulWidget {
-  CarSelect({Key? key, required this.companyId}) : super(key: key);
-
-  final int companyId;
+  CarSelect({
+    Key? key,
+    required this.company,
+    required this.mall,
+  }) : super(key: key);
+  final Mall mall;
+  final Company company;
   @override
-  State<CarSelect> createState() => _CarSelectState(companyId);
+  State<CarSelect> createState() => _CarSelectState();
 }
 
 class _CarSelectState extends State<CarSelect> {
-  _CarSelectState(this.companyId);
-  int? companyId;
+  List<ExtraService> services = [];
+  List<MultiSelectItem<ExtraService>> extraservices = [];
+
+  getservice() async {
+    var mservice = await CityApi.getservice(widget.company.company_id);
+    print(mservice);
+    setState(() {
+      services = mservice;
+      for (var service in services) {
+        var extraservice = ExtraService(service);
+        extraservices.add(MultiSelectItem(extraservice, '+ add'));
+      }
+    });
+  }
+
+  void initState() {
+    super.initState();
+    price = int.parse(widget.company.sedan_price!);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getservice();
+    });
+  }
 
   String? Selectedvalue = "sedan";
-  bool SelectedoilService = false;
-  bool SelectedtyreService = false;
-  bool SelectedengineService = false;
-  bool SelectedinteriorService = false;
+  int? SelectedService = null;
+  int? price;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +79,7 @@ class _CarSelectState extends State<CarSelect> {
                             ontap: () {
                               setState(() {
                                 Selectedvalue = 'sedan';
+                                price = int.parse(widget.company.sedan_price!);
                               });
                             },
                             selected: Selectedvalue == 'sedan' ? true : false,
@@ -59,6 +90,7 @@ class _CarSelectState extends State<CarSelect> {
                             ontap: () {
                               setState(() {
                                 Selectedvalue = 'suv';
+                                price = int.parse(widget.company.suv_price!);
                               });
                             },
                             selected: Selectedvalue == 'suv' ? true : false,
@@ -118,7 +150,7 @@ class _CarSelectState extends State<CarSelect> {
                                 width: 12,
                               ),
                               Text(
-                                'Dubai Mall',
+                                widget.mall.name!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,
@@ -137,12 +169,16 @@ class _CarSelectState extends State<CarSelect> {
                           Row(
                             // ignore: prefer_const_literals_to_create_immutables
                             children: [
-                              Image(image: AssetImage('assets/images/Bmw.png')),
+                              Image(
+                                image: NetworkImage(widget.company.image!),
+                                height: 34,
+                                width: 34,
+                              ),
                               SizedBox(
                                 width: 12,
                               ),
                               Text(
-                                'BMW',
+                                '' + widget.company.name!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,
@@ -158,52 +194,23 @@ class _CarSelectState extends State<CarSelect> {
                                   fontWeight: FontWeight.w500, fontSize: 14),
                             ),
                           ),
-                          ExtraListTile(
-                            image: 'assets/images/oil.png',
-                            text: 'Oil Change',
-                            ontap: () {
-                              setState(() {
-                                SelectedoilService = !SelectedoilService;
-                              });
-                            },
-                            selected: SelectedoilService == true ? true : false,
-                          ),
-                          SizedBox(height: 12),
-                          ExtraListTile(
-                            image: 'assets/images/tyre.png',
-                            text: 'Tyre service',
-                            ontap: () {
-                              setState(() {
-                                SelectedtyreService = !SelectedtyreService;
-                              });
-                            },
-                            selected:
-                                SelectedtyreService == true ? true : false,
-                          ),
-                          SizedBox(height: 12),
-                          ExtraListTile(
-                            image: 'assets/images/engine.png',
-                            text: 'Engine service',
-                            ontap: () {
-                              setState(() {
-                                SelectedengineService = !SelectedengineService;
-                              });
-                            },
-                            selected:
-                                SelectedengineService == true ? true : false,
-                          ),
-                          SizedBox(height: 12),
-                          ExtraListTile(
-                            image: 'assets/images/interior_wash.png',
-                            text: 'Interior wash',
-                            ontap: () {
-                              setState(() {
-                                SelectedinteriorService =
-                                    !SelectedinteriorService;
-                              });
-                            },
-                            selected:
-                                SelectedinteriorService == true ? true : false,
+                          MultiSelectChipField(
+                            items: extraservices,
+                            icon: Icon(Icons.check),
+                            // itemBuilder: (item, state) {
+                            //   // return your custom widget here
+                            //   return ExtraListTile(
+                            //     image: item.value.image,
+                            //     text: item.value.service_name,
+                            //     ontap: () {
+                            //       setState(() {
+                            //         SelectedService = item.value.id;
+                            //       });
+                            //     },
+                            //     selected:
+                            //         SelectedService == true ? true : false,
+                            //   );
+                            // },
                           ),
                         ],
                       ),
@@ -213,7 +220,7 @@ class _CarSelectState extends State<CarSelect> {
                       ontap: () {
                         Navigator.pushNamed(context, 'checkOut');
                       },
-                      price: '45.00',
+                      price: price.toString(),
                     )
                   ],
                 ),
