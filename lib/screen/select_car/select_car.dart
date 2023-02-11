@@ -7,6 +7,7 @@ import 'package:klicks_app/api/city_api.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/model/services.dart';
+import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/static/checkoutBtn.dart';
 import 'package:klicks_app/static/extra_list_item.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
@@ -30,6 +31,9 @@ class CarSelect extends StatefulWidget {
 class _CarSelectState extends State<CarSelect> {
   List<ExtraService> services = [];
   List<MultiSelectItem<ExtraService>> extraservices = [];
+    TextEditingController floorController = TextEditingController();
+  TextEditingController parkingController = TextEditingController();
+  TextEditingController number_plateController = TextEditingController();
 
   getservice() async {
     var mservice = await CityApi.getservice(widget.company.company_id);
@@ -105,6 +109,7 @@ class _CarSelectState extends State<CarSelect> {
                             ),
                           ),
                           IconInputField(
+                              controller: floorController,
                             imageIcon: 'assets/images/floor.svg',
                             hint: 'Enter Floor number',
                           ),
@@ -117,6 +122,7 @@ class _CarSelectState extends State<CarSelect> {
                             ),
                           ),
                           IconInputField(
+                              controller: parkingController,
                             imageIcon: 'assets/images/parking.svg',
                             hint: 'Enter parking number',
                           ),
@@ -129,6 +135,7 @@ class _CarSelectState extends State<CarSelect> {
                             ),
                           ),
                           IconInputField(
+                              controller: number_plateController,
                             imageIcon: 'assets/images/plate.svg',
                             hint: 'Enter Plate Number',
                           ),
@@ -218,7 +225,15 @@ class _CarSelectState extends State<CarSelect> {
                     SizedBox(height: 12),
                     CheckOutButton(
                       ontap: () {
-                        Navigator.pushNamed(context, 'checkOut');
+                         Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CheckOutScreen(
+                                      mall: widget. mall,
+                                          company: widget.company,
+                                          
+                                          
+                                        )));
                       },
                       price: price.toString(),
                     )

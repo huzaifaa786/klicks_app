@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:klicks_app/model/Mall.dart';
+import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
@@ -10,7 +12,11 @@ import 'package:klicks_app/static/tip_field.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class CheckOutScreen extends StatefulWidget {
-  const CheckOutScreen({super.key});
+   CheckOutScreen({ Key? key,
+    required this.company,
+    required this.mall,}): super(key: key);
+  final Mall mall;
+  final Company company;
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
