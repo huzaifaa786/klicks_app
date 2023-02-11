@@ -14,7 +14,7 @@ import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/topbar.dart';
 import 'package:multi_select_flutter/chip_field/multi_select_chip_field.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class CarSelect extends StatefulWidget {
   CarSelect({
@@ -202,7 +202,7 @@ class _CarSelectState extends State<CarSelect> {
                             ),
                           ),
                           MultiSelectChipField(
-                            items: extraservices,
+                            items: extraservices as List<MultiSelectItem<dynamic>>,
                             icon: Icon(Icons.check),
                             // itemBuilder: (item, state) {
                             //   // return your custom widget here
