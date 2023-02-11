@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
           'login': (context) => const LoginScreen(),
           'home': (context) => const BottomNavScreen(),
           'booking_confirm': (context) => const BookingConfirm(),
-          'select_car': (context) => const CarSelect(),
+          // 'select_car': (context) => const CarSelect(),
           'order_status': (context) => const OrderStatus(),
           'notification': (context) => const NotificationScreen(),
           'profile': (context) => const ProfileScreeen(),
