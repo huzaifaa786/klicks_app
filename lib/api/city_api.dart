@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:klicks_app/api/api.dart';
+import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
@@ -33,7 +34,8 @@ class CityApi {
     }
     return malls;
   }
-   static getcompany(id) async {
+
+  static getcompany(id) async {
     var url = BASE_URL + 'mall/companys';
 
     var data = {'mall_id': id};
@@ -46,26 +48,24 @@ class CityApi {
     }
     return companys;
   }
+
   static getservice(id) async {
-    // LoadingHelper.show();
+    LoadingHelper.show();
     var url = BASE_URL + 'allservices';
     var data;
-   
 
-    data = {'id' : id};
+    data = {'id': id};
     print(data);
     var response = await Api.execute(
       url: url,
       data: data,
     );
-    // print(response);
-    // LoadingHelper.dismiss();
+    print(response);
+    LoadingHelper.dismiss();
     List<ExtraService> extraservices = <ExtraService>[];
     for (var extraservice in response['services']) {
       extraservices.add(ExtraService(extraservice));
     }
     return extraservices;
   }
-
-
 }

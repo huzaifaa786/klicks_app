@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
+import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
@@ -10,7 +11,8 @@ import 'package:klicks_app/static/tip_field.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class CheckOutScreen extends StatefulWidget {
-  const CheckOutScreen({super.key});
+  const CheckOutScreen({super.key, @required this.data});
+  final SelectedCarInfo? data;
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -28,6 +30,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     setState(() {
       _site = value;
     });
+  }
+
+  void initState(){
+    print(widget.data!.floorNumber);
+    super.initState();
   }
 
   @override
@@ -63,23 +70,23 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 SizedBox(height: 16),
                 CheckOutTile(
                   title: 'Vehicle Type',
-                  discription: 'Sedan',
+                  discription: widget.data!.selectedcartype,
                 ),
                 CheckOutTile(
                   title: 'Build Company:',
-                  discription: 'BMW ',
+                  discription: widget.data!.company!.name,
                 ),
                 CheckOutTile(
                   title: 'Number Plate:',
-                  discription: 'WW 701',
+                  discription: widget.data!.plateNumber,
                 ),
                 CheckOutTile(
                   title: 'Parking Number:',
-                  discription: 'FA23',
+                  discription: widget.data!.parkingNumber,
                 ),
                 CheckOutTile(
                   title: 'Mall',
-                  discription: 'Dubai Mall',
+                  discription: widget.data!.mall!.name,
                 ),
                 CheckOutTile(
                   title: 'Extras: ',
@@ -167,10 +174,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Subtotal"),
-                          // Text("data"),
-                          Row(
-                            children: [Text('AED'), Text(' 45.00')],
-                          )
+                          Text('AED' + ' ' + widget.data!.price.toString())
                         ],
                       ),
                       Padding(

@@ -1,19 +1,17 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
-
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:klicks_app/api/city_api.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/model/services.dart';
+import 'package:klicks_app/screen/checkout/checkout.dart';
+import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/checkoutBtn.dart';
-import 'package:klicks_app/static/extra_list_item.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/topbar.dart';
-import 'package:multi_select_flutter/chip_field/multi_select_chip_field.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:multiselect_formfield/multiselect_formfield.dart';
 
 class CarSelect extends StatefulWidget {
   CarSelect({
@@ -28,32 +26,54 @@ class CarSelect extends StatefulWidget {
 }
 
 class _CarSelectState extends State<CarSelect> {
+  SelectedCarInfo data = SelectedCarInfo();
   List<ExtraService> services = [];
-  List<MultiSelectItem<ExtraService>> extraservices = [];
+  List<ExtraService> selectedExtraService = [];
+  TextEditingController plateNumberController = TextEditingController();
+  plateNumber(Value) {
+    setState(() {
+      data.plateNumber = Value;
+    });
+  }
+
+  TextEditingController floorNumberController = TextEditingController();
+  floorNumber(Value) {
+    setState(() {
+      data.floorNumber = Value;
+    });
+  }
+
+  TextEditingController parkingNumberController = TextEditingController();
+  parkingNumber(Value) {
+    setState(() {
+      data.parkingNumber = Value;
+    });
+  }
 
   getservice() async {
-    var mservice = await CityApi.getservice(widget.company.company_id);
-    print(mservice);
+    services = [];
+    var mservices = await CityApi.getservice(widget.company.company_id);
     setState(() {
-      services = mservice;
-      for (var service in services) {
-        var extraservice = ExtraService(service);
-        extraservices.add(MultiSelectItem(extraservice, '+ add'));
-      }
+      services = mservices;
+      log(services.length.toString());
+      log(services[0].service_name.toString());
     });
   }
 
   void initState() {
     super.initState();
-    price = int.parse(widget.company.sedan_price!);
+    comprice = int.parse(widget.company.sedan_price!);
+    price = comprice;
+    data.mall = widget.mall;
+    data.company = widget.company;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getservice();
     });
   }
 
   String? Selectedvalue = "sedan";
-  int? SelectedService = null;
-  int? price;
+  var comprice = 0;
+  var price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +99,9 @@ class _CarSelectState extends State<CarSelect> {
                             ontap: () {
                               setState(() {
                                 Selectedvalue = 'sedan';
-                                price = int.parse(widget.company.sedan_price!);
+                                data.selectedcartype = Selectedvalue;
+                                price -= int.parse(widget.company.suv_price!);
+                                price += int.parse(widget.company.sedan_price!);
                               });
                             },
                             selected: Selectedvalue == 'sedan' ? true : false,
@@ -90,7 +112,9 @@ class _CarSelectState extends State<CarSelect> {
                             ontap: () {
                               setState(() {
                                 Selectedvalue = 'suv';
-                                price = int.parse(widget.company.suv_price!);
+                                data.selectedcartype = Selectedvalue;
+                                price -= int.parse(widget.company.sedan_price!);
+                                price += int.parse(widget.company.suv_price!);
                               });
                             },
                             selected: Selectedvalue == 'suv' ? true : false,
@@ -107,6 +131,8 @@ class _CarSelectState extends State<CarSelect> {
                           IconInputField(
                             imageIcon: 'assets/images/floor.svg',
                             hint: 'Enter Floor number',
+                            controller: floorNumberController,
+                            onChange: floorNumber,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: 6, top: 12),
@@ -119,6 +145,8 @@ class _CarSelectState extends State<CarSelect> {
                           IconInputField(
                             imageIcon: 'assets/images/parking.svg',
                             hint: 'Enter parking number',
+                            controller: parkingNumberController,
+                            onChange: parkingNumber,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: 6, top: 12),
@@ -129,8 +157,10 @@ class _CarSelectState extends State<CarSelect> {
                             ),
                           ),
                           IconInputField(
+                            controller: plateNumberController,
                             imageIcon: 'assets/images/plate.svg',
                             hint: 'Enter Plate Number',
+                            onChange: plateNumber,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: 12, top: 12),
@@ -186,39 +216,90 @@ class _CarSelectState extends State<CarSelect> {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 12, top: 20),
-                            child: Text(
-                              "Add Extra",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 14),
-                            ),
-                          ),
-                          MultiSelectChipField(
-                            items: extraservices as List<MultiSelectItem<dynamic>>,
-                            icon: Icon(Icons.check),
-                            // itemBuilder: (item, state) {
-                            //   // return your custom widget here
-                            //   return ExtraListTile(
-                            //     image: item.value.image,
-                            //     text: item.value.service_name,
-                            //     ontap: () {
-                            //       setState(() {
-                            //         SelectedService = item.value.id;
-                            //       });
-                            //     },
-                            //     selected:
-                            //         SelectedService == true ? true : false,
-                            //   );
-                            // },
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(bottom: 12, top: 20),
+                          //   child: Text(
+                          //     "Add Extra",
+                          //     style: TextStyle(
+                          //         fontWeight: FontWeight.w500, fontSize: 14),
+                          //   ),
+                          // ),
+                          MultiSelectFormField(
+                            title: Text("Add Extra Services"),
+                            validator: (value) {
+                              if (value == null || value.length == 0) {
+                                return '';
+                              }
+                              return null;
+                            },
+                            dataSource: [
+                              for (var i = 0; i < services.length; i++)
+                                {
+                                  "display":
+                                      services[i].service_name.toString(),
+                                  "value": services[i].id.toString(),
+                                }
+                            ],
+                            chipBackGroundColor: Colors.blue,
+                            chipLabelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                            dialogTextStyle: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                            checkBoxActiveColor: Colors.blue,
+                            checkBoxCheckColor: Colors.white,
+                            dialogShapeBorder: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.0))),
+                            textField: 'display',
+                            valueField: 'value',
+                            okButtonLabel: 'OK',
+                            cancelButtonLabel: 'CANCEL',
+                            hintWidget: Text('choose services'),
+                            initialValue: null,
+                            onSaved: (value) {
+                              if (value == null) return;
+                              setState(() {
+                                List Hello = value as List;
+                                Selectedvalue == 'suv'
+                                    ? price =
+                                        int.parse(widget.company.suv_price!)
+                                    : price =
+                                        int.parse(widget.company.sedan_price!);
+                                selectedExtraService = [];
+                                for (var i = 0; i < Hello.length; i++) {
+                                  log(Hello[i]);
+                                  // ignore: unnecessary_cast
+                                  ExtraService temp = services.singleWhere(
+                                      (item) =>
+                                          item.id.toString() ==
+                                          Hello[i].toString()) as ExtraService;
+                                  selectedExtraService.add(temp);
+                                  print(selectedExtraService);
+                                  price += int.parse(temp.price.toString());
+                                }
+                                data.ExtraService = selectedExtraService;
+                              });
+                            },
+                          )
                         ],
                       ),
                     ),
                     SizedBox(height: 12),
                     CheckOutButton(
                       ontap: () {
-                        Navigator.pushNamed(context, 'checkOut');
+                        setState(() {
+                          data.price = price;
+                          print(data.price);
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                CheckOutScreen(data: data,),
+                          ),
+                        );
                       },
                       price: price.toString(),
                     )

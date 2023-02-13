@@ -6,7 +6,6 @@ class ExtraService {
   String? image;
 
   ExtraService(extraservice) {
-   
     company_id = extraservice['company_id'];
     service_name = extraservice['service_name'];
     price = extraservice['price'];
