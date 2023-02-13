@@ -25,8 +25,9 @@ enum PayMethod { materCard, googlePay, applePay }
 class _CheckOutScreenState extends State<CheckOutScreen> {
   bool val = false;
   bool val1 = false;
-
   bool tip = false;
+  TextEditingController tipcontroller = TextEditingController();
+
   PayMethod _site = PayMethod.materCard;
   void toggleplan(PayMethod value) {
     setState(() {
@@ -34,8 +35,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
-  void initState(){
+  int? Addtip = 0;
+
+  List? abc;
+  void initState() {
     print(widget.data!.floorNumber);
+    abc = widget.data!.ExtraService;
     super.initState();
   }
 
@@ -92,7 +97,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
                 CheckOutTile(
                   title: 'Extras: ',
-                  discription: 'Wash seats as well',
+                  discription:widget.data!.ExtraService == null?'No, Extra service added': widget.data!.ExtraService!.length.toString() +
+                      ' ' +
+                      'Extra service added',
                 ),
                 SizedBox(height: 12),
                 CheckOutInputField(
@@ -131,25 +138,34 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Add Tip'),
-                            tip == false?
-                            Icon(Icons.add,color: mainColor,):Icon(Icons.close,color: Colors.red,)
+                            tip == false
+                                ? Icon(
+                                    Icons.add,
+                                    color: mainColor,
+                                  )
+                                : Icon(
+                                    Icons.close,
+                                    color: Colors.red,
+                                  )
                           ],
                         ),
                         tip == true
                             ? Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: TipInputField(
-                                color: fieldColor ,
+                                padding: const EdgeInsets.only(top: 8),
+                                child: TipInputField(
+                                  color: fieldColor,
                                   hint: 'Enter Tip',
                                   type: TextInputType.number,
+                                  controller: tipcontroller,
                                   onpressed: () {
                                     setState(() {
                                       val1 = !val1;
+                                      Addtip = int.parse(tipcontroller.text);
                                     });
                                   },
                                   readOnly: val1,
                                 ),
-                            )
+                              )
                             : Container()
                       ],
                     ),
@@ -185,10 +201,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Tip"),
-                            // Text("data"),
-                            Row(
-                              children: [Text('AED'), Text(' 5.00')],
-                            )
+                            Text('AED' + ' ' + tipcontroller.text),
                           ],
                         ),
                       ),
@@ -212,8 +225,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 fontWeight: FontWeight.w600, fontSize: 20),
                           ),
                           Row(
-                            children: const [
-                              Text('41.00',
+                            children: [
+                              Text('${int.parse(widget.data!.price.toString()) + Addtip!}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20)),
