@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/values/colors.dart';
 
-class PaymentMethod extends StatefulWidget {
-  PaymentMethod(
+class PPaymentMethod extends StatefulWidget {
+  PPaymentMethod(
       {Key? key,
       this.value,
       this.groupvalue,
+       this.onpress,
       this.onchaged,
       this.image,
       this.title})
@@ -15,15 +16,16 @@ class PaymentMethod extends StatefulWidget {
           key: key,
         );
   final value;
+    final onpress;
   final groupvalue;
   final onchaged;
   final image;
   final title;
   @override
-  State<PaymentMethod> createState() => _PaymentMethodState();
+  State<PPaymentMethod> createState() => _PPaymentMethodState();
 }
 
-class _PaymentMethodState extends State<PaymentMethod> {
+class _PPaymentMethodState extends State<PPaymentMethod> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -12,6 +12,8 @@ import 'package:klicks_app/static/checkout_input.dart';
 import 'package:klicks_app/static/tip_field.dart';
 import 'package:klicks_app/values/colors.dart';
 
+import 'package:stripe_payment/stripe_payment.dart';
+
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
   final SelectedCarInfo? data;
@@ -35,6 +37,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
+  @override
   int? Addtip = 0;
 
   List? abc;
@@ -42,6 +45,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     print(widget.data!.floorNumber);
     abc = widget.data!.ExtraService;
     super.initState();
+    StripePayment.setOptions(StripeOptions(
+        publishableKey:
+            "pk_test_51MbJfzF8ZlDbtPcpjb2nIwCCQlWgmx71OXCFSg3as9Og4rnEaNPdH3NZtbZlRf6JbJXwQyTmYZBsav7AHyCXimFz00YMBRcimp",
+        merchantId: "YOUR_MERCHANT_ID",
+        androidPayMode: 'test'));
   }
 
   @override
@@ -97,9 +105,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
                 CheckOutTile(
                   title: 'Extras: ',
-                  discription:widget.data!.ExtraService == null?'No, Extra service added': widget.data!.ExtraService!.length.toString() +
-                      ' ' +
-                      'Extra service added',
+                  discription: widget.data!.ExtraService == null
+                      ? 'No, Extra service added'
+                      : widget.data!.ExtraService!.length.toString() +
+                          ' ' +
+                          'Extra service added',
                 ),
                 SizedBox(height: 12),
                 CheckOutInputField(
@@ -226,7 +236,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                           Row(
                             children: [
-                              Text('${int.parse(widget.data!.price.toString()) + Addtip!}',
+                              Text(
+                                  '${int.parse(widget.data!.price.toString()) + Addtip!}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20)),
@@ -276,7 +287,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               color: hintColor),
                         ),
                       ),
-                      PaymentMethod(
+                      PPaymentMethod(
                         title: 'Mastercard',
                         image: "assets/images/masterCard.png",
                         groupvalue: _site,
@@ -285,7 +296,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           toggleplan(PayMethod.materCard);
                         },
                       ),
-                      PaymentMethod(
+                      PPaymentMethod(
                         title: 'Google Pay',
                         image: "assets/images/google.png",
                         value: PayMethod.googlePay,
@@ -293,8 +304,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         onchaged: () {
                           toggleplan(PayMethod.googlePay);
                         },
+                        onpress: () {
+                          StripePayment.createSourceWithParams(SourceParams(
+                            type: 'ideal',
+                            amount: 2102,
+                            currency: 'eur',
+                            returnURL: 'example://stripe-redirect',
+                          )).then((source) {});
+                        },
                       ),
-                      PaymentMethod(
+                      PPaymentMethod(
                         title: 'Apple Pay',
                         image: "assets/images/apple.png",
                         groupvalue: _site,

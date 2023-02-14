@@ -158,7 +158,7 @@ class _TopUpState extends State<TopUp> {
                                   color: hintColor),
                             ),
                           ),
-                          PaymentMethod(
+                          PPaymentMethod(
                             title: 'Mastercard',
                             image: "assets/images/masterCard.png",
                             groupvalue: _site,
@@ -167,7 +167,7 @@ class _TopUpState extends State<TopUp> {
                               toggleplan(payMethod.materCard);
                             },
                           ),
-                          PaymentMethod(
+                          PPaymentMethod(
                             title: 'Google Pay',
                             image: "assets/images/google.png",
                             value: payMethod.googlePay,
@@ -176,7 +176,7 @@ class _TopUpState extends State<TopUp> {
                               toggleplan(payMethod.googlePay);
                             },
                           ),
-                          PaymentMethod(
+                          PPaymentMethod(
                             title: 'Apple Pay',
                             image: "assets/images/apple.png",
                             groupvalue: _site,
