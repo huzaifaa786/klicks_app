@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/city_api.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
@@ -51,6 +52,14 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       companyValue = null;
       companys = mCompanys;
+    });
+  }
+    Company? company;
+    getuser() async {
+    var muser = await AuthApi.getuser();
+    setState(() {
+      
+      companys = muser;
     });
   }
 

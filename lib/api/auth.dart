@@ -5,6 +5,7 @@ import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/User.dart';
 import 'package:klicks_app/values/string.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthApi {
   static login(email, password) async {
@@ -49,6 +50,25 @@ class AuthApi {
       return true;
     } else {
       print('error');
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
+    }
+  }
+
+   static getuser() async {
+    LoadingHelper.show();
+    var url = BASE_URL + 'userget';
+    var data;
+    final prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('api_token'));
+    data = {'api_token': prefs.getString('api_token')!};
+
+    var response = await Api.execute(url: url, data: data);
+    LoadingHelper.dismiss();
+    if (!response['error']) {
+      User user = User(response['user']);
+      return user;
+    } else {
       Fluttertoast.showToast(msg: response['error_data']);
       return false;
     }

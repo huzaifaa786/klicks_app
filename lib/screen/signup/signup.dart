@@ -29,19 +29,12 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController cpasswordController = TextEditingController();
 
-  bool checkboxval = false;
   bool _passwordVisible = true;
   bool _cpasswordVisible = true;
   bool phoneValid = false;
   bool nameValid = false;
   bool emailValid = false;
 
-  _togglecheckbox() {
-    print(checkboxval);
-    setState(() {
-      checkboxval = !checkboxval;
-    });
-  }
 
   register() async {
     if (emailValid == false ||

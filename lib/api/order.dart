@@ -5,12 +5,22 @@ import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/values/string.dart';
 
 class OrderApi {
-  static get() async {
+  static placeorder(tip, selectedcartype, company_id, floorNumber, id,
+      plateNumber, parkingNumber, price, length) async {
     LoadingHelper.show();
 
-    var url = BASE_URL + 'order';
+    var url = BASE_URL + 'ordersave';
 
-    var data = {};
+    var data = {
+      'tip': tip,
+      'cartype': selectedcartype,
+      'company_id': company_id,
+      'floornumber': floorNumber,
+      'mall_id': id,
+      'number_plate': plateNumber,
+      'parking': parkingNumber,
+      'totalpayment': price,
+    };
 
     var response = await Api.execute(url: url, data: data);
     LoadingHelper.dismiss();

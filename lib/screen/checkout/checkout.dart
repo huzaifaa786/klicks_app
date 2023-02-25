@@ -2,17 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
+import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
 import 'package:klicks_app/static/tip_field.dart';
 import 'package:klicks_app/values/colors.dart';
-
-import 'package:stripe_payment/stripe_payment.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
@@ -44,12 +45,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void initState() {
     print(widget.data!.floorNumber);
     abc = widget.data!.ExtraService;
-    super.initState();
-    StripePayment.setOptions(StripeOptions(
-        publishableKey:
-            "pk_test_51MbJfzF8ZlDbtPcpjb2nIwCCQlWgmx71OXCFSg3as9Og4rnEaNPdH3NZtbZlRf6JbJXwQyTmYZBsav7AHyCXimFz00YMBRcimp",
-        merchantId: "YOUR_MERCHANT_ID",
-        androidPayMode: 'test'));
+  }
+
+  login() async {
+    if (tipcontroller.text == '') {
+      Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
+    } else {
+      if (await OrderApi.placeorder(
+          tipcontroller.text,
+          widget.data!.selectedcartype,
+          widget.data!.company!.company_id,
+          widget.data!.floorNumber,
+          widget.data!.mall!.id,
+          widget.data!.plateNumber,
+          widget.data!.parkingNumber,
+          widget.data!.price,
+          widget.data!.ExtraService!.length))
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BottomNavScreen()));
+    }
   }
 
   @override
@@ -304,14 +318,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         onchaged: () {
                           toggleplan(PayMethod.googlePay);
                         },
-                        onpress: () {
-                          StripePayment.createSourceWithParams(SourceParams(
-                            type: 'ideal',
-                            amount: 2102,
-                            currency: 'eur',
-                            returnURL: 'example://stripe-redirect',
-                          )).then((source) {});
-                        },
+                        onpress: () {},
                       ),
                       PPaymentMethod(
                         title: 'Apple Pay',
