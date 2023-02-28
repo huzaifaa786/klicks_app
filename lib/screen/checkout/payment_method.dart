@@ -28,7 +28,7 @@ class PPaymentMethod extends StatefulWidget {
 class _PPaymentMethodState extends State<PPaymentMethod> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: widget.onchaged,
       child: Container(
         margin: EdgeInsets.only(left: 34),
@@ -61,6 +61,7 @@ class _PPaymentMethodState extends State<PPaymentMethod> {
                     ],
                   ),
                 ),
+                
                 trailing: Transform.scale(
                     scale: 1.2,
                     child: Radio(
@@ -70,6 +71,7 @@ class _PPaymentMethodState extends State<PPaymentMethod> {
                             (states) => mainColor),
                         onChanged: (value) {
                           widget.onchaged();
+
                         })),
                 dense: true,
                 contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
