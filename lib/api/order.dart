@@ -17,7 +17,7 @@ class OrderApi {
       'tip': tip,
       'cartype': selectedcartype,
       'company_id': company_id,
-      'floornumber': floorNumber,
+      'floor': floorNumber,
       'mall_id': id,
       'number_plate': plateNumber,
       'parking': parkingNumber,
@@ -30,7 +30,7 @@ class OrderApi {
     LoadingHelper.dismiss();
 
     if (!response['error']) {
-      Fluttertoast.showToast(msg: 'msg');
+      Fluttertoast.showToast(msg: 'Order created Sucessfully');
       return true;
     } else {
       return false;

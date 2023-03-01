@@ -51,18 +51,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     print(data['paymentIntent']);
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
-        paymentIntentClientSecret: data['paymentIntent'],
-        merchantDisplayName: 'Miypromo',
-        // Customer params
-        customerId: data['customer'].toString(),
-        customerEphemeralKeySecret: data['ephemeralKey'].toString(),
-        // Extra params
-        applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
-        googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
-        style: ThemeMode.dark,
-        customFlow: true
-        // billingDetails: billingDetails,
-      ),
+          paymentIntentClientSecret: data['paymentIntent'],
+          merchantDisplayName: 'Miypromo',
+          // Customer params
+          customerId: data['customer'].toString(),
+          customerEphemeralKeySecret: data['ephemeralKey'].toString(),
+          // Extra params
+          applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
+          googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
+          style: ThemeMode.dark,
+          customFlow: true
+          // billingDetails: billingDetails,
+          ),
     );
     confirmPayment();
   }
@@ -74,6 +74,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       // 3. display the payment sheet.
       await Stripe.instance.presentPaymentSheet();
       print('object');
+      orderPlaced();
       Fluttertoast.showToast(msg: 'Payment succesfully completed');
       return true;
     } on Exception catch (e) {
@@ -115,12 +116,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         widget.data!.plateNumber,
         widget.data!.parkingNumber,
         widget.data!.price,
-        widget.data!.ExtraService!.length,
+        widget.data!.ExtraService,
         widget.data!.uid,
         widget.data!.cityId,
-      )) print(widget.data!.ExtraService!.length);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
+      )) print(widget.data!.ExtraService);
+      Navigator.pushNamed(context, 'booking_confirm');
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
     }
   }
 
