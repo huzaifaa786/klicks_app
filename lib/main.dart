@@ -18,11 +18,13 @@ import 'package:klicks_app/screen/splash/splash_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/values/styles.dart';
 
-void main() {
+void main() async{
+    WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
       'pk_test_51MbJfzF8ZlDbtPcpjb2nIwCCQlWgmx71OXCFSg3as9Og4rnEaNPdH3NZtbZlRf6JbJXwQyTmYZBsav7AHyCXimFz00YMBRcimp';
   Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
   Stripe.urlScheme = 'flutterstripe';
+  await Stripe.instance.applySettings();
   runApp(const MyApp());
 }
 

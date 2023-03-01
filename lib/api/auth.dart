@@ -57,7 +57,7 @@ class AuthApi {
 
    static getuser() async {
     LoadingHelper.show();
-    var url = BASE_URL + 'userget';
+    var url = BASE_URL + 'getuser';
     var data;
     final prefs = await SharedPreferences.getInstance();
     print(prefs.getString('api_token'));

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +13,7 @@ import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
+import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
@@ -42,32 +45,51 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
-  cash()  {
-    StripeApi.paymentIntent(
- widget.data!.price,
-    );
-  
-     
-  }
-
   paayment() async {
+    var data = await StripeApi.paymentIntent(
+      widget.data!.price,
+    );
+    data = jsonDecode(data.toString());
+    print('sdsa');
+    print(data['paymentIntent']);
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
-
-          //   paymentIntentClientSecret: data['paymentIntent'].toString(),
-          // // merchantDisplayName: 'Miypromo',
-          // // Customer params
-          // customerId: data['customer'].toString(),
-          // customerEphemeralKeySecret: data['ephemeralKey'].toString(),
-          // // Extra params
-          // applePay: true,
-          // googlePay: true,
-          // style: ThemeMode.dark,
-          // // billingDetails: billingDetails,
-          // testEnv: true,
-          // merchantCountryCode: 'GBP',
-          ),
+        paymentIntentClientSecret: data['paymentIntent'],
+        merchantDisplayName: 'Miypromo',
+        // Customer params
+        customerId: data['customer'].toString(),
+        customerEphemeralKeySecret: data['ephemeralKey'].toString(),
+        // Extra params
+        applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
+        googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
+        style: ThemeMode.dark,
+        customFlow: true
+        // billingDetails: billingDetails,
+      ),
     );
+    confirmPayment();
+  }
+
+  Future<bool> confirmPayment() async {
+    print("Asdfasdfsdfasfd");
+
+    try {
+      // 3. display the payment sheet.
+      await Stripe.instance.presentPaymentSheet();
+      print('object');
+      Fluttertoast.showToast(msg: 'Payment succesfully completed');
+      return true;
+    } on Exception catch (e) {
+      if (e is StripeException) {
+        print('adsfasdfasdfadsfadsfa');
+        Fluttertoast.showToast(
+            msg: 'Error from Stripe: ${e.error.localizedMessage}');
+        return false;
+      } else {
+        Fluttertoast.showToast(msg: 'Unforeseen error: ${e}');
+        return false;
+      }
+    }
   }
 
   @override
@@ -355,7 +377,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         onchaged: () {
                           toggleplan(PayMethod.googlePay);
                         },
-                        onpress: paayment(),
+                        onpress: () {},
                       ),
                       PPaymentMethod(
                         title: 'Apple Pay',
@@ -373,9 +395,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   height: 20,
                 ),
                 LargeButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Navigator.pushNamed(context, 'booking_confirm');
-                    cash();
+                    await paayment();
                   },
                   title: "continue",
                 ),
