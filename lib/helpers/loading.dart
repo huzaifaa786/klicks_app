@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:klicks_app/values/colors.dart';
 
 class LoadingHelper {
   static bool absorbClick = false;
@@ -8,7 +9,14 @@ class LoadingHelper {
   static show() {
     absorbClick = true;
     onChangeAbsorbClick();
-    EasyLoading.show();
+    EasyLoading.show(
+      status: 'Loading...',
+      maskType: EasyLoadingMaskType.none,
+      indicator: CircularProgressIndicator(
+        backgroundColor: Colors.white,
+        valueColor: AlwaysStoppedAnimation<Color>(mainColor),
+      ),
+    );
   }
 
   static dismiss() {

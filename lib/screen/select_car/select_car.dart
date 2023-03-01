@@ -2,6 +2,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:klicks_app/api/city_api.dart';
+import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/model/services.dart';
@@ -11,6 +12,7 @@ import 'package:klicks_app/static/checkoutBtn.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/topbar.dart';
+import 'package:klicks_app/values/colors.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 
 class CarSelect extends StatefulWidget {
@@ -18,9 +20,13 @@ class CarSelect extends StatefulWidget {
     Key? key,
     required this.company,
     required this.mall,
+    required this.city,
+    required this.uid,
   }) : super(key: key);
   final Mall mall;
   final Company company;
+  final City city;
+  final int uid;
   @override
   State<CarSelect> createState() => _CarSelectState();
 }
@@ -56,7 +62,6 @@ class _CarSelectState extends State<CarSelect> {
     setState(() {
       services = mservices;
       log(services.length.toString());
-      log(services[0].service_name.toString());
     });
   }
 
@@ -66,6 +71,9 @@ class _CarSelectState extends State<CarSelect> {
     price = comprice;
     data.mall = widget.mall;
     data.company = widget.company;
+    data.selectedcartype = Selectedvalue;
+    data.uid = widget.uid;
+    data.cityId = widget.city.id;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getservice();
     });
@@ -173,9 +181,23 @@ class _CarSelectState extends State<CarSelect> {
                           Row(
                             // ignore: prefer_const_literals_to_create_immutables
                             children: [
-                              Image(
-                                  image: AssetImage(
-                                      'assets/images/dubai_mall.png')),
+                              widget.mall.image != null
+                                  ? CircleAvatar(
+                                      radius: 15,
+                                      backgroundImage:
+                                          NetworkImage(widget.mall.image!),
+                                      foregroundImage:
+                                          NetworkImage(widget.mall.image!),
+                                    )
+                                  : CircleAvatar(
+                                      radius: 15,
+                                      backgroundColor: mainColor,
+                                      child: Text('Mall',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 7,
+                                              color: Colors.white)),
+                                    ),
                               SizedBox(
                                 width: 12,
                               ),
@@ -199,11 +221,23 @@ class _CarSelectState extends State<CarSelect> {
                           Row(
                             // ignore: prefer_const_literals_to_create_immutables
                             children: [
-                              Image(
-                                image: NetworkImage(widget.company.image!),
-                                height: 34,
-                                width: 34,
-                              ),
+                              widget.company.image != null
+                                  ? CircleAvatar(
+                                      radius: 15,
+                                      backgroundImage:
+                                          NetworkImage(widget.company.image!),
+                                      foregroundImage:
+                                          NetworkImage(widget.company.image!),
+                                    )
+                                  : CircleAvatar(
+                                      radius: 15,
+                                      backgroundColor: mainColor,
+                                      child: Text('Company',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 7,
+                                              color: Colors.white)),
+                                    ),
                               SizedBox(
                                 width: 12,
                               ),
@@ -296,8 +330,9 @@ class _CarSelectState extends State<CarSelect> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                CheckOutScreen(data: data,),
+                            builder: (context) => CheckOutScreen(
+                              data: data,
+                            ),
                           ),
                         );
                       },

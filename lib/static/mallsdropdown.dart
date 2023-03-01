@@ -34,7 +34,6 @@ class MallsDropdownField extends StatelessWidget {
   final maxlines;
   final onChange;
   final onpressed;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +66,34 @@ class MallsDropdownField extends StatelessWidget {
           items: items!
               .map((item) => DropdownMenuItem<Mall>(
                     value: item,
-                    child: Text(
-                      item.name.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                      ),
+                    child: Row(
+                      children: [
+                        item.image != null
+                            ? CircleAvatar(
+                                radius: 15,
+                                backgroundImage:
+                                    NetworkImage(item.image.toString()),
+                                foregroundImage:
+                                    NetworkImage(item.image.toString()),
+                              )
+                            : CircleAvatar(
+                                radius: 15,
+                                backgroundColor: mainColor,
+                                child: Text('Mall',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 7, color: Colors.white)),
+                              ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                            item.name.toString(),
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ))
               .toList(),

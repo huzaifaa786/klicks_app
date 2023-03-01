@@ -21,6 +21,7 @@ class TipInputField extends StatelessWidget {
       this.type = TextInputType.text,
       this.fontSize = 14.0,
       this.onpressed,
+      this.onRmvPressed,
       this.color = White})
       : super(key: key);
 
@@ -36,7 +37,7 @@ class TipInputField extends StatelessWidget {
   final autovalidateMode;
   final maxlines;
   final onChange;
-  final onpressed;
+  final onpressed;final onRmvPressed;
   final fontSize;
   final enabled;
   final readOnly;
@@ -68,14 +69,17 @@ class TipInputField extends StatelessWidget {
               child: Text("AED"),
             ),
             suffixIcon: InkWell(
-              onTap: onpressed,
+              onTap: readOnly == false? onpressed :onRmvPressed,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10, right: 10),
                 child: readOnly == false
-                    ? Text(
-                        'Apply',
-                        style: TextStyle(color: mainColor),
-                      )
+                    ? InkWell(
+                      onTap: onpressed,
+                      child: Text(
+                          'Apply',
+                          style: TextStyle(color: mainColor),
+                        ),
+                    )
                     : Text(
                         'Remove',
                         style: TextStyle(color: Colors.red),

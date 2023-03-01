@@ -9,6 +9,8 @@ class SelectedCarInfo {
   Mall? mall;
   Company? company;
   var price;
+  var uid;
+  var cityId;
   List? ExtraService = [];
 
   SelectedCarInfo({
@@ -18,6 +20,8 @@ class SelectedCarInfo {
     this.selectedcartype,
     this.mall,
     this.company,
+    this.uid,
+    this.cityId,
     this.ExtraService,
     this.price,
   });

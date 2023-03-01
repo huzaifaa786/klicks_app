@@ -6,8 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
-import 'package:klicks_app/model/Mall.dart';
-import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
@@ -16,7 +14,6 @@ import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
 import 'package:klicks_app/static/tip_field.dart';
 import 'package:klicks_app/values/colors.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
@@ -42,12 +39,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
-  cash()  {
+  cash() {
     StripeApi.paymentIntent(
- widget.data!.price,
+      widget.data!.price,
     );
-  
-     
   }
 
   paayment() async {
@@ -83,21 +78,23 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   @override
-  login() async {
+  orderPlaced() async {
     if (tipcontroller.text == '') {
       Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
     } else {
       if (await OrderApi.placeorder(
-          tipcontroller.text,
-          widget.data!.selectedcartype,
-          widget.data!.company!.company_id,
-          widget.data!.floorNumber,
-          widget.data!.mall!.id,
-          widget.data!.plateNumber,
-          widget.data!.parkingNumber,
-          widget.data!.price,
-          widget.data!.ExtraService!.length))
-        print(widget.data!.ExtraService!.length);
+        tipcontroller.text,
+        widget.data!.selectedcartype,
+        widget.data!.company!.company_id,
+        widget.data!.floorNumber,
+        widget.data!.mall!.id,
+        widget.data!.plateNumber,
+        widget.data!.parkingNumber,
+        widget.data!.price,
+        widget.data!.ExtraService!.length,
+        widget.data!.uid,
+        widget.data!.cityId,
+      )) print(widget.data!.ExtraService!.length);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
     }
@@ -221,7 +218,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   onpressed: () {
                                     setState(() {
                                       val1 = !val1;
-                                      Addtip = int.parse(tipcontroller.text);
+                                      tipcontroller.text == ''
+                                          ? Addtip = int.parse('0')
+                                          : Addtip =
+                                              int.parse(tipcontroller.text);
+                                    });
+                                  },
+                                  onRmvPressed: () {
+                                    setState(() {
+                                      val1 = !val1;
+                                      tipcontroller.text = '';
+                                      Addtip = int.parse('0');
                                     });
                                   },
                                   readOnly: val1,
