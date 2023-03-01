@@ -5,6 +5,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/order.dart';
+import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
@@ -40,42 +41,34 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       _site = value;
     });
   }
-  //   Future _createTestPaymentSheet() async {
-  //   final url =
-  //       Uri.parse('http://tritec.store/mipromo/public/api/create/intent');
-  //   final response = await http.post(
-  //     url,
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: json.encode({
-  //       'a': 'a',
-  //       'price': service.depositAmount,
-  //       'connected_account': 'acct_1M7iQrRTmuR2qUZU'
-  //     }),
-  //   );
-  //   final body = json.decode(response.body);
-  //   final data = jsonDecode(body['intent'].toString());
 
-  //   paymentIntent = data['intent']['id'].toString();
+  cash()  {
+    StripeApi.paymentIntent(
+ widget.data!.price,
+    );
+  
+     
+  }
 
-  //   return data;
-  // }
   paayment() async {
     await Stripe.instance.initPaymentSheet(
-      paymentSheetParameters: SetupPaymentSheetParameters(),
+      paymentSheetParameters: SetupPaymentSheetParameters(
+
+          //   paymentIntentClientSecret: data['paymentIntent'].toString(),
+          // // merchantDisplayName: 'Miypromo',
+          // // Customer params
+          // customerId: data['customer'].toString(),
+          // customerEphemeralKeySecret: data['ephemeralKey'].toString(),
+          // // Extra params
+          // applePay: true,
+          // googlePay: true,
+          // style: ThemeMode.dark,
+          // // billingDetails: billingDetails,
+          // testEnv: true,
+          // merchantCountryCode: 'GBP',
+          ),
     );
   }
-// void stripe  (){
-//  Stripe.instance.initPublishableKey('YOUR_PUBLISHABLE_KEY');
-// final paymentMethod = await Stripe.instance.createPaymentMethod(
-//   PaymentMethodParams.card(
-//     number: '4242424242424242',
-//     expMonth: 12,
-//     expYear: 23,
-//     cvc: '123',
-//   ),
-// );
 
   @override
   int? Addtip = 0;
@@ -382,7 +375,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 LargeButton(
                   onPressed: () {
                     // Navigator.pushNamed(context, 'booking_confirm');
-                    paayment();
+                    cash();
                   },
                   title: "continue",
                 ),
