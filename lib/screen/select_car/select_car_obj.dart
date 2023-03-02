@@ -1,5 +1,6 @@
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
+import 'package:klicks_app/model/services.dart';
 
 class SelectedCarInfo {
   var plateNumber;
@@ -11,7 +12,7 @@ class SelectedCarInfo {
   var price;
   var uid;
   var cityId;
-  List? ExtraService = [];
+  List? extraService = [];
 
   SelectedCarInfo({
     this.plateNumber,
@@ -22,7 +23,7 @@ class SelectedCarInfo {
     this.company,
     this.uid,
     this.cityId,
-    this.ExtraService,
+    this.extraService,
     this.price,
   });
 }

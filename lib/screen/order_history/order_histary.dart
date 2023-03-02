@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
+=======
+>>>>>>> 9c22095cef2d92cf6edb1362b06c9cecc76e862a
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
 import 'package:klicks_app/static/title_topbar.dart';

@@ -10,6 +10,6 @@ class ExtraService {
     service_name = extraservice['service_name'];
     price = extraservice['price'];
     image = extraservice['image'];
-     id = extraservice['id'];
+    id = extraservice['id'];
   }
 }
