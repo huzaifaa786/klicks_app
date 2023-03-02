@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
@@ -11,6 +12,20 @@ class OrderHistry extends StatefulWidget {
 
   @override
   State<OrderHistry> createState() => _OrderHistryState();
+}
+getorder(){
+ getuser() async {
+    var muser = await AuthApi.getuser();
+  
+  }
+
+}
+
+void initState() {
+    super.initState();
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    getorder();
+  });
 }
 
 class _OrderHistryState extends State<OrderHistry> {

@@ -119,7 +119,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         widget.data!.ExtraService,
         widget.data!.uid,
         widget.data!.cityId,
-      )) print(widget.data!.ExtraService);
+      )) print('nbffbnbf');
+      print(widget.data!.ExtraService);
       Navigator.pushNamed(context, 'booking_confirm');
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => BottomNavScreen()));

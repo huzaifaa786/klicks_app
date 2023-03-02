@@ -24,6 +24,7 @@ class OrderApi {
       'totalpayment': price,
       'user_id': uid,
       'city_id': cityId,
+      'services':extraService
     };
 
     var response = await Api.execute(url: url, data: data);
