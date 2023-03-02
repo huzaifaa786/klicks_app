@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
 import 'package:klicks_app/static/title_topbar.dart';

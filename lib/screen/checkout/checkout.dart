@@ -8,10 +8,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
+import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
-import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
-import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
@@ -43,6 +42,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   paayment() async {
+    LoadingHelper.show();
     var data = await StripeApi.paymentIntent(
       widget.data!.price,
     );
@@ -64,6 +64,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           // billingDetails: billingDetails,
           ),
     );
+    LoadingHelper.dismiss();
     confirmPayment();
   }
 
@@ -90,19 +91,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
   }
 
-  @override
-  int? Addtip = 0;
-
-  List? abc;
-  void initState() {
-    print(widget.data!.floorNumber);
-    abc = widget.data!.ExtraService;
-    super.initState();
-
-    // Initialize Stripe with your publishable key
-  }
-
-  @override
   orderPlaced() async {
     if (tipcontroller.text == '') {
       Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
@@ -116,14 +104,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         widget.data!.plateNumber,
         widget.data!.parkingNumber,
         widget.data!.price,
-        widget.data!.ExtraService,
+        widget.data!.extraService,
         widget.data!.uid,
         widget.data!.cityId,
-      )) print(widget.data!.ExtraService);
-      Navigator.pushNamed(context, 'booking_confirm');
+      )) Navigator.pushNamed(context, 'booking_confirm');
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
     }
+  }
+
+  int? Addtip = 0;
+  @override
+  void initState() {
+    print(widget.data!.extraService);
+    super.initState();
   }
 
   @override
@@ -179,9 +173,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
                 CheckOutTile(
                   title: 'Extras: ',
-                  discription: widget.data!.ExtraService == null
+                  discription: widget.data!.extraService == null
                       ? 'No, Extra service added'
-                      : widget.data!.ExtraService!.length.toString() +
+                      : widget.data!.extraService!.length.toString() +
                           ' ' +
                           'Extra service added',
                 ),

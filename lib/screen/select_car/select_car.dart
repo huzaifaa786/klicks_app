@@ -34,7 +34,7 @@ class CarSelect extends StatefulWidget {
 class _CarSelectState extends State<CarSelect> {
   SelectedCarInfo data = SelectedCarInfo();
   List<ExtraService> services = [];
-  List<ExtraService> selectedExtraService = [];
+  List selectedExtraService = [];
   TextEditingController plateNumberController = TextEditingController();
   plateNumber(Value) {
     setState(() {
@@ -305,15 +305,15 @@ class _CarSelectState extends State<CarSelect> {
                                 for (var i = 0; i < Hello.length; i++) {
                                   log(Hello[i]);
                                   // ignore: unnecessary_cast
-                                  ExtraService temp = services.singleWhere(
+                                  var temp = services.singleWhere(
                                       (item) =>
                                           item.id.toString() ==
-                                          Hello[i].toString()) as ExtraService;
-                                  selectedExtraService.add(temp);
+                                          Hello[i].toString());
+                                  selectedExtraService.add(temp.id);
                                   print(selectedExtraService);
                                   price += int.parse(temp.price.toString());
                                 }
-                                data.ExtraService = selectedExtraService;
+                                data.extraService = selectedExtraService;
                               });
                             },
                           )
