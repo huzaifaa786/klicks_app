@@ -21,7 +21,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController EmailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   bool _obscureText = true;
   bool show = false;
 
@@ -36,16 +36,16 @@ class _EditProfileState extends State<EditProfile> {
     var muser = await AuthApi.getuser();
     setState(() {
       user = muser;
+      nameController.text = user!.name!;
+      phoneController.text = user!.phone!;
     });
   }
 
   void initState() {
-    
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getuser();
+    });
     super.initState();
-    getuser();
-      });
-      
   }
 
   @override
@@ -79,6 +79,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         InputField(
+                          readOnly: true,
                           hint: 'Enter Username',
                           controller: nameController,
                         ),
@@ -91,8 +92,9 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         InputField(
-                          hint: 'Enter Email',
-                          controller: EmailController,
+                          readOnly: true,
+                          hint: 'Enter phone number',
+                          controller: phoneController,
                           type: TextInputType.number,
                         ),
                         Padding(
@@ -105,48 +107,47 @@ class _EditProfileState extends State<EditProfile> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 16),
                               ),
-                             
+                              InkWell(
+                                onTap: () {
+                                  ChangePassword(context, user!.email);
+                                },
+                                child: Text(
+                                  "Chnage Password",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: mainColor),
+                                ),
+                              ),
                             ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            ChangePassword(context, EmailController.text);
-                          },
-                          child: Text(
-                            "Chnage Password",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: mainColor),
                           ),
                         ),
                       ],
                     ),
-                    show == false
-                        ? Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: LargeButton(
-                                title: "Update Profile",
-                                onPressed: () {
-                                  setState(() {
-                                    show = !show;
-                                  });
-                                }),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: IconsButton(
-                              title: 'Changes saved successfully!',
-                              color: Colors.green,
-                              rounded: true,
-                              onPressed: () {
-                                setState(() {
-                                  show = !show;
-                                });
-                              },
-                            ),
-                          )
+                    //   show == false
+                    //       ? Padding(
+                    //           padding: const EdgeInsets.only(bottom: 12),
+                    //           child: LargeButton(
+                    //               title: "Update Profile",
+                    //               onPressed: () {
+                    //                 setState(() {
+                    //                   show = !show;
+                    //                 });
+                    //               }),
+                    //         )
+                    //       : Padding(
+                    //           padding: const EdgeInsets.only(bottom: 12),
+                    //           child: IconsButton(
+                    //             title: 'Changes saved successfully!',
+                    //             color: Colors.green,
+                    //             rounded: true,
+                    //             onPressed: () {
+                    //               setState(() {
+                    //                 show = !show;
+                    //               });
+                    //             },
+                    //           ),
+                    //         )
                   ],
                 ),
               ),

@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
-import 'package:klicks_app/screen/order%20status/order_status.dart';
+import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/qrcode/qr_code.dart';
