@@ -11,7 +11,7 @@ import 'package:klicks_app/screen/login/login.dart';
 import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/select_car/select_car.dart';
 import 'package:klicks_app/screen/notification/notification.dart';
-import 'package:klicks_app/screen/order%20status/order_status.dart';
+import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/signup/signup.dart';
 import 'package:klicks_app/screen/splash/splash_screen.dart';

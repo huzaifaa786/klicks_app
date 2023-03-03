@@ -1,32 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/api/auth.dart';
-import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/model/Order.dart';
-import 'package:klicks_app/screen/order%20status/order_status.dart';
+import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
 import 'package:klicks_app/static/title_topbar.dart';
 
 class OrderHistry extends StatefulWidget {
-   
   const OrderHistry({super.key});
 
   @override
   State<OrderHistry> createState() => _OrderHistryState();
 }
 
-
-
 class _OrderHistryState extends State<OrderHistry> {
-   List<OrderModal> orders = [];
-    List<OrderModal> SearchOrders = [];
+  List<OrderModal> orders = [];
+  List<OrderModal> SearchOrders = [];
   getOrders() async {
     print('sdsb');
     var morder = await AuthApi.getorder();
     setState(() {
-        orders = [];
+      orders = [];
       orders = morder;
-       SearchOrders = orders;
+      SearchOrders = orders;
     });
   }
 
@@ -36,6 +32,7 @@ class _OrderHistryState extends State<OrderHistry> {
       getOrders();
     });
   }
+
   List<String> monthNames = [
     '',
     'January',
@@ -68,7 +65,7 @@ class _OrderHistryState extends State<OrderHistry> {
   }
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -93,11 +90,11 @@ class _OrderHistryState extends State<OrderHistry> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.77,
+                  height: MediaQuery.of(context).size.height * 0.70,
                   child: ListView.builder(
                       itemCount: SearchOrders.length,
                       itemBuilder: (BuildContext context, int index) {
-                        int i = index + 1;
+                        // int i = index + 1;
                         String monthName =
                             monthNames[SearchOrders[index].dateTime!.month];
                         return Order(
