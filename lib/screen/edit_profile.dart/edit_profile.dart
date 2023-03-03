@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/model/User.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/inputfield.dart';
 import 'package:klicks_app/static/pass_inputfield_two.dart';
 import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -16,6 +20,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController EmailController = TextEditingController();
   bool _obscureText = true;
   bool show = false;
 
@@ -23,6 +29,23 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  User? user;
+  getuser() async {
+    var muser = await AuthApi.getuser();
+    setState(() {
+      user = muser;
+    });
+  }
+
+  void initState() {
+    
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+    super.initState();
+    getuser();
+      });
+      
   }
 
   @override
@@ -57,6 +80,7 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         InputField(
                           hint: 'Enter Username',
+                          controller: nameController,
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 12.0, bottom: 6),
@@ -67,7 +91,8 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         InputField(
-                          hint: 'Enter phone number',
+                          hint: 'Enter Email',
+                          controller: EmailController,
                           type: TextInputType.number,
                         ),
                         Padding(
@@ -80,20 +105,21 @@ class _EditProfileState extends State<EditProfile> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 16),
                               ),
-                              Text(
-                                "Chnage Password",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    color: mainColor),
-                              ),
+                             
                             ],
                           ),
                         ),
-                        InputFieldPasswordTwo(
-                          hint: 'Password',
-                          toggle: _toggle,
-                          obscure: _obscureText,
+                        InkWell(
+                          onTap: () {
+                            ChangePassword(context, EmailController.text);
+                          },
+                          child: Text(
+                            "Chnage Password",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: mainColor),
+                          ),
                         ),
                       ],
                     ),
@@ -129,5 +155,87 @@ class _EditProfileState extends State<EditProfile> {
         ),
       ),
     );
+  }
+
+  ChangePassword(context, email) {
+    TextEditingController currentPassword = TextEditingController();
+    TextEditingController newPassword = TextEditingController();
+    TextEditingController confirmNewPassword = TextEditingController();
+
+    change() async {
+      if (currentPassword.text == '' ||
+          newPassword.text == '' ||
+          confirmNewPassword.text == '') {
+        Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
+      } else {
+        if (newPassword.text != confirmNewPassword.text) {
+          Fluttertoast.showToast(msg: 'New and Confirm password must be same');
+        } else {
+          await AuthApi.changeposward(
+            email.toString(),
+            currentPassword,
+            newPassword,
+          );
+          Navigator.pop(context);
+          currentPassword.text = '';
+          newPassword.text = '';
+          confirmNewPassword.text = '';
+        }
+      }
+    }
+
+    Alert(
+        context: context,
+        title: "Change Password",
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 6),
+            Text(
+              "Current Password",
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            ),
+            SizedBox(height: 4),
+            InputField(
+              hint: 'Enter current password',
+              obscure: true,
+              controller: currentPassword,
+            ),
+            SizedBox(height: 6),
+            Text(
+              "New Password",
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            ),
+            SizedBox(height: 4),
+            InputField(
+              hint: 'Enter new password',
+              obscure: true,
+              controller: newPassword,
+            ),
+            SizedBox(height: 6),
+            Text(
+              "Confirm New Password",
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            ),
+            SizedBox(height: 4),
+            InputField(
+              hint: 'Enter confirm new password',
+              obscure: true,
+              controller: confirmNewPassword,
+            ),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            color: mainColor,
+            onPressed: () async {
+              await change();
+            },
+            child: Text(
+              "Change Password",
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          )
+        ]).show();
   }
 }

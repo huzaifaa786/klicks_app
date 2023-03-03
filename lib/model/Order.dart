@@ -1,22 +1,30 @@
-class Order {
-  int? id;
-  int? city_id;
-  int? mall_id;
-  int? company_id;
-  String? parking;
-  String? floor;
-  String? number_plate;
-  String? totalpayment;
-  String? cartype;
 
-  Order(order) {
+class OrderModal {
+  int? id;
+  String? mall;
+  String? company;
+  String? parking;
+  String? plate_number;
+  String? floor;
+  String? user;
+  int? status;
+  String? cartype;
+  String? price;
+  DateTime? dateTime;
+  List? service = [''];
+
+  OrderModal(order) {
     id = order['id'];
-    city_id = order['city_id'];
-    mall_id = order['mall_id'];
-    company_id = order['company_id'];
+    mall = order['mall']['name'];
+    company = order['company']['name'];
+    parking = order['parking'];
+    plate_number = order['number_plate'];
     floor = order['floor'];
-     cartype = order['cartype'];
-      totalpayment = order['totalpayment'];
-       number_plate = order['number_plate'];
+    status = order['status'];
+    dateTime = DateTime.parse(order['created_at']);
+    price = order['totalpayment'] ?? '';
+    user = order['user']['name'] ?? '';
+    cartype = order['cartype'];
+    service = order['service'] as List?;
   }
 }

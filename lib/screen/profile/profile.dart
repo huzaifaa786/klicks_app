@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
@@ -118,7 +120,13 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     child: LogOutTile(
                         image: 'assets/images/logout.svg',
                         text: 'Log out',
-                        ontap: () {}),
+                        ontap: () {
+                                AuthApi.logout();
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, 'login', (route) => false);
+                                  Fluttertoast.showToast(
+                                      msg: "Logout successful");
+                        }),
                   )
                 ],
               ),

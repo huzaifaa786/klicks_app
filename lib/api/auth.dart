@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/helpers/shared_pref.dart';
+import 'package:klicks_app/model/Order.dart';
 import 'package:klicks_app/model/User.dart';
 import 'package:klicks_app/values/string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,8 @@ class AuthApi {
     if (!response['error']) {
       User user = User(response['user']);
       SharedPreferencesHelper.setString('api_token', user.apiToken!);
+      SharedPreferencesHelper.setString('user_id', user.id.toString());
+
       return true;
     } else {
       Fluttertoast.showToast(msg: response['error_data']);
@@ -46,8 +49,7 @@ class AuthApi {
     if (!response['error']) {
       User user = User(response['user']);
       SharedPreferencesHelper.setString('api_token', user.apiToken!);
-         SharedPreferencesHelper.setString('user_id', user.id.toString());
-
+      SharedPreferencesHelper.setString('user_id', user.id.toString());
       return true;
     } else {
       print('error');
@@ -56,7 +58,7 @@ class AuthApi {
     }
   }
 
-   static getuser() async {
+  static getuser() async {
     LoadingHelper.show();
     var url = BASE_URL + 'getuser';
     var data;
@@ -73,5 +75,67 @@ class AuthApi {
       Fluttertoast.showToast(msg: response['error_data']);
       return false;
     }
+  }
+
+  static getorder() async {
+    LoadingHelper.show();
+    var url = BASE_URL + 'getuserorder';
+    var data;
+    final prefs = await SharedPreferences.getInstance();
+    print('object');
+    print(prefs.getString('user_id'));
+    data = {'id': prefs.getString('user_id')!};
+
+    var response = await Api.execute(url: url, data: data);
+    LoadingHelper.dismiss();
+    if (!response['error']) {
+      List<OrderModal> orders = <OrderModal>[];
+      for (var order in response['orders']) {
+        orders.add(OrderModal(order));
+      }
+      return orders;
+    } else {
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
+    }
+  }
+
+  static Future logout() async {
+    SharedPreferencesHelper.remove('api_token');
+    SharedPreferencesHelper.remove('user_id');
+  }
+
+  static changeposward(String email, password, newPassword) async {
+    LoadingHelper.show();
+    var url = BASE_URL + 'changepasworduser';
+    var data;
+    data = {
+      'email': email,
+      'password': password.text,
+      'newpassword': newPassword.text
+    };
+
+    var response = await Api.execute(url: url, data: data);
+
+    LoadingHelper.dismiss();
+    if (response['error'] == false) {
+      User user = User(response['update']);
+      Fluttertoast.showToast(msg: 'Password update successfully');
+      return user;
+    } else {
+      Fluttertoast.showToast(msg: response['error']);
+      return false;
+    }
+    // return response;
+  }
+
+  static forget(email, password) async {
+    LoadingHelper.show();
+    var url = BASE_URL + 'forget';
+    var data = {'email': email, 'password': password};
+    var response = await Api.execute(url: url, data: data);
+
+    LoadingHelper.dismiss();
+    return response;
   }
 }

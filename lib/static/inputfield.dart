@@ -12,6 +12,7 @@ class InputField extends StatelessWidget {
       this.maxlines = false,
       this.enabled = true,
       this.readOnly = false,
+      this.obscure = false,
       this.onChange,
       this.imageIcon,
       this.validator,
@@ -20,6 +21,7 @@ class InputField extends StatelessWidget {
       this.icon,
       this.type = TextInputType.text,
       this.fontSize = 14.0,
+      this.width = 0.98,
       this.onpressed})
       : super(key: key);
 
@@ -27,9 +29,11 @@ class InputField extends StatelessWidget {
   final validator;
   final bool? validate;
   final hint;
+  final width;
   final type;
   final imageIcon;
   final icon;
+  final obscure;
   final text;
   final autovalidateMode;
   final maxlines;
@@ -43,13 +47,14 @@ class InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
+      width: MediaQuery.of(context).size.width * width,
       child: TextFormField(
         readOnly: readOnly,
         enabled: enabled,
+        obscureText: obscure,
         controller: controller,
         style: TextStyle(fontSize: fontSize),
         keyboardType: type,
-        onChanged: onChange,
         validator: validator,
         // autovalidateMode: autovalidateMode ??
         //     (validate == true
