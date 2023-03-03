@@ -25,19 +25,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     });
   }
 
-  ResetPassword() async {
-    if (passwordController.text == '') {
-      Fluttertoast.showToast(msg: "Field can't. Invalid!");
-    } else {
-      await AuthApi.forget(widget.email, passwordController.text);
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-          (route) => false);
-      Fluttertoast.showToast(msg: 'update successfully');
-      passwordController.text = '';
-    }
-  }
+  // ResetPassword() async {
+  //   if (passwordController.text == '') {
+  //     Fluttertoast.showToast(msg: "Field can't. Invalid!");
+  //   } else {
+  //     await AuthApi.forget(widget.email, passwordController.text);
+  //     Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => LoginScreen()),
+  //         (route) => false);
+  //     Fluttertoast.showToast(msg: 'update successfully');
+  //     passwordController.text = '';
+  //   }
+  // }
 
   @override
   void initState() {
@@ -106,7 +106,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: LargeButton(
                     title: "Change Password",
                     onPressed: () {
-                      ResetPassword();
+                      // ResetPassword();
                     },
                   ),
                 ),

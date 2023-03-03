@@ -129,9 +129,24 @@ class AuthApi {
     // return response;
   }
 
-  static forget(email, password) async {
+  static getcompanyUsingEmail(email) async {
     LoadingHelper.show();
-    var url = BASE_URL + 'forget';
+    var url = BASE_URL + 'forgetuserpassword';
+    var data = {'email': email};
+
+    var response = await Api.execute(url: url, data: data);
+    LoadingHelper.dismiss();
+    if (!response['error']) {
+      return response['otp'];
+    } else {
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
+    }
+  }
+   static forget(email, password) async {
+  
+    LoadingHelper.show();
+    var url = BASE_URL + 'forgetchangepassword';
     var data = {'email': email, 'password': password};
     var response = await Api.execute(url: url, data: data);
 
