@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
@@ -31,6 +32,7 @@ class AuthApi {
 
   static register(name, email, phone, password) async {
     LoadingHelper.show();
+       var token = await FirebaseMessaging.instance.getToken();
     var url = BASE_URL + 'register';
     var data;
     data = {
@@ -38,6 +40,7 @@ class AuthApi {
       'email': email.text.toString(),
       'phone': phone.text.toString(),
       'password': password.text.toString(),
+      'firebase_token': token,
     };
 
     var response = await Api.execute(
