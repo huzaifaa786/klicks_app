@@ -5,6 +5,7 @@ import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/edit_profile.dart/edit_profile.dart';
+import 'package:klicks_app/screen/forget_password/forget_password.dart';
 import 'package:klicks_app/screen/intro/intro.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/login/login.dart';
@@ -64,16 +65,15 @@ class _MyAppState extends State<MyApp> {
           'login': (context) => const LoginScreen(),
           'home': (context) => const BottomNavScreen(),
           'booking_confirm': (context) => const BookingConfirm(),
-          // 'select_car': (context) => const CarSelect(),
           'order_status': (context) => const OrderStatus(),
           'notification': (context) => const NotificationScreen(),
           'profile': (context) => const ProfileScreeen(),
-          // 'checkOut': (context) => const CheckOutScreen(),
           'order_histary': (context) => const OrderHistry(),
           'top_up': (context) => const TopUp(),
           'edit_profile': (context) => const EditProfile(),
           'intro': (context) => const IntroScreen(),
           'signup': (context) => const SignUp(),
+          'forgot_screen':(context) => ForgotScreen(),
         },
       ),
     );

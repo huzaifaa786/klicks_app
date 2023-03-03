@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1020351318315",
+    "project_id": "klicks-2ed32",
+    "storage_bucket": "klicks-2ed32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020351318315:android:fa1e5a8faa016a485fdd6e",
+        "android_client_info": {
+          "package_name": "com.example.klicks_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020351318315-gussi59vligmtadb71gc5qnllijua8t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYPcSuMSZ_lwGrRfHPrsE5AzQWee-VJe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020351318315-gussi59vligmtadb71gc5qnllijua8t0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

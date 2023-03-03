@@ -18,20 +18,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
-
-  bool checkboxval = false;
-  bool _passwordVisible = true;
-
-  bool emailValid = false;
-
-  _togglecheckbox() {
-    print(checkboxval);
-    setState(() {
-      checkboxval = !checkboxval;
-    });
-  }
+  bool _obscureText = true;
 
   login() async {
     if (emailController.text == '' || passwordController.text == '') {
@@ -45,8 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => BottomNavScreen()));
     }
   }
-
-  bool _obscureText = true;
 
   void _toggle() {
     setState(() {
@@ -130,7 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, 'forgot_screen');
+                                    },
                                     child: Text(
                                       'Forgot Passowrd?',
                                       style: TextStyle(

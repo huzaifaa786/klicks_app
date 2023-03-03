@@ -325,7 +325,6 @@ class _CarSelectState extends State<CarSelect> {
                       ontap: () {
                         setState(() {
                           data.price = price;
-                          print(data.price);
                         });
                         Navigator.push(
                           context,

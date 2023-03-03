@@ -16,29 +16,27 @@ class ForgotScreen extends StatefulWidget {
 class _ForgotScreenState extends State<ForgotScreen> {
   TextEditingController emailController = TextEditingController();
   // Otp? otp;
-  // getcompany() async {
-  //   if (emailController.text == '') {
-  //     Fluttertoast.showToast(msg: "Input can't be empty.");
-  //   } else {
-  //     var mcompany = await AuthApi.getcompanyUsingEmail(emailController.text);
-  //     if (mcompany != false) {
-  //       // log(company!.name.toString());
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => OtpScreen(
-  //             otp: mcompany.toString(),
-  //             emailcontroller: emailController.text,
-  //           ),
-  //         ),
-  //       );
-  //     }
-  //   }
-  // }
+  getUser() async {
+    if (emailController.text == '') {
+      Fluttertoast.showToast(msg: "Input can't be empty.");
+    } else {
+      var muser = await AuthApi.getuserUsingEmail(emailController.text);
+      if (muser != false) {
+        // log(company!.name.toString());
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OtpScreen(
+              otp: muser.toString(),
+              emailcontroller: emailController.text,
+            ),
+          ),
+        );
+      }
+    }
+  }
 
   @override
-
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -96,12 +94,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   child: LargeButton(
                     title: "Next",
                     onPressed: () {
-                      // getcompany();
-                      // AuthApi.getcompanyUsingEmail(emailController.text);
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => ChangePasswordScreen()));
+                      getUser();
                     },
                   ),
                 ),

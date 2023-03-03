@@ -129,7 +129,7 @@ class AuthApi {
     // return response;
   }
 
-  static getcompanyUsingEmail(email) async {
+  static getuserUsingEmail(email) async {
     LoadingHelper.show();
     var url = BASE_URL + 'forgetuserpassword';
     var data = {'email': email};
@@ -143,8 +143,8 @@ class AuthApi {
       return false;
     }
   }
-   static forget(email, password) async {
-  
+
+  static forget(email, password) async {
     LoadingHelper.show();
     var url = BASE_URL + 'forgetchangepassword';
     var data = {'email': email, 'password': password};

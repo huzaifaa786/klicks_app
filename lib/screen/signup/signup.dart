@@ -35,7 +35,6 @@ class _SignUpState extends State<SignUp> {
   bool nameValid = false;
   bool emailValid = false;
 
-
   register() async {
     if (emailValid == false ||
         nameValid == false ||
@@ -47,7 +46,8 @@ class _SignUpState extends State<SignUp> {
       Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
     } else {
       if (passwordController.text != cpasswordController.text) {
-        Fluttertoast.showToast(msg: 'Password and Confirm Password field are not same');
+        Fluttertoast.showToast(
+            msg: 'Password and Confirm Password field are not same');
       } else {
         if (await AuthApi.register(
           nameController,
@@ -77,7 +77,6 @@ class _SignUpState extends State<SignUp> {
     if (value.length > 3) {
       setState(() {
         nameValid = true;
-        log(nameValid.toString());
       });
     } else {
       setState(() {

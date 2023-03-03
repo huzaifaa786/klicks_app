@@ -37,6 +37,7 @@ class SearchBar extends StatelessWidget {
     return TextFormField(
       style: const TextStyle(fontSize: 14),
       controller: controller,
+      onChanged: onChange,
       decoration: InputDecoration(
         prefixIcon: Image(image: AssetImage(imageIcon)),
         suffixIcon: FittedBox(

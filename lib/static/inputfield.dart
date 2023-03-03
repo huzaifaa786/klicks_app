@@ -50,6 +50,7 @@ class InputField extends StatelessWidget {
       width: MediaQuery.of(context).size.width * width,
       child: TextFormField(
         readOnly: readOnly,
+        onChanged: onChange,
         enabled: enabled,
         obscureText: obscure,
         controller: controller,

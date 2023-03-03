@@ -17,7 +17,6 @@ class _OrderHistryState extends State<OrderHistry> {
   List<OrderModal> orders = [];
   List<OrderModal> SearchOrders = [];
   getOrders() async {
-    print('sdsb');
     var morder = await AuthApi.getorder();
     setState(() {
       orders = [];
@@ -58,7 +57,8 @@ class _OrderHistryState extends State<OrderHistry> {
             .where((o) =>
                 o.dateTime!.toString().contains(query.toLowerCase()) ||
                 o.cartype!.toLowerCase().contains(query.toLowerCase()) ||
-                o.id!.toString().contains(query.toLowerCase()))
+                o.id!.toString().contains(query.toLowerCase()) ||
+                o.company!.toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
     });
