@@ -12,8 +12,7 @@ class NotificationHelper {
   static showAndroidDefault(message) async {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'high_importance_channel', // id
-      'High Importance Notifications', // title
-      'This channel is used for important notifications.', // description
+      'High Importance Notifications', // title // description
       importance: Importance.high,
     );
 
@@ -23,9 +22,9 @@ class NotificationHelper {
 
     var initializationSettingsAndroid = AndroidInitializationSettings('flutter_devs');
 
-    var initializationSettingsIOs = IOSInitializationSettings();
+    // var initializationSettingsIOs = IOSInitializationSettings();
 
-    var initSetttings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
+    var initSetttings = InitializationSettings(android: initializationSettingsAndroid);
 
     onSelectNotification(String payload) {
   //  Navigator.push(context,
@@ -45,7 +44,6 @@ class NotificationHelper {
           android: AndroidNotificationDetails(
             channel.id,
             channel.name,
-            channel.description,
             icon: 'logo',
             importance: Importance.max,
             priority: Priority.high,

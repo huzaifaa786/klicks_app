@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:klicks_app/api/auth.dart';
@@ -78,7 +82,6 @@ class _MainScreenState extends State<MainScreen> {
     'Saturday',
     'Sunday'
   ];
-
   List<String> monthNames = [
     '',
     'January',

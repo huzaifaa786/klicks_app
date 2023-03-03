@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -19,8 +20,9 @@ import 'package:klicks_app/screen/splash/splash_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/values/styles.dart';
 
-void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Stripe.publishableKey =
       'pk_test_51MbJfzF8ZlDbtPcpjb2nIwCCQlWgmx71OXCFSg3as9Og4rnEaNPdH3NZtbZlRf6JbJXwQyTmYZBsav7AHyCXimFz00YMBRcimp';
   Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
@@ -73,7 +75,7 @@ class _MyAppState extends State<MyApp> {
           'edit_profile': (context) => const EditProfile(),
           'intro': (context) => const IntroScreen(),
           'signup': (context) => const SignUp(),
-          'forgot_screen':(context) => ForgotScreen(),
+          'forgot_screen': (context) => ForgotScreen(),
         },
       ),
     );
