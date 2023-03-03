@@ -13,7 +13,7 @@ import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class OrderStatus extends StatefulWidget {
- const OrderStatus({super.key, this.order});
+  const OrderStatus({super.key, this.order});
   final OrderModal? order;
 
   @override
@@ -21,7 +21,7 @@ class OrderStatus extends StatefulWidget {
 }
 
 class _OrderStatusState extends State<OrderStatus> {
-   List<ExtraServiceDetail> services = [];
+  List<ExtraServiceDetail> services = [];
   getservice() async {
     var morderServices =
         await OrderApi.ExtraServicesINOrder(widget.order!.id.toString());
@@ -37,6 +37,7 @@ class _OrderStatusState extends State<OrderStatus> {
       getservice();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,21 +169,43 @@ class _OrderStatusState extends State<OrderStatus> {
                             ],
                           )
                         : widget.order!.status == 1
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Text(
-                                  "Order is accepted and in progress now, mark your order\n as completed after finishing the work",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: colorgrey),
-                                ),
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Status',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        color: colorgrey),
+                                  ),
+                                  Badge(
+                                    title: 'Accepted',
+                                    color: Colors.green,
+                                    ontap: () {},
+                                  )
+                                ],
                               )
-                            : SizedBox(),
+                            : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Status',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    color: colorgrey),
+                              ),
+                              Badge(
+                                title: 'In process',
+                                color: InprocessColor,
+                                ontap: () {},
+                              )
+                            ],
+                          ),
               ],
             ),
-           
           ],
         ),
       )),

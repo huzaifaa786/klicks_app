@@ -9,3 +9,4 @@ const fieldColor = Color(4294111986);
 const badgeGreen = Color(4280790624);
 const colorgrey = Color(4281545523);
 const White = Colors.white;
+const InprocessColor = Color(4294101324);
