@@ -44,7 +44,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   flutter_launcher_icons: ^0.11.0
   dio: ^4.0.6
-  intl: ^0.18.0
+  # intl: ^0.18.0
   intl_phone_field: ^3.1.0
   mobile_scanner: ^2.0.0
   fluttertoast: ^8.1.2
@@ -61,6 +61,7 @@ dependencies:
   firebase_core: ^2.7.0
   flutter_local_notifications: ^13.0.0
   cloud_firestore: ^4.4.3
+  easy_localization: ^3.0.1
 
   
 
