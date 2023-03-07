@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/city_api.dart';
@@ -244,7 +245,7 @@ class _MainScreenState extends State<MainScreen> {
                             Padding(
                               padding: EdgeInsets.only(top: 15.0),
                               child: Text(
-                                "Select Location",
+                                "Select Mall",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
@@ -294,15 +295,23 @@ class _MainScreenState extends State<MainScreen> {
                               child: LargeButton(
                                 title: "Submit",
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CarSelect(
-                                                mall: mallValue!,
-                                                company: companyValue!,
-                                                city: cityvalue!,
-                                                uid: user!.id!,
-                                              )));
+                                  if (cityvalue != null &&
+                                      mallValue != null &&
+                                      companyValue != null) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => CarSelect(
+                                                  mall: mallValue!,
+                                                  company: companyValue!,
+                                                  city: cityvalue!,
+                                                  uid: user!.id!,
+                                                )));
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "You can't perfom any function until you select the your desire data");
+                                  }
                                 },
                                 textcolor: Colors.white,
                               ),

@@ -305,10 +305,9 @@ class _CarSelectState extends State<CarSelect> {
                                 for (var i = 0; i < Hello.length; i++) {
                                   log(Hello[i]);
                                   // ignore: unnecessary_cast
-                                  var temp = services.singleWhere(
-                                      (item) =>
-                                          item.id.toString() ==
-                                          Hello[i].toString());
+                                  var temp = services.singleWhere((item) =>
+                                      item.id.toString() ==
+                                      Hello[i].toString());
                                   selectedExtraService.add(temp.id);
                                   print(selectedExtraService);
                                   price += int.parse(temp.price.toString());
@@ -326,14 +325,20 @@ class _CarSelectState extends State<CarSelect> {
                         setState(() {
                           data.price = price;
                         });
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CheckOutScreen(
-                              data: data,
+                        if (data.floorNumber == null &&
+                            data.plateNumber == null &&
+                            data.parkingNumber == null) {
+                              print('object');
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CheckOutScreen(
+                                data: data,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       },
                       price: price.toString(),
                     )

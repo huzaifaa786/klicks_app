@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/helpers/notification_helper.dart';
+import 'package:klicks_app/helpers/notification_services.dart';
 import 'package:klicks_app/screen/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/edit_profile.dart/edit_profile.dart';
@@ -23,6 +25,7 @@ import 'package:klicks_app/values/styles.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // MessagingManager().configure();
   Stripe.publishableKey =
       'pk_test_51MbJfzF8ZlDbtPcpjb2nIwCCQlWgmx71OXCFSg3as9Og4rnEaNPdH3NZtbZlRf6JbJXwQyTmYZBsav7AHyCXimFz00YMBRcimp';
   Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
