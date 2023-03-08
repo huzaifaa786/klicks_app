@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
           'notification': (context) => const NotificationScreen(),
           'profile': (context) => const ProfileScreeen(),
           'order_histary': (context) => const OrderHistry(),
-          'top_up': (context) => const TopUp(),
+       
           'edit_profile': (context) => const EditProfile(),
           'intro': (context) => const IntroScreen(),
           'signup': (context) => const SignUp(),

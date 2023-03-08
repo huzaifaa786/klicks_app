@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/helpers/shared_pref.dart';
@@ -156,4 +157,47 @@ class AuthApi {
     LoadingHelper.dismiss();
     return response;
   }
+  
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // Future<String?> signupwithGoogle() async {
+  //   try {
+  //     LoadingHelper.show();
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await _googleSignIn.signIn();
+  //     var email1 = googleSignInAccount!.email;
+  //     var methods =
+  //         await FirebaseAuth.instance.fetchSignInMethodsForEmail(email1);
+  //     print(methods);
+  //     if (methods.contains('google.com')) {
+  //       final GoogleSignInAuthentication googleSignInAuthentication =
+  //           await googleSignInAccount.authentication;
+  //       final AuthCredential credential = GoogleAuthProvider.credential(
+  //         // accessToken: googleSignInAuthentication.accessToken,
+  //         idToken: googleSignInAuthentication.idToken,
+  //       );
+  //       var result = await _auth.signInWithCredential(credential);
+  //       final token = await FirebaseMessaging.instance.getToken();
+  //       var collection = FirebaseFirestore.instance.collection('users');
+  //       collection.doc(firebaseUser.value!.uid).update({
+  //         'token': token,
+  //       });
+  //     } else {
+  //       final GoogleSignInAuthentication googleSignInAuthentication =
+  //           await googleSignInAccount.authentication;
+  //       email.text = googleSignInAccount.email;
+  //       userController.googleImageUrl = googleSignInAccount.photoUrl;
+  //       String? idToken = googleSignInAuthentication.idToken!;
+  //       print(idToken);
+  //       Get.offAll(() => RegisterScreen(
+  //             idToken: idToken,
+  //           ));
+  //       LoadingHelper.dismiss();
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     Get.snackbar('Google SignIn Failed', e.message!,
+  //         snackPosition: SnackPosition.BOTTOM,
+  //         backgroundColor: Colors.red,
+  //         colorText: primaryTextColor);
+  //   }
+  // }
 }
