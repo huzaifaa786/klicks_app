@@ -1,8 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/helpers/notification_helper.dart';
+import 'package:klicks_app/helpers/notification_services.dart';
+import 'package:klicks_app/model/lang.dart';
 import 'package:klicks_app/screen/booking_confirm/booking_confirm.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/edit_profile.dart/edit_profile.dart';
@@ -18,17 +22,25 @@ import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/signup/signup.dart';
 import 'package:klicks_app/screen/splash/splash_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
+import 'package:klicks_app/translations/codegen_loader.g.dart';
 import 'package:klicks_app/values/styles.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await EasyLocalization.ensureInitialized();
+  // MessagingManager().configure();
   Stripe.publishableKey =
       'pk_test_51MbJfzF8ZlDbtPcpjb2nIwCCQlWgmx71OXCFSg3as9Og4rnEaNPdH3NZtbZlRf6JbJXwQyTmYZBsav7AHyCXimFz00YMBRcimp';
   Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
   Stripe.urlScheme = 'flutterstripe';
   await Stripe.instance.applySettings();
-  runApp(const MyApp());
+  runApp(EasyLocalization(
+      supportedLocales: Language.all,
+      path: 'assets/translations',
+      fallbackLocale: Language.all[0],
+      assetLoader: CodegenLoader(),
+      child: const MyApp()));
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -56,6 +68,9 @@ class _MyAppState extends State<MyApp> {
     return AbsorbPointer(
       absorbing: LoadingHelper.absorbClick,
       child: MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(),

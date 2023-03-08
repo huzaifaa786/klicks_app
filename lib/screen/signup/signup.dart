@@ -12,7 +12,6 @@ import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/inputfield.dart';
 import 'package:klicks_app/static/pass_inputfield_two.dart';
-import 'package:intl/intl.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class SignUp extends StatefulWidget {

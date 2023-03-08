@@ -33,7 +33,7 @@ class AuthApi {
 
   static register(name, email, phone, password) async {
     LoadingHelper.show();
-       var token = await FirebaseMessaging.instance.getToken();
+    var token = await FirebaseMessaging.instance.getToken();
     var url = BASE_URL + 'register';
     var data;
     data = {

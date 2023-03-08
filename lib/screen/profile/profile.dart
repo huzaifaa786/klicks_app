@@ -4,13 +4,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/model/Account.dart';
+import 'package:klicks_app/model/lang.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
 import 'package:klicks_app/static/profile.tile.dart';
 import 'package:klicks_app/static/title_topbar.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProfileScreeen extends StatefulWidget {
   const ProfileScreeen({super.key});
@@ -42,7 +45,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
         child: Column(
           children: [
             TitleTopbar(
-              text: 'My Profile',
+              text: LocaleKeys.My_Profile.tr(),
               ontap: () {
                 Navigator.popAndPushNamed(context, 'home');
               },
