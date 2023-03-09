@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/screen/forget_password/change_password.dart';
 import 'package:klicks_app/static/button.dart';
@@ -72,24 +73,35 @@ class _OtpScreenState extends State<OtpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image(
-                      image: AssetImage(
-                        'assets/images/logo1.png',
-                      ),
-                      height: 220,
-                      width: 220,
+                    SvgPicture.asset(
+                      'assets/images/otp.svg',
+                      height: 300,
+                      width: 300,
                     ),
                   ],
                 ),
               ],
             ),
             Text(
-              "Enter OTP sent to your phone",
+              "Verify OTP",
               textAlign: TextAlign.center,
               maxLines: 2,
               style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.w600,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'Enter the 5 digit code received on your mobile device.',
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: TextStyle(
+                  fontSize: 23,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -99,7 +111,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 color: Colors.green.shade600,
                 fontWeight: FontWeight.bold,
               ),
-              length: 6,
+              length: 5,
               blinkWhenObscuring: true,
               animationType: AnimationType.fade,
               pinTheme: PinTheme(
@@ -153,9 +165,25 @@ class _OtpScreenState extends State<OtpScreen> {
             //   ],
             // ),
             Padding(
-              padding: const EdgeInsets.only(top: 25.0, bottom: 30),
+              padding: const EdgeInsets.only(top: 50, left: 90),
+              child: Row(
+                children: [
+                  Text(
+                    'Not Received?',
+                     style: TextStyle(fontSize: 18),
+                  ),
+                  InkWell(
+                      child: Text(
+                    'Send Again',
+                    style: TextStyle(color: Colors.blue, fontSize: 18),
+                  ))
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0, bottom: 30),
               child: LargeButton(
-                title: "Verify OTP",
+                title: "VERIFY",
                 onPressed: () {
                   compare();
                 },
