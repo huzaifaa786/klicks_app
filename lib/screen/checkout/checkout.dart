@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
@@ -25,7 +26,7 @@ class CheckOutScreen extends StatefulWidget {
   State<CheckOutScreen> createState() => _CheckOutScreenState();
 }
 
-enum PayMethod { materCard, googlePay, applePay }
+enum PayMethod { materCard, googlePay, applePay, walletpay }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   bool val = false;
@@ -41,8 +42,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
+  balance() {
+    StripeApi.subtract(widget.data!.price);
+  }
+
   paayment() async {
     LoadingHelper.show();
+    if (account!.balance! < widget.data!.price)
+      Fluttertoast.showToast(msg: 'wallet amount is less then order amount');
+    {
+      orderPlaced();
+      balance();
+    }
     var data = await StripeApi.paymentIntent(
       widget.data!.price,
     );
@@ -52,7 +63,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: data['paymentIntent'],
-          merchantDisplayName: 'Miypromo',
+          merchantDisplayName: 'Klicks',
           // Customer params
           customerId: data['customer'].toString(),
           customerEphemeralKeySecret: data['ephemeralKey'].toString(),
@@ -114,9 +125,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   int? Addtip = 0;
-  @override
+
+  Account? account;
+  getbalance() async {
+    var mbalance = await StripeApi.balance();
+    setState(() {
+      account = mbalance;
+    });
+  }
+
   void initState() {
-    print(widget.data!.extraService);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getbalance();
+    });
     super.initState();
   }
 
@@ -391,6 +412,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         value: PayMethod.applePay,
                         onchaged: () {
                           toggleplan(PayMethod.applePay);
+                        },
+                      ),
+                      PPaymentMethod(
+                        title: 'wallet Pay',
+                        image: "assets/images/apple.png",
+                        groupvalue: _site,
+                        value: PayMethod.walletpay,
+                        onchaged: () {
+                          toggleplan(PayMethod.walletpay);
                         },
                       ),
                     ],

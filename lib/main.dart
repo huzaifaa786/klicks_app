@@ -14,6 +14,7 @@ import 'package:klicks_app/screen/forget_password/forget_password.dart';
 import 'package:klicks_app/screen/intro/intro.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/login/login.dart';
+import 'package:klicks_app/screen/login/login_number.dart';
 import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/select_car/select_car.dart';
 import 'package:klicks_app/screen/notification/notification.dart';
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
         builder: EasyLoading.init(),
         theme: Styles.lightTheme,
         title: "Klicks",
-        initialRoute: 'splash',
+        initialRoute: 'Numlogin',
         routes: {
           'splash': (context) => const SplashScreen(),
           'login': (context) => const LoginScreen(),
@@ -86,7 +87,7 @@ class _MyAppState extends State<MyApp> {
           'notification': (context) => const NotificationScreen(),
           'profile': (context) => const ProfileScreeen(),
           'order_histary': (context) => const OrderHistry(),
-          'top_up': (context) => const TopUp(),
+        'Numlogin': (context) => const Numlogin(),
           'edit_profile': (context) => const EditProfile(),
           'intro': (context) => const IntroScreen(),
           'signup': (context) => const SignUp(),

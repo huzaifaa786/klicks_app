@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/api/strip.dart';
+import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/model/lang.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
+import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
 import 'package:klicks_app/static/profile.tile.dart';
@@ -22,6 +25,21 @@ class ProfileScreeen extends StatefulWidget {
 }
 
 class _ProfileScreeenState extends State<ProfileScreeen> {
+  Account? account;
+  getbalance() async {
+    var mbalance = await StripeApi.balance();
+    setState(() {
+      account = mbalance;
+    });
+  }
+
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getbalance();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,14 +79,16 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                             Row(
                               children: [
                                 Text(
-                                  'AED',
+                                  'AED ',
                                   style: TextStyle(
                                       fontSize: 28,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  ' 250.00',
+                                  account == null
+                                      ? "0"
+                                      : account!.balance.toString(),
                                   style: TextStyle(
                                       fontSize: 30,
                                       color: Colors.white,
@@ -82,7 +102,12 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                               child: IconsButton(
                                 title: 'Add Fund',
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'top_up');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => TopUp(
+                                             
+                                              )));
                                 },
                                 iconTrue: false,
                                 imgicon: 'assets/images/voilt.svg',

@@ -1,12 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:klicks_app/api/strip.dart';
+import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/static/box.dart';
 import 'package:klicks_app/static/button.dart';
+import 'package:klicks_app/static/inputfield.dart';
 import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class TopUp extends StatefulWidget {
-  const TopUp({super.key});
+ 
 
   @override
   State<TopUp> createState() => _TopUpState();
@@ -21,6 +30,66 @@ class _TopUpState extends State<TopUp> {
     setState(() {
       _site = value;
     });
+  }
+
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
+  //     print(widget.user_id);
+  //   });
+  //   super.initState();
+  // }
+
+  paayment() async {
+    LoadingHelper.show();
+    var data = await StripeApi.paymentIntent(Selectedvalue);
+    data = jsonDecode(data.toString());
+    print('sdsa');
+    print(data['paymentIntent']);
+    await Stripe.instance.initPaymentSheet(
+      paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: data['paymentIntent'],
+          merchantDisplayName: 'Klicks',
+          // Customer params
+          customerId: data['customer'].toString(),
+          customerEphemeralKeySecret: data['ephemeralKey'].toString(),
+          // Extra params
+          applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
+          googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
+          style: ThemeMode.dark,
+          customFlow: true
+          // billingDetails: billingDetails,
+          ),
+    );
+    LoadingHelper.dismiss();
+    confirmPayment();
+  }
+
+  Future<bool> confirmPayment() async {
+    print("Asdfasdfsdfasfd");
+
+    try {
+      // 3. display the payment sheet.
+      await Stripe.instance.presentPaymentSheet();
+      print('object');
+
+      Fluttertoast.showToast(msg: 'Payment succesfully completed');
+      addbalance();
+      return true;
+    } on Exception catch (e) {
+      if (e is StripeException) {
+        print('adsfasdfasdfadsfadsfa');
+        Fluttertoast.showToast(
+            msg: 'Error from Stripe: ${e.error.localizedMessage}');
+        return false;
+      } else {
+        Fluttertoast.showToast(msg: 'Unforeseen error: ${e}');
+        return false;
+      }
+    }
+  }
+
+  addbalance() {
+    StripeApi.addbalance(Selectedvalue);
   }
 
   @override
@@ -57,24 +126,30 @@ class _TopUpState extends State<TopUp> {
                       padding: const EdgeInsets.only(
                         top: 10,
                       ),
-                      child: Container(
-                          height: 105,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'AED 10',
-                                style: TextStyle(
-                                    fontSize: 45, fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          )),
+                      child: InkWell(
+                        onTap: () {
+                          Enteramount();
+                        },
+                        child: Container(
+                            height: 105,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'AED ' + Selectedvalue!,
+                                  style: TextStyle(
+                                      fontSize: 45,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            )),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 15),
@@ -85,37 +160,37 @@ class _TopUpState extends State<TopUp> {
                             title: 'AED 10',
                             ontap: () {
                               setState(() {
-                                Selectedvalue = 'AED 10';
+                                Selectedvalue = '10';
                               });
                             },
-                            selected: Selectedvalue == 'AED 10' ? true : false,
+                            selected: Selectedvalue == '10' ? true : false,
                           ),
                           Box(
                             title: 'AED 20',
                             ontap: () {
                               setState(() {
-                                Selectedvalue = 'AED 20';
+                                Selectedvalue = '20';
                               });
                             },
-                            selected: Selectedvalue == 'AED 20' ? true : false,
+                            selected: Selectedvalue == '20' ? true : false,
                           ),
                           Box(
                             title: 'AED 50',
                             ontap: () {
                               setState(() {
-                                Selectedvalue = 'AED 50';
+                                Selectedvalue = '50';
                               });
                             },
-                            selected: Selectedvalue == 'AED 50' ? true : false,
+                            selected: Selectedvalue == '50' ? true : false,
                           ),
                           Box(
                             title: 'AED 100',
                             ontap: () {
                               setState(() {
-                                Selectedvalue = 'AED 100';
+                                Selectedvalue = '100';
                               });
                             },
-                            selected: Selectedvalue == 'AED 100' ? true : false,
+                            selected: Selectedvalue == '100' ? true : false,
                           ),
                         ],
                       ),
@@ -193,12 +268,55 @@ class _TopUpState extends State<TopUp> {
                     ),
                   ],
                 ),
-                LargeButton(title: 'Add', onPressed: () {})
+                LargeButton(
+                    title: 'Add',
+                    onPressed: () {
+                      paayment();
+                    })
               ],
             ),
           ),
         ],
       )),
     );
+  }
+
+  Enteramount() {
+    TextEditingController amount = TextEditingController();
+
+    Alert(
+        context: context,
+        title: "Enter your amount",
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 6),
+            Text(
+              "Enter Amount",
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            ),
+            SizedBox(height: 4),
+            InputField(
+              hint: 'Enter your amount',
+              controller: amount,
+              type: TextInputType.number,
+            ),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            color: mainColor,
+            onPressed: () async {
+              setState(() {
+                Selectedvalue = amount.text;
+              });
+              Navigator.pop(context);
+            },
+            child: Text(
+              "Add",
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          )
+        ]).show();
   }
 }
