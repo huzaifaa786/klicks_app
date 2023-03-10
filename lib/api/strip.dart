@@ -44,7 +44,7 @@ class StripeApi {
     var data;
     final prefs = await SharedPreferences.getInstance();
     data = {
-      'balance':int.parse(Selectedvalue) ,
+      'balance': int.parse(Selectedvalue),
       'id': prefs.getString('user_id'),
     };
 
@@ -57,6 +57,7 @@ class StripeApi {
     Account account = Account(response['account']);
     return account;
   }
+
   static subtract(price) async {
     LoadingHelper.show();
 
@@ -64,7 +65,7 @@ class StripeApi {
     var data;
     final prefs = await SharedPreferences.getInstance();
     data = {
-      'balance':int.parse(price) ,
+      'balance': int.parse(price),
       'id': prefs.getString('user_id'),
     };
 

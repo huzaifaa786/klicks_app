@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CheckOutInputField extends StatelessWidget {
   const CheckOutInputField(
@@ -67,7 +69,7 @@ class CheckOutInputField extends StatelessWidget {
               onTap: onpressed,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10,right: 10),
-                child: readOnly == false? Text('Apply',style: TextStyle(color: mainColor),) : Text('Remove',style: TextStyle(color: Colors.red),),
+                child: readOnly == false? Text(LocaleKeys.Apply.tr(),style: TextStyle(color: mainColor),) : Text('Remove',style: TextStyle(color: Colors.red),),
               ),
             ),
             contentPadding: EdgeInsets.only(left: 12),

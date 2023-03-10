@@ -39,9 +39,11 @@ void main() async {
   runApp(EasyLocalization(
       supportedLocales: Language.all,
       path: 'assets/translations',
-      fallbackLocale: Language.all[0],
+      useFallbackTranslations: true,
+      fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
-      child: const MyApp()));
+      child: const MyApp())
+      );
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -71,13 +73,13 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        locale: context.locale,
+        // locale: context.locale,
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(),
         theme: Styles.lightTheme,
         title: "Klicks",
-        initialRoute: 'Numlogin',
+        initialRoute: 'splash',
         routes: {
           'splash': (context) => const SplashScreen(),
           'login': (context) => const LoginScreen(),

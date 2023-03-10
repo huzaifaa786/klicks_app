@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CheckOutButton extends StatelessWidget {
   const CheckOutButton({super.key,this.ontap,this.price});
@@ -29,7 +31,7 @@ class CheckOutButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Total",
+                    LocaleKeys.Total.tr(),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -62,7 +64,7 @@ class CheckOutButton extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Checkout',
+                    LocaleKeys.Checkout.tr(),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,

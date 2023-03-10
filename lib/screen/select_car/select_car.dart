@@ -12,8 +12,10 @@ import 'package:klicks_app/static/checkoutBtn.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/topbar.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CarSelect extends StatefulWidget {
   CarSelect({
@@ -131,35 +133,35 @@ class _CarSelectState extends State<CarSelect> {
                           Padding(
                             padding: EdgeInsets.only(bottom: 6),
                             child: Text(
-                              "Floor Number",
+                              LocaleKeys.Floor_Number.tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14),
                             ),
                           ),
                           IconInputField(
                             imageIcon: 'assets/images/floor.svg',
-                            hint: 'Enter Floor number',
+                            hint: LocaleKeys.Enter_Floor_Number.tr(),
                             controller: floorNumberController,
                             onChange: floorNumber,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: 6, top: 12),
                             child: Text(
-                              "Parking Number",
+                              LocaleKeys.Parking_Number.tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14),
                             ),
                           ),
                           IconInputField(
                             imageIcon: 'assets/images/parking.svg',
-                            hint: 'Enter parking number',
+                            hint: LocaleKeys.Enter_Parking_Number.tr(),
                             controller: parkingNumberController,
                             onChange: parkingNumber,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: 6, top: 12),
                             child: Text(
-                              "Plate Number",
+                              LocaleKeys.Plate_Number.tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14),
                             ),
@@ -167,13 +169,13 @@ class _CarSelectState extends State<CarSelect> {
                           IconInputField(
                             controller: plateNumberController,
                             imageIcon: 'assets/images/plate.svg',
-                            hint: 'Enter Plate Number',
+                            hint: LocaleKeys.Enter_Plate_Number.tr(),
                             onChange: plateNumber,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: 12, top: 12),
                             child: Text(
-                              "Selected Mall",
+                              LocaleKeys.Selected_Mall.tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14),
                             ),
@@ -213,7 +215,7 @@ class _CarSelectState extends State<CarSelect> {
                           Padding(
                             padding: EdgeInsets.only(bottom: 12, top: 16),
                             child: Text(
-                              "Selected Company",
+                              LocaleKeys.Selected_Company.tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14),
                             ),
@@ -259,7 +261,7 @@ class _CarSelectState extends State<CarSelect> {
                           //   ),
                           // ),
                           MultiSelectFormField(
-                            title: Text("Add Extra Services"),
+                            title: Text(LocaleKeys.Add_Extra_Services.tr()),
                             validator: (value) {
                               if (value == null || value.length == 0) {
                                 return '';
@@ -288,8 +290,8 @@ class _CarSelectState extends State<CarSelect> {
                                     BorderRadius.all(Radius.circular(12.0))),
                             textField: 'display',
                             valueField: 'value',
-                            okButtonLabel: 'OK',
-                            cancelButtonLabel: 'CANCEL',
+                            okButtonLabel: LocaleKeys.OK.tr(),
+                            cancelButtonLabel: LocaleKeys.CANCEL.tr(),
                             hintWidget: Text('choose services'),
                             initialValue: null,
                             onSaved: (value) {

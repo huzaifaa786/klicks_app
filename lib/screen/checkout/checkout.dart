@@ -16,7 +16,9 @@ import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
 import 'package:klicks_app/static/tip_field.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
@@ -163,7 +165,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    'Checkout',
+                    LocaleKeys.Checkout.tr(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -173,27 +175,27 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
                 SizedBox(height: 16),
                 CheckOutTile(
-                  title: 'Vehicle Type',
+                  title: LocaleKeys.Vehicle_Type.tr() + ':',
                   discription: widget.data!.selectedcartype,
                 ),
                 CheckOutTile(
-                  title: 'Build Company:',
+                  title: LocaleKeys.Build_Company.tr() + ':',
                   discription: widget.data!.company!.name,
                 ),
                 CheckOutTile(
-                  title: 'Number Plate:',
+                  title: LocaleKeys.Number_Plate.tr() + ':',
                   discription: widget.data!.plateNumber,
                 ),
                 CheckOutTile(
-                  title: 'Parking Number:',
+                  title: LocaleKeys.Parking_Number.tr() + ':',
                   discription: widget.data!.parkingNumber,
                 ),
                 CheckOutTile(
-                  title: 'Mall',
+                  title: LocaleKeys.Mall.tr() + ':',
                   discription: widget.data!.mall!.name,
                 ),
                 CheckOutTile(
-                  title: 'Extras: ',
+                  title: LocaleKeys.Mall.tr() + ':',
                   discription: widget.data!.extraService == null
                       ? 'No, Extra service added'
                       : widget.data!.extraService!.length.toString() +
@@ -202,7 +204,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
                 SizedBox(height: 12),
                 CheckOutInputField(
-                  hint: 'Enter Coupon Code',
+                  hint: LocaleKeys.Enter_Coupon_Code.tr(),
                   onpressed: () {
                     setState(() {
                       val = !val;
@@ -236,7 +238,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Add Tip'),
+                            Text(LocaleKeys.Add_Tip.tr()),
                             tip == false
                                 ? Icon(
                                     Icons.add,
@@ -253,7 +255,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 padding: const EdgeInsets.only(top: 8),
                                 child: TipInputField(
                                   color: fieldColor,
-                                  hint: 'Enter Tip',
+                                  hint: LocaleKeys.Enter_Tip.tr(),
                                   type: TextInputType.number,
                                   controller: tipcontroller,
                                   onpressed: () {
@@ -300,7 +302,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Subtotal"),
+                          Text(LocaleKeys.Subtotal.tr()),
                           Text('AED' + ' ' + widget.data!.price.toString())
                         ],
                       ),
@@ -309,7 +311,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Tip"),
+                            Text(LocaleKeys.Tip.tr()),
                             Text('AED' + ' ' + tipcontroller.text),
                           ],
                         ),
@@ -319,7 +321,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("discount amount"),
+                            Text(LocaleKeys.discount_amount.tr()),
                             Text("10%"),
                           ],
                         ),
@@ -329,7 +331,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Total Bill:",
+                            LocaleKeys.Total_bill.tr() ,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 20),
                           ),
@@ -371,7 +373,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 12, top: 12),
                         child: Text(
-                          "Payment method",
+                          LocaleKeys.Payment_Method.tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 21),
                         ),
@@ -379,7 +381,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 12, top: 8),
                         child: Text(
-                          "Select your payment method ",
+                          LocaleKeys.Select_your_Payment_Method.tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
@@ -434,7 +436,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     // Navigator.pushNamed(context, 'booking_confirm');
                     await paayment();
                   },
-                  title: "continue",
+                  title: LocaleKeys.continu.tr(),
                 ),
                 SizedBox(
                   height: 20,

@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TipInputField extends StatelessWidget {
   const TipInputField(
@@ -76,7 +78,7 @@ class TipInputField extends StatelessWidget {
                     ? InkWell(
                       onTap: onpressed,
                       child: Text(
-                          'Apply',
+                          LocaleKeys.Apply.tr(),
                           style: TextStyle(color: mainColor),
                         ),
                     )
