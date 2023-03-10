@@ -44,18 +44,24 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
+  int? total;
+
   balance() {
-    StripeApi.subtract(widget.data!.price);
+    StripeApi.subtract(total);
+  }
+
+  walletpayment() {
+    if (account!.balance! <= total!) {
+      Fluttertoast.showToast(msg: 'wallet amount is less then order amount');
+    } else {
+      orderPlaced();
+      balance();
+    }
   }
 
   paayment() async {
     LoadingHelper.show();
-    if (account!.balance! < widget.data!.price)
-      Fluttertoast.showToast(msg: 'wallet amount is less then order amount');
-    {
-      orderPlaced();
-      balance();
-    }
+
     var data = await StripeApi.paymentIntent(
       widget.data!.price,
     );
@@ -140,6 +146,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getbalance();
     });
+    total = widget.data!.price;
     super.initState();
   }
 
@@ -263,15 +270,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       val1 = !val1;
                                       tipcontroller.text == ''
                                           ? Addtip = int.parse('0')
-                                          : Addtip =
+                                          : total = total! +
                                               int.parse(tipcontroller.text);
                                     });
                                   },
                                   onRmvPressed: () {
                                     setState(() {
                                       val1 = !val1;
+                                      // tipcontroller.text = '';
+                                      total = total! -
+                                          int.parse(tipcontroller.text);
                                       tipcontroller.text = '';
-                                      Addtip = int.parse('0');
                                     });
                                   },
                                   readOnly: val1,
@@ -337,8 +346,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                           Row(
                             children: [
-                              Text(
-                                  '${int.parse(widget.data!.price.toString()) + Addtip!}',
+                              Text('${total}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20)),
@@ -434,7 +442,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 LargeButton(
                   onPressed: () async {
                     // Navigator.pushNamed(context, 'booking_confirm');
-                    await paayment();
+                    _site == PayMethod.materCard
+                        ? await paayment()
+                        : walletpayment();
                   },
                   title: LocaleKeys.continu.tr(),
                 ),

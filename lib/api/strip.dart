@@ -65,7 +65,7 @@ class StripeApi {
     var data;
     final prefs = await SharedPreferences.getInstance();
     data = {
-      'balance': int.parse(price),
+      'balance':int.parse(price.toString()) ,
       'id': prefs.getString('user_id'),
     };
 

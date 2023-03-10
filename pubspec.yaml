@@ -63,6 +63,7 @@ dependencies:
   cloud_firestore: ^4.4.3
   easy_localization: ^3.0.1
   toggle_switch: ^2.0.1
+  firebase_auth: ^4.2.10
 
   
 
