@@ -40,7 +40,7 @@ void main() async {
       supportedLocales: Language.all,
       path: 'assets/translations',
       useFallbackTranslations: true,
-      fallbackLocale: Locale('en'),
+      fallbackLocale: Language.all[0],
       assetLoader: CodegenLoader(),
       child: const MyApp())
       );
@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        // locale: context.locale,
+        locale: context.locale,
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(),

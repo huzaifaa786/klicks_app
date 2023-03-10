@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:klicks_app/static/button.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BookingConfirm extends StatefulWidget {
   const BookingConfirm({super.key});
@@ -33,7 +35,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                     top: 21,
                   ),
                   child: Text(
-                    'Booking Confirmed!',
+                    LocaleKeys.Booking_Confirmed.tr(),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -43,7 +45,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
               Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: Text(
-                  'Your order has been placed successfully.',
+                  LocaleKeys.Your_order_has_been_placed_successfully.tr(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 13,
@@ -51,18 +53,18 @@ class _BookingConfirmState extends State<BookingConfirm> {
                       fontFamily: 'Poppins'),
                 ),
               ),
-              Text(
-                'Order Tracking Id: #2344',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Poppins'),
-              ),
+              // Text(
+              //   'Order Tracking Id: #2344',
+              //   style: TextStyle(
+              //       color: Colors.white,
+              //       fontSize: 13,
+              //       fontWeight: FontWeight.w400,
+              //       fontFamily: 'Poppins'),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 49),
                 child: LargeButton(
-                  title: 'Got IT',
+                  title: LocaleKeys.Got_IT.tr(),
                   screenRatio: 0.75,
                   onPressed: () {
                     Navigator.pushNamed(context, 'home');

@@ -11,7 +11,7 @@ class LoadingHelper {
     onChangeAbsorbClick();
     EasyLoading.show(
       status: 'Loading...',
-      maskType: EasyLoadingMaskType.none,
+      maskType: EasyLoadingMaskType.black,
       indicator: CircularProgressIndicator(
         backgroundColor: Colors.white,
         valueColor: AlwaysStoppedAnimation<Color>(mainColor),

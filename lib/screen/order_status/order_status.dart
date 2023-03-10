@@ -1,16 +1,15 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/model/Order.dart';
 import 'package:klicks_app/model/extra_services_detail.dart';
 import 'package:klicks_app/static/badge.dart';
-import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OrderStatus extends StatefulWidget {
   const OrderStatus({super.key, this.order});
@@ -55,7 +54,7 @@ class _OrderStatusState extends State<OrderStatus> {
                     Padding(
                       padding: const EdgeInsets.only(right: 12.0),
                       child: Text(
-                        'Order Detail',
+                        LocaleKeys.Order_Detail.tr(),
                         style: TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w600,
@@ -67,23 +66,23 @@ class _OrderStatusState extends State<OrderStatus> {
                 ),
                 SizedBox(height: 20),
                 CheckOutTile(
-                  title: 'Vehicle Type',
+                  title: LocaleKeys.Vehicle_Type.tr() +':',
                   discription: widget.order!.cartype,
                 ),
                 CheckOutTile(
-                  title: 'Build Company:',
+                  title: LocaleKeys.Build_Company.tr() + ':',
                   discription: widget.order!.company,
                 ),
                 CheckOutTile(
-                  title: 'Number Plate:',
+                  title: LocaleKeys.Number_Plate.tr() + ':',
                   discription: widget.order!.plate_number,
                 ),
                 CheckOutTile(
-                  title: 'Parking Number:',
+                  title: LocaleKeys.Parking_Number.tr() + ':',
                   discription: widget.order!.parking,
                 ),
                 CheckOutTile(
-                  title: 'Mall',
+                  title: LocaleKeys.Mall.tr() + ':',
                   discription: widget.order!.mall,
                 ),
                 Row(
@@ -92,7 +91,7 @@ class _OrderStatusState extends State<OrderStatus> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: Text(
-                        'Extras: ',
+                        LocaleKeys.Extras.tr() + ':',
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
@@ -137,7 +136,7 @@ class _OrderStatusState extends State<OrderStatus> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Status',
+                            LocaleKeys.Status.tr() + ':',
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14,
@@ -155,7 +154,7 @@ class _OrderStatusState extends State<OrderStatus> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Status',
+                                LocaleKeys.Status.tr() + ':',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14,
@@ -174,7 +173,7 @@ class _OrderStatusState extends State<OrderStatus> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Status',
+                                    LocaleKeys.Status.tr() + ':',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14,
@@ -191,7 +190,7 @@ class _OrderStatusState extends State<OrderStatus> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Status',
+                                LocaleKeys.Status.tr() + ':',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14,

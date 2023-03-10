@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Order extends StatelessWidget {
   const Order({
@@ -50,7 +52,7 @@ class Order extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'order id :',
+                        LocaleKeys.order_id.tr() + ':',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Text(orderId),

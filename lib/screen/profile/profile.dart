@@ -71,7 +71,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Your Balance',
+                              LocaleKeys.Your_Balance.tr(),
                               style: TextStyle(
                                   fontSize: 22,
                                   color: Colors.white,
@@ -124,7 +124,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     padding: const EdgeInsets.only(top: 30),
                     child: ProfileTile(
                       image: 'assets/images/profile.svg',
-                      text: 'Edit Profile',
+                      text: LocaleKeys.Edit_Profile.tr(),
                       ontap: () {
                         Navigator.pushNamed(context, 'edit_profile');
                       },
@@ -134,9 +134,9 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     padding: const EdgeInsets.only(top: 10),
                     child: ProfileTile(
                       image: 'assets/images/language.svg',
-                      text: 'Language',
+                      text: LocaleKeys.Language.tr(),
                       ontap: () {
-                        context.setLocale(Language.all[1]);
+                        context.setLocale(Language.all[0]);
                       },
                     ),
                   ),
@@ -152,7 +152,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     padding: const EdgeInsets.only(top: 14),
                     child: LogOutTile(
                         image: 'assets/images/logout.svg',
-                        text: 'Log out',
+                        text: LocaleKeys.Log_out.tr(),
                         ontap: () {
                           AuthApi.logout();
                           Navigator.pushNamedAndRemoveUntil(
