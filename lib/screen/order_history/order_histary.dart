@@ -90,7 +90,7 @@ class _OrderHistryState extends State<OrderHistry> {
                     hint: LocaleKeys.search.tr(),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 13.6),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.70,
                   child: ListView.builder(
@@ -101,7 +101,7 @@ class _OrderHistryState extends State<OrderHistry> {
                             monthNames[SearchOrders[index].dateTime!.month];
                         return Order(
                           orderId: SearchOrders[index].id.toString(),
-                          companyname: SearchOrders[index].company,
+                          price: SearchOrders[index].price,
                           cartype: SearchOrders[index].cartype,
                           dateTime: monthName +
                               ' ' +

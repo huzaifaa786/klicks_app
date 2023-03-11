@@ -1,13 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/model/lang.dart';
-import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
@@ -16,7 +12,6 @@ import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
 class ProfileScreeen extends StatefulWidget {
   const ProfileScreeen({super.key});
@@ -106,9 +101,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => TopUp(
-                                             
-                                              )));
+                                          builder: (context) => TopUp()));
                                 },
                                 iconTrue: false,
                                 imgicon: 'assets/images/voilt.svg',
@@ -136,7 +129,9 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                       image: 'assets/images/language.svg',
                       text: LocaleKeys.Language.tr(),
                       ontap: () {
-                        context.setLocale(Language.all[0]);
+                        setState(() {
+                          context.setLocale(Language.all[0]);
+                        });
                       },
                     ),
                   ),

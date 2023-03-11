@@ -47,41 +47,45 @@ class CheckOutInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      child: Material(
-        elevation: 2,
-        shadowColor:Colors.grey.withOpacity(0.1),
-        child: TextFormField(
-          readOnly: readOnly,
-          enabled: enabled,
-          controller: controller,
-          style: TextStyle(fontSize: fontSize),
-          keyboardType: type,
-          validator: validator,
-          // autovalidateMode: autovalidateMode ??
-          //     (validate == true
-          //         ? AutovalidateMode.always
-          //         : AutovalidateMode.onUserInteraction),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: color,
-            hintText: hint,
-            suffixIcon: InkWell(
-              onTap: onpressed,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10,right: 10),
-                child: readOnly == false? Text(LocaleKeys.Apply.tr(),style: TextStyle(color: mainColor),) : Text('Remove',style: TextStyle(color: Colors.red),),
-              ),
-            ),
-            contentPadding: EdgeInsets.only(left: 12),
-            hintStyle: TextStyle(color: hintColor),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              borderSide: BorderSide.none,
+      child: TextFormField(
+        readOnly: readOnly,
+        enabled: enabled,
+        controller: controller,
+        style: TextStyle(fontSize: fontSize),
+        keyboardType: type,
+        validator: validator,
+        // autovalidateMode: autovalidateMode ??
+        //     (validate == true
+        //         ? AutovalidateMode.always
+        //         : AutovalidateMode.onUserInteraction),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: color,
+          hintText: hint,
+          suffixIcon: InkWell(
+            onTap: onpressed,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10,right: 10),
+              child: readOnly == false? Text(LocaleKeys.Apply.tr(),style: TextStyle(color: mainColor),) : Text('Remove',style: TextStyle(color: Colors.red),),
             ),
           ),
-          cursorColor: Colors.black,
-          maxLines: maxlines == true ? null : 1,
+          contentPadding: EdgeInsets.only(left: 12),
+          hintStyle: TextStyle(color: hintColor),
+          enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
+        ),
+          // border: OutlineInputBorder(
+          //   borderRadius: BorderRadius.all(Radius.circular(6)),
+          //   // borderSide: BorderSide.none,
+          // ),
+        ),
+        cursorColor: Colors.black,
+        maxLines: maxlines == true ? null : 1,
       ),
     );
   }

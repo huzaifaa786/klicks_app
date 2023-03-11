@@ -60,7 +60,7 @@ class IconInputField extends StatelessWidget {
         //         : AutovalidateMode.onUserInteraction),
         decoration: InputDecoration(
           filled: true,
-          fillColor: fieldColor,
+          fillColor: White,
           hintText: hint,
           contentPadding: EdgeInsets.only(top: 2),
           hintStyle: TextStyle(color: hintColor),
@@ -72,10 +72,15 @@ class IconInputField extends StatelessWidget {
               width: 18,
             ),
           ),
-          border: OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
             borderRadius: BorderRadius.all(
                 rounded == true ? Radius.circular(45) : Radius.circular(6)),
-            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
+            borderRadius: BorderRadius.all(
+                rounded == true ? Radius.circular(45) : Radius.circular(6)),
           ),
         ),
         cursorColor: Colors.black,

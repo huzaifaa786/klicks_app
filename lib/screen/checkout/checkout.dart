@@ -16,6 +16,7 @@ import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
 import 'package:klicks_app/static/tip_field.dart';
+import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -153,307 +154,329 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: SvgPicture.asset('assets/images/backArrow.svg'),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text(
-                    LocaleKeys.Checkout.tr(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                CheckOutTile(
-                  title: LocaleKeys.Vehicle_Type.tr() + ':',
-                  discription: widget.data!.selectedcartype,
-                ),
-                CheckOutTile(
-                  title: LocaleKeys.Build_Company.tr() + ':',
-                  discription: widget.data!.company!.name,
-                ),
-                CheckOutTile(
-                  title: LocaleKeys.Number_Plate.tr() + ':',
-                  discription: widget.data!.plateNumber,
-                ),
-                CheckOutTile(
-                  title: LocaleKeys.Parking_Number.tr() + ':',
-                  discription: widget.data!.parkingNumber,
-                ),
-                CheckOutTile(
-                  title: LocaleKeys.Mall.tr() + ':',
-                  discription: widget.data!.mall!.name,
-                ),
-                CheckOutTile(
-                  title: LocaleKeys.Mall.tr() + ':',
-                  discription: widget.data!.extraService == null
-                      ? 'No, Extra service added'
-                      : widget.data!.extraService!.length.toString() +
-                          ' ' +
-                          'Extra service added',
-                ),
-                SizedBox(height: 12),
-                CheckOutInputField(
-                  hint: LocaleKeys.Enter_Coupon_Code.tr(),
-                  onpressed: () {
-                    setState(() {
-                      val = !val;
-                    });
-                  },
-                  readOnly: val,
-                ),
-                SizedBox(height: 12),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      tip = !tip;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
-                    decoration: BoxDecoration(
-                      color: White,
-                      borderRadius: BorderRadius.all(Radius.circular(6)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(LocaleKeys.Add_Tip.tr()),
-                            tip == false
-                                ? Icon(
-                                    Icons.add,
-                                    color: mainColor,
-                                  )
-                                : Icon(
-                                    Icons.close,
-                                    color: Colors.red,
-                                  )
-                          ],
-                        ),
-                        tip == true
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: TipInputField(
-                                  color: fieldColor,
-                                  hint: LocaleKeys.Enter_Tip.tr(),
-                                  type: TextInputType.number,
-                                  controller: tipcontroller,
-                                  onpressed: () {
-                                    setState(() {
-                                      val1 = !val1;
-                                      tipcontroller.text == ''
-                                          ? Addtip = int.parse('0')
-                                          : total = total! +
-                                              int.parse(tipcontroller.text);
-                                    });
-                                  },
-                                  onRmvPressed: () {
-                                    setState(() {
-                                      val1 = !val1;
-                                      // tipcontroller.text = '';
-                                      total = total! -
-                                          int.parse(tipcontroller.text);
-                                      tipcontroller.text = '';
-                                    });
-                                  },
-                                  readOnly: val1,
-                                ),
-                              )
-                            : Container()
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 12),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: White,
-                    borderRadius: BorderRadius.all(Radius.circular(6)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(LocaleKeys.Subtotal.tr()),
-                          Text('AED' + ' ' + widget.data!.price.toString())
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(LocaleKeys.Tip.tr()),
-                            Text('AED' + ' ' + tipcontroller.text),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(LocaleKeys.discount_amount.tr()),
-                            Text("10%"),
-                          ],
-                        ),
-                      ),
-                      Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            LocaleKeys.Total_bill.tr() ,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 20),
-                          ),
-                          Row(
-                            children: [
-                              Text('${total}',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20)),
-                              Text('AED',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20))
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 12),
-                Container(
-                  decoration: BoxDecoration(
-                    color: White,
-                    borderRadius: BorderRadius.all(Radius.circular(6)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
+        child: Column(
+          children: [
+            TitleTopbar(
+              text: 'Checkout',
+              ontap: () {
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.89,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12, top: 12),
-                        child: Text(
-                          LocaleKeys.Payment_Method.tr(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 21),
+                      SizedBox(height: 16),
+                      Container(
+                        margin: EdgeInsets.only(right: 2, left: 1),
+                        padding: EdgeInsets.only(right: 12,left: 12,top: 16,bottom: 16),
+                        decoration: BoxDecoration(
+                          color: White,
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            CheckOutTile(
+                              title: LocaleKeys.Vehicle_Type.tr() + ':',
+                              discription: widget.data!.selectedcartype,
+                              image: 'assets/images/vehicleType.svg',
+                            ),
+                            CheckOutTile(
+                              title: LocaleKeys.Build_Company.tr() + ':',
+                              discription: widget.data!.company!.name,
+                              image: 'assets/images/providerCompany.svg',
+                            ),
+                            CheckOutTile(
+                              title: LocaleKeys.Number_Plate.tr() + ':',
+                              discription: widget.data!.plateNumber,
+                              image: 'assets/images/numberPlate.svg',
+                            ),
+                            CheckOutTile(
+                              title: LocaleKeys.Parking_Number.tr() + ':',
+                              discription: widget.data!.parkingNumber,
+                              image: 'assets/images/parkingNumber.svg'
+                            ),
+                            CheckOutTile(
+                              title: LocaleKeys.Mall.tr() + ':',
+                              discription: widget.data!.mall!.name,
+                              image: 'assets/images/mallCheckout.svg'
+                            ),
+                             CheckOutTile(
+                              title: LocaleKeys.Floor_Number.tr() + ':',
+                              discription: widget.data!.floorNumber!,
+                              image: 'assets/images/floorNumberCheck.svg'
+                            ),
+                            CheckOutTile(
+                              title: LocaleKeys.Extras.tr() + ':',
+                              discription: widget.data!.extraService == null
+                                  ? 'No, Extra service added'
+                                  : widget.data!.extraService!.length
+                                          .toString() +
+                                      ' ' +
+                                      'Extra service added',
+                                      image: 'assets/images/Extras.svg'
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12, top: 8),
-                        child: Text(
-                          LocaleKeys.Select_your_Payment_Method.tr(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: hintColor),
+                      SizedBox(height: 18),
+                      CheckOutInputField(
+                        hint: LocaleKeys.Enter_Coupon_Code.tr(),
+                        onpressed: () {
+                          setState(() {
+                            val = !val;
+                          });
+                        },
+                        readOnly: val,
+                      ),
+                      SizedBox(height: 12),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            tip = !tip;
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
+                          decoration: BoxDecoration(
+                            color: White,
+                            borderRadius: BorderRadius.all(Radius.circular(6)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 1,
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                            border: Border.all(
+                              color: Colors.grey[300]!,
+                              width: 1.0,
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(LocaleKeys.Add_Tip.tr()),
+                                  tip == false
+                                      ? Icon(
+                                          Icons.add,
+                                          color: mainColor,
+                                        )
+                                      : Icon(
+                                          Icons.close,
+                                          color: Colors.red,
+                                        )
+                                ],
+                              ),
+                              tip == true
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: TipInputField(
+                                        // color: wh,
+                                        hint: LocaleKeys.Enter_Tip.tr(),
+                                        type: TextInputType.number,
+                                        controller: tipcontroller,
+                                        onpressed: () {
+                                          setState(() {
+                                            val1 = !val1;
+                                            tipcontroller.text == ''
+                                                ? Addtip = int.parse('0')
+                                                : total = total! +
+                                                    int.parse(
+                                                        tipcontroller.text);
+                                          });
+                                        },
+                                        onRmvPressed: () {
+                                          setState(() {
+                                            val1 = !val1;
+                                            // tipcontroller.text = '';
+                                            total = total! -
+                                                int.parse(tipcontroller.text);
+                                            tipcontroller.text = '';
+                                          });
+                                        },
+                                        readOnly: val1,
+                                      ),
+                                    )
+                                  : Container()
+                            ],
+                          ),
                         ),
                       ),
-                      PPaymentMethod(
-                        title: 'Mastercard',
-                        image: "assets/images/masterCard.png",
-                        groupvalue: _site,
-                        value: PayMethod.materCard,
-                        onchaged: () {
-                          toggleplan(PayMethod.materCard);
-                        },
+                      SizedBox(height: 12),
+                      Container(
+                        padding: EdgeInsets.only(top: 20,bottom: 20,right: 12,left: 12),
+                        decoration: BoxDecoration(
+                        color: White,
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(LocaleKeys.Subtotal.tr()),
+                                Text(
+                                    'AED' + ' ' + widget.data!.price.toString())
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(LocaleKeys.Tip.tr()),
+                                  Text('AED' + ' ' + tipcontroller.text),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(LocaleKeys.discount_amount.tr()),
+                                  Text("10%"),
+                                ],
+                              ),
+                            ),
+                            Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  LocaleKeys.Total_bill.tr(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+                                ),
+                                Row(
+                                  children: [
+                                    Text('${total}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20)),
+                                    Text('AED',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      PPaymentMethod(
-                        title: 'Google Pay',
-                        image: "assets/images/google.png",
-                        value: PayMethod.googlePay,
-                        groupvalue: _site,
-                        onchaged: () {
-                          toggleplan(PayMethod.googlePay);
-                        },
-                        onpress: () {},
+                      SizedBox(height: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12, top: 12),
+                            child: Text(
+                              LocaleKeys.Payment_Method.tr(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 21),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12, top: 8),
+                            child: Text(
+                              LocaleKeys.Select_your_Payment_Method.tr(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: hintColor),
+                            ),
+                          ),
+                          PPaymentMethod(
+                            title: 'Mastercard',
+                            image: "assets/images/masterCard.png",
+                            groupvalue: _site,
+                            value: PayMethod.materCard,
+                            onchaged: () {
+                              toggleplan(PayMethod.materCard);
+                            },
+                          ),
+                          PPaymentMethod(
+                            title: 'Google Pay',
+                            image: "assets/images/google.png",
+                            value: PayMethod.googlePay,
+                            groupvalue: _site,
+                            onchaged: () {
+                              toggleplan(PayMethod.googlePay);
+                            },
+                            onpress: () {},
+                          ),
+                          PPaymentMethod(
+                            title: 'Apple Pay',
+                            image: "assets/images/apple.png",
+                            groupvalue: _site,
+                            value: PayMethod.applePay,
+                            onchaged: () {
+                              toggleplan(PayMethod.applePay);
+                            },
+                          ),
+                          PPaymentMethod(
+                            title: 'wallet Pay',
+                            image: "assets/images/apple.png",
+                            groupvalue: _site,
+                            value: PayMethod.walletpay,
+                            onchaged: () {
+                              toggleplan(PayMethod.walletpay);
+                            },
+                          ),
+                        ],
                       ),
-                      PPaymentMethod(
-                        title: 'Apple Pay',
-                        image: "assets/images/apple.png",
-                        groupvalue: _site,
-                        value: PayMethod.applePay,
-                        onchaged: () {
-                          toggleplan(PayMethod.applePay);
-                        },
+                      SizedBox(
+                        height: 20,
                       ),
-                      PPaymentMethod(
-                        title: 'wallet Pay',
-                        image: "assets/images/apple.png",
-                        groupvalue: _site,
-                        value: PayMethod.walletpay,
-                        onchaged: () {
-                          toggleplan(PayMethod.walletpay);
+                      LargeButton(
+                        onPressed: () async {
+                          // Navigator.pushNamed(context, 'booking_confirm');
+                          _site == PayMethod.materCard
+                              ? await paayment()
+                              : walletpayment();
                         },
+                        title: LocaleKeys.continu.tr(),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                LargeButton(
-                  onPressed: () async {
-                    // Navigator.pushNamed(context, 'booking_confirm');
-                    _site == PayMethod.materCard
-                        ? await paayment()
-                        : walletpayment();
-                  },
-                  title: LocaleKeys.continu.tr(),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

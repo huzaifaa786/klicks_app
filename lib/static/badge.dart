@@ -19,16 +19,19 @@ class Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.35,
-      padding: EdgeInsets.only(top: 4, bottom: 4),
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(30)),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-              color: fieldColor, fontSize: 16, fontWeight: FontWeight.w400),
+    return Padding(
+      padding: const EdgeInsets.only(top: 30),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        padding: EdgeInsets.only(top: 12, bottom: 12),
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(30)),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+                color: fieldColor, fontSize: 16, fontWeight: FontWeight.w400),
+          ),
         ),
       ),
     );

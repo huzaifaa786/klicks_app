@@ -11,6 +11,7 @@ import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/checkoutBtn.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
+import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/static/topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -88,12 +89,18 @@ class _CarSelectState extends State<CarSelect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: SafeArea(
         child: Column(
           children: [
-            Topbar(),
+            TitleTopbar(
+              text: 'Details',
+              ontap: () {
+                Navigator.pop(context);
+              },
+            ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.89,
+              height: MediaQuery.of(context).size.height * 0.87,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,6 +111,14 @@ class _CarSelectState extends State<CarSelect> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              'Choose your car',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 14),
+                            ),
+                          ),
                           SelectCarCard(
                             image: 'assets/images/car1.png',
                             ontap: () {
@@ -330,7 +345,7 @@ class _CarSelectState extends State<CarSelect> {
                         if (data.floorNumber == null &&
                             data.plateNumber == null &&
                             data.parkingNumber == null) {
-                              print('object');
+                          print('object');
                         } else {
                           Navigator.push(
                             context,

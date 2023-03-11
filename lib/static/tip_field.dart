@@ -90,10 +90,14 @@ class TipInputField extends StatelessWidget {
             ),
             contentPadding: EdgeInsets.only(left: 12),
             hintStyle: TextStyle(color: hintColor),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              borderSide: BorderSide.none,
-            ),
+           enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
+            borderRadius: BorderRadius.all(Radius.circular(6)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
+            borderRadius: BorderRadius.all(Radius.circular(6)),
+          ),
           ),
           cursorColor: Colors.black,
           maxLines: maxlines == true ? null : 1,
