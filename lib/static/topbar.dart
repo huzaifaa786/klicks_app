@@ -10,21 +10,29 @@ class Topbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          const Image(
-            image: AssetImage(
-              'assets/images/logo1.png',
-            ),
-            height: 63,
-            width: 63,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Image(
+                image: AssetImage(
+                  'assets/images/logo1.png',
+                ),
+                height: 63,
+                width: 63,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, 'notification');
+                },
+                child: SvgPicture.asset('assets/images/bell.svg'),
+              )
+            ],
           ),
-          GestureDetector(
-            onTap: (){
-              Navigator.pushNamed(context, 'notification');
-            },
-            child: SvgPicture.asset('assets/images/bell.svg'),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Divider(),
           )
         ],
       ),

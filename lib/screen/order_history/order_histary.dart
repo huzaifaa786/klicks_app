@@ -5,6 +5,8 @@ import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
 import 'package:klicks_app/static/title_topbar.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OrderHistry extends StatefulWidget {
   const OrderHistry({super.key});
@@ -71,7 +73,7 @@ class _OrderHistryState extends State<OrderHistry> {
           child: Column(
         children: [
           TitleTopbar(
-            text: 'Order History',
+            text: LocaleKeys.Order_History.tr(),
             ontap: () {
               Navigator.pop(context);
             },
@@ -85,10 +87,10 @@ class _OrderHistryState extends State<OrderHistry> {
                   child: SearchBar(
                     onChange: searchOrders,
                     imageIcon: 'assets/images/search.png',
-                    hint: 'search',
+                    hint: LocaleKeys.search.tr(),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 13.6),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.70,
                   child: ListView.builder(
@@ -99,7 +101,7 @@ class _OrderHistryState extends State<OrderHistry> {
                             monthNames[SearchOrders[index].dateTime!.month];
                         return Order(
                           orderId: SearchOrders[index].id.toString(),
-                          companyname: SearchOrders[index].company,
+                          price: SearchOrders[index].price,
                           cartype: SearchOrders[index].cartype,
                           dateTime: monthName +
                               ' ' +

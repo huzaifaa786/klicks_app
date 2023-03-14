@@ -108,9 +108,10 @@ class CompanysDropdownField extends StatelessWidget {
           itemHeight: 40,
           icon: icon,
           buttonDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: fieldColor,
-          ),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey[300]!,
+              )),
         ),
       ),
     );

@@ -1,13 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/model/lang.dart';
-import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
@@ -70,7 +66,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Your Balance',
+                              LocaleKeys.Your_Balance.tr(),
                               style: TextStyle(
                                   fontSize: 22,
                                   color: Colors.white,
@@ -105,9 +101,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => TopUp(
-                                             
-                                              )));
+                                          builder: (context) => TopUp()));
                                 },
                                 iconTrue: false,
                                 imgicon: 'assets/images/voilt.svg',
@@ -123,7 +117,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     padding: const EdgeInsets.only(top: 30),
                     child: ProfileTile(
                       image: 'assets/images/profile.svg',
-                      text: 'Edit Profile',
+                      text: LocaleKeys.Edit_Profile.tr(),
                       ontap: () {
                         Navigator.pushNamed(context, 'edit_profile');
                       },
@@ -133,8 +127,12 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     padding: const EdgeInsets.only(top: 10),
                     child: ProfileTile(
                       image: 'assets/images/language.svg',
-                      text: 'Language',
-                      ontap: () {},
+                      text: LocaleKeys.Language.tr(),
+                      ontap: () {
+                        setState(() {
+                          context.setLocale(Language.all[0]);
+                        });
+                      },
                     ),
                   ),
                   // Padding(
@@ -149,7 +147,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                     padding: const EdgeInsets.only(top: 14),
                     child: LogOutTile(
                         image: 'assets/images/logout.svg',
-                        text: 'Log out',
+                        text: LocaleKeys.Log_out.tr(),
                         ontap: () {
                           AuthApi.logout();
                           Navigator.pushNamedAndRemoveUntil(

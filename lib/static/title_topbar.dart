@@ -15,13 +15,25 @@ class TitleTopbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+      padding: const EdgeInsets.only(top: 20, right: 20, left: 20 ,bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
             onTap: ontap,
-            child: SvgPicture.asset('assets/images/backArrow.svg'),
+            child: Container(
+              decoration: BoxDecoration(
+               border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(45),
+                  ),
+              ),
+              child: Icon(
+                Icons.keyboard_arrow_left_outlined,
+              ),
+            ),
           ),
           Text(
             text,

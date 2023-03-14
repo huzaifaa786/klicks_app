@@ -104,6 +104,15 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                                   ? mainColor
                                   : hintColor,
                             ),
+                            Text(
+                              "Home",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _navigationMenuIndex == 0
+                                    ? mainColor
+                                    : hintColor,
+                              ),
+                            )
                           ],
                         ),
                       ),

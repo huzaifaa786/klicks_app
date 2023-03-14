@@ -10,8 +10,10 @@ import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/inputfield.dart';
 import 'package:klicks_app/static/pass_inputfield_two.dart';
 import 'package:klicks_app/static/title_topbar.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -59,7 +61,7 @@ class _EditProfileState extends State<EditProfile> {
               ontap: () {
                 Navigator.pop(context);
               },
-              text: 'Edit Profile',
+              text: LocaleKeys.Edit_Profile.tr(),
             ),
             Flexible(
               child: Container(
@@ -74,7 +76,7 @@ class _EditProfileState extends State<EditProfile> {
                         Padding(
                           padding: EdgeInsets.only(top: 12.0, bottom: 6),
                           child: Text(
-                            "Username",
+                            LocaleKeys.Username.tr(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 16),
                           ),
@@ -87,7 +89,7 @@ class _EditProfileState extends State<EditProfile> {
                         Padding(
                           padding: EdgeInsets.only(top: 12.0, bottom: 6),
                           child: Text(
-                            "Phone Number",
+                            LocaleKeys.Phone_Number.tr(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 16),
                           ),
@@ -104,7 +106,7 @@ class _EditProfileState extends State<EditProfile> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Password",
+                                LocaleKeys.Password.tr(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 16),
                               ),
@@ -113,7 +115,7 @@ class _EditProfileState extends State<EditProfile> {
                                   ChangePassword(context, user!.email);
                                 },
                                 child: Text(
-                                  "Chnage Password",
+                                  LocaleKeys.Change_Password.tr(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16,
@@ -188,40 +190,40 @@ class _EditProfileState extends State<EditProfile> {
 
     Alert(
         context: context,
-        title: "Change Password",
+        title: LocaleKeys.Change_Password.tr(),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 6),
             Text(
-              "Current Password",
+              LocaleKeys.Current_Password.tr(),
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             SizedBox(height: 4),
             InputField(
-              hint: 'Enter current password',
+              hint: LocaleKeys.Enter_current_password.tr(),
               obscure: true,
               controller: currentPassword,
             ),
             SizedBox(height: 6),
             Text(
-              "New Password",
+              LocaleKeys.New_Password.tr(),
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             SizedBox(height: 4),
             InputField(
-              hint: 'Enter new password',
+              hint: LocaleKeys.Enter_new_password.tr(),
               obscure: true,
               controller: newPassword,
             ),
             SizedBox(height: 6),
             Text(
-              "Confirm New Password",
+              LocaleKeys.Confirm_New_Password.tr(),
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             SizedBox(height: 4),
             InputField(
-              hint: 'Enter confirm new password',
+              hint: LocaleKeys.Enter_confirm_new_password.tr(),
               obscure: true,
               controller: confirmNewPassword,
             ),
@@ -234,7 +236,7 @@ class _EditProfileState extends State<EditProfile> {
               await change();
             },
             child: Text(
-              "Change Password",
+              LocaleKeys.Change_Password.tr(),
               style: TextStyle(color: Colors.white, fontSize: 14),
             ),
           )

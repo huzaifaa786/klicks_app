@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:klicks_app/api/auth.dart';
@@ -18,9 +19,12 @@ import 'package:klicks_app/screen/select_car/select_car.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/citydropdown.dart';
 import 'package:klicks_app/static/company.dart';
+import 'package:klicks_app/static/mainText.dart';
 import 'package:klicks_app/static/mallsdropdown.dart';
 import 'package:klicks_app/static/topbar.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -135,9 +139,9 @@ class _MainScreenState extends State<MainScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(top: 20, bottom: 4),
+                              padding: EdgeInsets.only(top: 4, bottom: 4),
                               child: Text(
-                                "Hello, " + user!.name!,
+                                LocaleKeys.Hello.tr() + ", " + user!.name!,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 24,
@@ -156,7 +160,7 @@ class _MainScreenState extends State<MainScreen> {
                                   fontFamily: 'Poppins'),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 30),
+                              padding: const EdgeInsets.only(top: 16),
                               child: Stack(
                                 children: [
                                   SizedBox(
@@ -218,17 +222,14 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 20.0),
-                              child: Text(
-                                "Select Location",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    fontFamily: 'Poppins'),
-                              ),
+                              child: MainScreenText(
+                                image: 'assets/images/locationIcon.svg',
+                                text: LocaleKeys.Select_Location.tr(),
+                              )
                             ),
                             CityDropdownField(
                               imageIcon: 'assets/images/location.svg',
-                              text: "Choose City",
+                              text: LocaleKeys.Choose_City.tr(),
                               selectedvalue: cityvalue,
                               items: cities.toList(),
                               icon: ImageIcon(
@@ -244,17 +245,14 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 15.0),
-                              child: Text(
-                                "Select Mall",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    fontFamily: 'Poppins'),
+                              child: MainScreenText(
+                                image: 'assets/images/mallIcon.svg',
+                                text: LocaleKeys.Select_Mall.tr(),
                               ),
                             ),
                             MallsDropdownField(
                               imageIcon: 'assets/images/mall.svg',
-                              text: "Choose Mall",
+                              text: LocaleKeys.Choose_Mall.tr(),
                               selectedvalue: mallValue,
                               items: malls,
                               icon: ImageIcon(
@@ -269,17 +267,14 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 15.0),
-                              child: Text(
-                                "Select Company",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    fontFamily: 'Poppins'),
+                              child: MainScreenText(
+                                image: 'assets/images/mallIcon.svg',
+                                text: LocaleKeys.Select_Mall.tr(),
                               ),
                             ),
                             CompanysDropdownField(
                               imageIcon: 'assets/images/mall.svg',
-                              text: "Choose Company",
+                              text: LocaleKeys.Choose_Company.tr(),
                               selectedvalue: companyValue,
                               items: companys,
                               icon: ImageIcon(
@@ -291,9 +286,9 @@ class _MainScreenState extends State<MainScreen> {
                               },
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 60),
+                              padding: EdgeInsets.only(top: 50, bottom: 40),
                               child: LargeButton(
-                                title: "Submit",
+                                title: LocaleKeys.Submit.tr(),
                                 onPressed: () {
                                   if (cityvalue != null &&
                                       mallValue != null &&
@@ -316,9 +311,9 @@ class _MainScreenState extends State<MainScreen> {
                                 textcolor: Colors.white,
                               ),
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
                           ],
                         ),
                       ),
