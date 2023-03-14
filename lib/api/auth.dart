@@ -14,7 +14,12 @@ class AuthApi {
   static login(email, password) async {
     LoadingHelper.show();
     var url = BASE_URL + 'login';
-    var data = {'email': email.text, 'password': password.text};
+    var token = await FirebaseMessaging.instance.getToken();
+    var data = {
+      'email': email.text,
+      'password': password.text,
+      'firebase_token': token,
+    };
 
     var response = await Api.execute(url: url, data: data);
     print(Response);
@@ -157,7 +162,7 @@ class AuthApi {
     LoadingHelper.dismiss();
     return response;
   }
-  
+
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
   // Future<String?> signupwithGoogle() async {
   //   try {
