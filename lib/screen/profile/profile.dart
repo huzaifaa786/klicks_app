@@ -60,56 +60,64 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                         color: mainColor,
                       ),
                       child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 12, left: 20, right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        padding: const EdgeInsets.only(left: 20, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              LocaleKeys.Your_Balance.tr(),
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'AED ',
+                                  LocaleKeys.Your_Balance.tr(),
                                   style: TextStyle(
-                                      fontSize: 28,
+                                      fontSize: 22,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w600),
+                                      fontWeight: FontWeight.w400),
                                 ),
-                                Text(
-                                  account == null
-                                      ? "0"
-                                      : account!.balance.toString(),
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'AED ',
+                                      style: TextStyle(
+                                          fontSize: 28,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      account == null
+                                          ? "0"
+                                          : account!.balance.toString(),
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
                                 ),
+                                Container(
+                                  height: 60,
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: IconsButton(
+                                    title: 'Add Fund',
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => TopUp()));
+                                    },
+                                    iconTrue: false,
+                                    rounded: true,
+                                    imgicon: 'assets/images/voilt.svg',
+                                    screenRatio: 0.32,
+                                    color: Colors.white,
+                                    textcolor: Colors.black,
+                                  ),
+                                )
                               ],
                             ),
-                            Container(
-                              height: 60,
-                              padding: const EdgeInsets.only(top: 10),
-                              child: IconsButton(
-                                title: 'Add Fund',
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => TopUp()));
-                                },
-                                iconTrue: false,
-                                imgicon: 'assets/images/voilt.svg',
-                                screenRatio: 0.32,
-                                color: Colors.white,
-                                textcolor: Colors.black,
-                              ),
-                            )
+                            Image(
+                                image: AssetImage('assets/images/wallet1.png'))
                           ],
                         ),
                       )),

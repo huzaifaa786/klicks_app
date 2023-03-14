@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class Box extends StatelessWidget {
@@ -20,18 +17,18 @@ class Box extends StatelessWidget {
     return InkWell(
       onTap: ontap,
       child: Container(
-        height: 60,
+        height: 40,
         width: MediaQuery.of(context).size.width * 0.2,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(45),
           color: selected == false ? Colors.white : mainColor,
-          border: Border.all(color: Colors.grey),
+          border: Border.all(color: selected == false ? Colors.grey: mainColor),
         ),
         child: Center(
             child: Text(
           title,
           style: TextStyle(
-              color:selected == false? Colors.black:White, fontSize: 16, fontWeight: FontWeight.w600),
+              color:selected == false? Colors.black:White, fontSize: 13, fontWeight: FontWeight.w500),
         )),
       ),
     );

@@ -13,57 +13,60 @@ class ExtraListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image(
-              image: NetworkImage(image),
-              height: 35,
-              width: 35,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(
-                text,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    return Container(
+      padding: EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image(
+                image: NetworkImage(image),
+                height: 35,
+                width: 35,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  text,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: ontap,
+            child: Container(
+              padding: EdgeInsets.only(left: 6, top: 2, bottom: 2),
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: selected == false ? mainColor : badgeGreen),
+                color: selected == false ? White : White,
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    selected == false ? Icons.add : Icons.check,
+                    color: selected == false ? mainColor : badgeGreen,
+                    size: 16,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 12.0),
+                    child: Text(
+                      selected == false ? "Add" : "Added",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: selected == false ? mainColor : badgeGreen),
+                    ),
+                  )
+                ],
               ),
             ),
-          ],
-        ),
-        GestureDetector(
-          onTap: ontap,
-          child: Container(
-            padding: EdgeInsets.only(left: 6, top: 2, bottom: 2),
-            decoration: BoxDecoration(
-              color: selected == false
-                  ? Color.fromARGB(255, 201, 231, 255)
-                  : Colors.green,
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  selected == false ? Icons.add : Icons.check,
-                  color: selected == false ?mainColor :Colors.white,
-                  size: 16,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 12.0),
-                  child: Text(
-                    selected == false ? "Add" : "Added",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: selected == false ?mainColor :Colors.white),
-                  ),
-                )
-              ],
-            ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

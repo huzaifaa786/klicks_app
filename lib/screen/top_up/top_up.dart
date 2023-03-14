@@ -5,7 +5,6 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/helpers/loading.dart';
-import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/static/box.dart';
 import 'package:klicks_app/static/button.dart';
@@ -24,7 +23,7 @@ class TopUp extends StatefulWidget {
 enum payMethod { materCard, googlePay, applePay }
 
 class _TopUpState extends State<TopUp> {
-  String? Selectedvalue = "AED 10";
+  String? Selectedvalue = "10";
   payMethod _site = payMethod.materCard;
   void toggleplan(payMethod value) {
     setState(() {
@@ -95,6 +94,7 @@ class _TopUpState extends State<TopUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: SafeArea(
           child: Column(
         children: [
@@ -114,12 +114,12 @@ class _TopUpState extends State<TopUp> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 50,
+                        top: 30, bottom: 12
                       ),
                       child: Text(
                         'Enter the amount of top up',
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w600),
+                            fontSize: 16, fontWeight: FontWeight.w300),
                       ),
                     ),
                     Padding(
@@ -144,7 +144,7 @@ class _TopUpState extends State<TopUp> {
                                 Text(
                                   'AED ' + Selectedvalue!,
                                   style: TextStyle(
-                                      fontSize: 45,
+                                      fontSize: 40,
                                       fontWeight: FontWeight.w600),
                                 ),
                               ],
@@ -200,18 +200,18 @@ class _TopUpState extends State<TopUp> {
                       child: SizedBox(height: 12),
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        color: White,
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
+                      // decoration: BoxDecoration(
+                      //   color: White,
+                      //   borderRadius: BorderRadius.all(Radius.circular(6)),
+                      //   boxShadow: [
+                      //     BoxShadow(
+                      //       color: Colors.grey.withOpacity(0.1),
+                      //       spreadRadius: 1,
+                      //       blurRadius: 10,
+                      //       offset: Offset(0, 3),
+                      //     ),
+                      //   ],
+                      // ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
