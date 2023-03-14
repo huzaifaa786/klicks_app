@@ -112,9 +112,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   orderPlaced() async {
-    if (tipcontroller.text == '') {
-      Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
-    } else {
+    // if (tipcontroller.text == '') {
+    //   Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
+    // } else {
       if (await OrderApi.placeorder(
         tipcontroller.text,
         widget.data!.selectedcartype,
@@ -130,7 +130,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       )) Navigator.pushNamed(context, 'booking_confirm');
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
-    }
+    // }
   }
 
   int? Addtip = 0;

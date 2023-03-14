@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/city_api.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
@@ -9,6 +10,7 @@ import 'package:klicks_app/model/services.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/checkoutBtn.dart';
+import 'package:klicks_app/static/extra_list_item.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/title_topbar.dart';
@@ -38,6 +40,7 @@ class _CarSelectState extends State<CarSelect> {
   SelectedCarInfo data = SelectedCarInfo();
   List<ExtraService> services = [];
   List selectedExtraService = [];
+  List<bool> checked = [];
   TextEditingController plateNumberController = TextEditingController();
   plateNumber(Value) {
     setState(() {
@@ -63,6 +66,7 @@ class _CarSelectState extends State<CarSelect> {
     services = [];
     var mservices = await CityApi.getservice(widget.company.company_id);
     setState(() {
+      checked = List<bool>.filled(mservices.length, false);
       services = mservices;
       log(services.length.toString());
     });
@@ -267,76 +271,119 @@ class _CarSelectState extends State<CarSelect> {
                               ),
                             ],
                           ),
-                          // Padding(
-                          //   padding: EdgeInsets.only(bottom: 12, top: 20),
-                          //   child: Text(
-                          //     "Add Extra",
-                          //     style: TextStyle(
-                          //         fontWeight: FontWeight.w500, fontSize: 14),
-                          //   ),
-                          // ),
-                          MultiSelectFormField(
-                            title: Text(LocaleKeys.Add_Extra_Services.tr()),
-                            validator: (value) {
-                              if (value == null || value.length == 0) {
-                                return '';
-                              }
-                              return null;
-                            },
-                            dataSource: [
-                              for (var i = 0; i < services.length; i++)
-                                {
-                                  "display":
-                                      services[i].service_name.toString(),
-                                  "value": services[i].id.toString(),
-                                }
-                            ],
-                            chipBackGroundColor: Colors.blue,
-                            chipLabelStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                            dialogTextStyle: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                            checkBoxActiveColor: Colors.blue,
-                            checkBoxCheckColor: Colors.white,
-                            dialogShapeBorder: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0))),
-                            textField: 'display',
-                            valueField: 'value',
-                            okButtonLabel: LocaleKeys.OK.tr(),
-                            cancelButtonLabel: LocaleKeys.CANCEL.tr(),
-                            hintWidget: Text('choose services'),
-                            initialValue: null,
-                            onSaved: (value) {
-                              if (value == null) return;
-                              setState(() {
-                                List Hello = value as List;
-                                Selectedvalue == 'suv'
-                                    ? price =
-                                        int.parse(widget.company.suv_price!)
-                                    : price =
-                                        int.parse(widget.company.sedan_price!);
-                                selectedExtraService = [];
-                                for (var i = 0; i < Hello.length; i++) {
-                                  log(Hello[i]);
-                                  // ignore: unnecessary_cast
-                                  var temp = services.singleWhere((item) =>
-                                      item.id.toString() ==
-                                      Hello[i].toString());
-                                  selectedExtraService.add(temp.id);
-                                  print(selectedExtraService);
-                                  price += int.parse(temp.price.toString());
-                                }
-                                data.extraService = selectedExtraService;
-                              });
-                            },
-                          )
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 2, top: 20),
+                            child: Text(
+                              "Add Extra",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 14),
+                            ),
+                          ),
+                          // MultiSelectFormField(
+                          //   title: Text(LocaleKeys.Add_Extra_Services.tr()),
+                          //   validator: (value) {
+                          //     if (value == null || value.length == 0) {
+                          //       return '';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   dataSource: [
+                          //     for (var i = 0; i < services.length; i++)
+                          //       {
+                          //         "display":
+                          //             services[i].service_name.toString(),
+                          //         "value": services[i].id.toString(),
+                          //       }
+                          //   ],
+                          //   chipBackGroundColor: Colors.blue,
+                          //   chipLabelStyle: TextStyle(
+                          //       fontWeight: FontWeight.bold,
+                          //       color: Colors.white),
+                          //   dialogTextStyle: TextStyle(
+                          //       color: Colors.black,
+                          //       fontWeight: FontWeight.bold),
+                          //   checkBoxActiveColor: Colors.blue,
+                          //   checkBoxCheckColor: Colors.white,
+                          //   dialogShapeBorder: RoundedRectangleBorder(
+                          //       borderRadius:
+                          //           BorderRadius.all(Radius.circular(12.0))),
+                          //   textField: 'display',
+                          //   valueField: 'value',
+                          //   okButtonLabel: LocaleKeys.OK.tr(),
+                          //   cancelButtonLabel: LocaleKeys.CANCEL.tr(),
+                          //   hintWidget: Text('choose services'),
+                          //   initialValue: null,
+                          //   onSaved: (value) {
+                          //     if (value == null) return;
+                          //     setState(() {
+                          //       List Hello = value as List;
+                          //       Selectedvalue == 'suv'
+                          //           ? price =
+                          //               int.parse(widget.company.suv_price!)
+                          //           : price =
+                          //               int.parse(widget.company.sedan_price!);
+                          //       selectedExtraService = [];
+                          //       for (var i = 0; i < Hello.length; i++) {
+                          //         log(Hello[i]);
+                          //         // ignore: unnecessary_cast
+                          //         var temp = services.singleWhere((item) =>
+                          //             item.id.toString() ==
+                          //             Hello[i].toString());
+                          //         selectedExtraService.add(temp.id);
+                          //         print(selectedExtraService);
+                          //         price += int.parse(temp.price.toString());
+                          //       }
+                          //       data.extraService = selectedExtraService;
+                          //     });
+                          //   },
+                          // )
+                          Container(
+                            height: services.length == 0
+                                ? 20:MediaQuery.of(context).size.height * 0.2
+                                ,
+                            child: services.length == 0
+                                ? Text('No Extra Srvice!')
+                                : ListView.builder(
+                                    itemCount: services.length,
+                                    itemBuilder: (context, index) {
+                                      return ExtraListTile(
+                                        image: services[index].image,
+                                        text: services[index].service_name,
+                                        ontap: () {
+                                          setState(() {
+                                            checked[index] = !checked[index];
+                                            Selectedvalue == 'suv'
+                                                ? price = int.parse(
+                                                    widget.company.suv_price!)
+                                                : price = int.parse(widget
+                                                    .company.sedan_price!);
+                                            selectedExtraService = [];
+                                            for (int i = 0;
+                                                i < services.length;
+                                                i++) {
+                                              if (checked[i]) {
+                                                selectedExtraService
+                                                    .add(services[i].id);
+                                                price += int.parse(services[i]
+                                                    .price
+                                                    .toString());
+                                              }
+                                            }
+                                            data.extraService = selectedExtraService;
+                                            print(data.extraService);
+
+                                          });
+                                        },
+                                        selected: checked[index],
+                                      );
+                                    },
+                                  ),
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 12),
+                    // SizedBox(height: 12),
+                    Divider(),
                     CheckOutButton(
                       ontap: () {
                         setState(() {
@@ -345,7 +392,8 @@ class _CarSelectState extends State<CarSelect> {
                         if (data.floorNumber == null &&
                             data.plateNumber == null &&
                             data.parkingNumber == null) {
-                          print('object');
+                          Fluttertoast.showToast(
+                              msg: "Fill out all input fields");
                         } else {
                           Navigator.push(
                             context,

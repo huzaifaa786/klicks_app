@@ -148,14 +148,68 @@ class _OrderStatusState extends State<OrderStatus> {
                           title: LocaleKeys.Floor_Number.tr() + ':',
                           discription: widget.order!.floor,
                           image: 'assets/images/floorNumberCheck.svg'),
-                      CheckOutTile(
-                          title: LocaleKeys.Extras.tr() + ':',
-                          discription: widget.order!.service == null
-                              ? 'No, Extra service added'
-                              : widget.order!.service!.length.toString()+
-                                  ' ' +
-                                  'Extra service added',
-                          image: 'assets/images/Extras.svg'),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 224, 240, 255),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: SvgPicture.asset(
+                                          'assets/images/Extras.svg',
+                                          height: 12,
+                                          width: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Extras',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        color: colorgrey),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                for (var service in services)
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.35,
+                                    child: Text(
+                                      service == ''
+                                          ? 'No Extra Services'
+                                          : service.service_name! + ', ',
+                                      maxLines: 3,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                       Text(
                         widget.order!.price! + " AED",
                         style: TextStyle(
