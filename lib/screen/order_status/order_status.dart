@@ -152,7 +152,7 @@ class _OrderStatusState extends State<OrderStatus> {
                           title: LocaleKeys.Extras.tr() + ':',
                           discription: widget.order!.service == null
                               ? 'No, Extra service added'
-                              : widget.order!.service!.length.toString()+
+                              : widget.order!.service!.length.toString() +
                                   ' ' +
                                   'Extra service added',
                           image: 'assets/images/Extras.svg'),
