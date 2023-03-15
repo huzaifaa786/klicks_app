@@ -279,70 +279,23 @@ class _CarSelectState extends State<CarSelect> {
                                   fontWeight: FontWeight.w500, fontSize: 14),
                             ),
                           ),
-                          // MultiSelectFormField(
-                          //   title: Text(LocaleKeys.Add_Extra_Services.tr()),
-                          //   validator: (value) {
-                          //     if (value == null || value.length == 0) {
-                          //       return '';
-                          //     }
-                          //     return null;
-                          //   },
-                          //   dataSource: [
-                          //     for (var i = 0; i < services.length; i++)
-                          //       {
-                          //         "display":
-                          //             services[i].service_name.toString(),
-                          //         "value": services[i].id.toString(),
-                          //       }
-                          //   ],
-                          //   chipBackGroundColor: Colors.blue,
-                          //   chipLabelStyle: TextStyle(
-                          //       fontWeight: FontWeight.bold,
-                          //       color: Colors.white),
-                          //   dialogTextStyle: TextStyle(
-                          //       color: Colors.black,
-                          //       fontWeight: FontWeight.bold),
-                          //   checkBoxActiveColor: Colors.blue,
-                          //   checkBoxCheckColor: Colors.white,
-                          //   dialogShapeBorder: RoundedRectangleBorder(
-                          //       borderRadius:
-                          //           BorderRadius.all(Radius.circular(12.0))),
-                          //   textField: 'display',
-                          //   valueField: 'value',
-                          //   okButtonLabel: LocaleKeys.OK.tr(),
-                          //   cancelButtonLabel: LocaleKeys.CANCEL.tr(),
-                          //   hintWidget: Text('choose services'),
-                          //   initialValue: null,
-                          //   onSaved: (value) {
-                          //     if (value == null) return;
-                          //     setState(() {
-                          //       List Hello = value as List;
-                          //       Selectedvalue == 'suv'
-                          //           ? price =
-                          //               int.parse(widget.company.suv_price!)
-                          //           : price =
-                          //               int.parse(widget.company.sedan_price!);
-                          //       selectedExtraService = [];
-                          //       for (var i = 0; i < Hello.length; i++) {
-                          //         log(Hello[i]);
-                          //         // ignore: unnecessary_cast
-                          //         var temp = services.singleWhere((item) =>
-                          //             item.id.toString() ==
-                          //             Hello[i].toString());
-                          //         selectedExtraService.add(temp.id);
-                          //         print(selectedExtraService);
-                          //         price += int.parse(temp.price.toString());
-                          //       }
-                          //       data.extraService = selectedExtraService;
-                          //     });
-                          //   },
-                          // )
                           Container(
                             height: services.length == 0
-                                ? 20:MediaQuery.of(context).size.height * 0.2
-                                ,
+                                ? 40
+                                : MediaQuery.of(context).size.height * 0.2,
                             child: services.length == 0
-                                ? Text('No Extra Srvice!')
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.grey[300]!),
+                                      borderRadius: BorderRadius.circular(6),
+                                      // color: gre,
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      'No extra service provided by this company',
+                                      style: TextStyle(fontSize: 12),
+                                    )))
                                 : ListView.builder(
                                     itemCount: services.length,
                                     itemBuilder: (context, index) {
@@ -369,9 +322,9 @@ class _CarSelectState extends State<CarSelect> {
                                                     .toString());
                                               }
                                             }
-                                            data.extraService = selectedExtraService;
+                                            data.extraService =
+                                                selectedExtraService;
                                             print(data.extraService);
-
                                           });
                                         },
                                         selected: checked[index],
