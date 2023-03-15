@@ -148,14 +148,6 @@ class _OrderStatusState extends State<OrderStatus> {
                           title: LocaleKeys.Floor_Number.tr() + ':',
                           discription: widget.order!.floor,
                           image: 'assets/images/floorNumberCheck.svg'),
-                      CheckOutTile(
-                          title: LocaleKeys.Extras.tr() + ':',
-                          discription: widget.order!.service == null
-                              ? 'No, Extra service added'
-                              : widget.order!.service!.length.toString() +
-                                  ' ' +
-                                  'Extra service added',
-                          image: 'assets/images/Extras.svg'),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
                         child: Row(
