@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/model/User.dart';
@@ -25,6 +26,8 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
   bool _obscureText = true;
   bool show = false;
 
@@ -41,6 +44,7 @@ class _EditProfileState extends State<EditProfile> {
       user = muser;
       nameController.text = user!.name!;
       phoneController.text = user!.phone!;
+      emailController.text = user!.email!;
     });
   }
 
@@ -54,6 +58,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: SafeArea(
         child: Column(
           children: [
@@ -85,6 +90,19 @@ class _EditProfileState extends State<EditProfile> {
                           readOnly: true,
                           hint: 'Enter Username',
                           controller: nameController,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                          child: Text(
+                            "Email",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 16),
+                          ),
+                        ),
+                        InputField(
+                          readOnly: true,
+                          hint: 'Enter Email',
+                          controller: emailController,
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 12.0, bottom: 6),
@@ -181,6 +199,43 @@ class _EditProfileState extends State<EditProfile> {
             newPassword,
           );
           Navigator.pop(context);
+
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                Future.delayed(Duration(seconds: 1), () {
+                  Navigator.of(context).pop(true);
+                });
+                return AlertDialog(
+                  // title:
+                  content: Container(
+                    height: 150,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Image(
+                              image: AssetImage('assets/images/checked.png'),
+                              height: 50,
+                              width: 50),
+                        ),
+                        SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Password changed\n successfully!',
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              style: TextStyle(fontSize: 22),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
           currentPassword.text = '';
           newPassword.text = '';
           confirmNewPassword.text = '';
@@ -190,7 +245,7 @@ class _EditProfileState extends State<EditProfile> {
 
     Alert(
         context: context,
-        title: LocaleKeys.Change_Password.tr(),
+        // title: LocaleKeys.Change_Password.tr(),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

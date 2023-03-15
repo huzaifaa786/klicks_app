@@ -12,6 +12,7 @@ import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/inputfield.dart';
 import 'package:klicks_app/static/pass_inputfield_two.dart';
+import 'package:klicks_app/static/password_inputfield.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class SignUp extends StatefulWidget {
@@ -33,6 +34,7 @@ class _SignUpState extends State<SignUp> {
   bool phoneValid = false;
   bool nameValid = false;
   bool emailValid = false;
+  String? complete_phone;
 
   register() async {
     if (emailValid == false ||
@@ -51,7 +53,7 @@ class _SignUpState extends State<SignUp> {
         if (await AuthApi.register(
           nameController,
           emailController,
-          phoneController,
+          complete_phone,
           passwordController,
         ))
           Navigator.push(context,
@@ -98,19 +100,6 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  gotoBack() {
-    Navigator.pop(context);
-  }
-
-  bool _obscureText = true;
-  bool show = false;
-
-  void _toggle2() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,9 +133,10 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ),
-              InputField(
+              IconInputField(
                 hint: 'Enter Username',
                 //  obscure: false,
+                imageIcon: 'assets/images/email.svg',
                 controller: nameController,
                 onChange: onNameChanged,
               ),
@@ -157,16 +147,30 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ),
-              IntlPhoneField(
-                controller: phoneController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: fieldColor,
-                  border: InputBorder.none,
+              SizedBox(
+                height: 70,
+                child: IntlPhoneField(
+                  controller: phoneController,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: White,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: grey),
+                    ),
+                  ),
+                  initialCountryCode: 'AE',
+                  onChanged: (phone) {
+                    complete_phone = phone.completeNumber;
+                    log(complete_phone.toString());
+                  },
+                  keyboardType: TextInputType.phone,
                 ),
-                initialCountryCode: 'AE',
-                onChanged: (phone) {},
-                keyboardType: TextInputType.phone,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 12.0, bottom: 6),
@@ -188,11 +192,12 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ),
-              InputFieldPasswordTwo(
+              InputFieldPassword(
                 controller: passwordController,
                 hint: 'Password',
-                toggle: _toggle2,
-                obscure: _obscureText,
+                toggle: _toggle,
+                imageIcon: 'assets/images/lock.svg',
+                obscure: _passwordVisible,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 12.0, bottom: 6),
@@ -201,11 +206,12 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ),
-              InputFieldPasswordTwo(
+              InputFieldPassword(
                 controller: cpasswordController,
                 hint: 'Confirm Password',
-                toggle: _toggle2,
-                obscure: _obscureText,
+                toggle: _toggle1,
+                imageIcon: 'assets/images/lock.svg',
+                obscure: _cpasswordVisible,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 25.0, bottom: 30),

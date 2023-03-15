@@ -2,12 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
+import 'package:klicks_app/static/toggle.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,6 +22,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   bool _obscureText = true;
 
   login() async {
@@ -37,6 +41,13 @@ class _LoginScreenState extends State<LoginScreen> {
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
+    });
+  }
+
+  int index = 0;
+  toggleFun(state) {
+    setState(() {
+      index = state;
     });
   }
 
@@ -92,105 +103,194 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 40.0),
-                              child: IconInputField(
-                                controller: emailController,
-                                imageIcon: 'assets/images/email.svg',
-                                hint: 'Email',
+                              padding: const EdgeInsets.only(top: 20),
+                              child: TwoSwitchToggle(
+                                onPressed: () {},
+                                switchToggle: toggleFun,
+                                initialLabelIndex: index,
+                                text1: 'Email',
+                                text2: 'OTP',
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12.0),
-                              child: InputFieldPassword(
-                                controller: passwordController,
-                                imageIcon: 'assets/images/lock.svg',
-                                hint: 'Password',
-                                toggle: _toggle,
-                                obscure: _obscureText,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10.0, bottom: 8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, 'forgot_screen');
-                                    },
-                                    child: Text(
-                                      'Forgot Passowrd?',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 25.0, bottom: 30),
-                              child: LargeButton(
-                                title: "Sign in",
-                                onPressed: () {
-                                  login();
-                                },
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Divider(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12.0, right: 12.0),
-                                  child: Text("OR"),
-                                ),
-                                Expanded(
-                                  child: Divider(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 20.0),
-                                  child: Image(
-                                    image: AssetImage(
-                                        'assets/images/facebook.png'),
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 20.0),
-                                  child: Image(
-                                    image:
-                                        AssetImage('assets/images/google.png'),
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                ),
-                                Image(
-                                  image: AssetImage('assets/images/apple.png'),
-                                  height: 50,
-                                  width: 50,
-                                )
-                              ],
-                            ),
+                            index == 0
+                                ? Column(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: IconInputField(
+                                          controller: emailController,
+                                          imageIcon: 'assets/images/email.svg',
+                                          hint: 'Email',
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 12.0),
+                                        child: InputFieldPassword(
+                                          controller: passwordController,
+                                          imageIcon: 'assets/images/lock.svg',
+                                          hint: 'Password',
+                                          toggle: _toggle,
+                                          obscure: _obscureText,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, bottom: 8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                    context, 'forgot_screen');
+                                              },
+                                              child: Text(
+                                                'Forgot Passowrd?',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 25.0, bottom: 30),
+                                        child: LargeButton(
+                                          title: "Sign in",
+                                          onPressed: () {
+                                            login();
+                                          },
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Divider(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 12.0, right: 12.0),
+                                            child: Text("OR"),
+                                          ),
+                                          Expanded(
+                                            child: Divider(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20.0),
+                                            child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/facebook.png'),
+                                              height: 50,
+                                              width: 50,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20.0),
+                                            child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/google.png'),
+                                              height: 50,
+                                              width: 50,
+                                            ),
+                                          ),
+                                          Image(
+                                            image: AssetImage(
+                                                'assets/images/apple.png'),
+                                            height: 50,
+                                            width: 50,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 20),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Enter Phone Number",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500, fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 12),
+                                        child: Container(
+                                          height: 70,
+                                          child: IntlPhoneField(
+                                            controller: phoneController,
+                                            decoration: const InputDecoration(
+                                              filled: true,
+                                              fillColor: White,
+                                              border: OutlineInputBorder(
+                                                borderSide:
+                                                    BorderSide(),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide:
+                                                    BorderSide(color: grey),
+                                              ),
+                                              focusedBorder:  OutlineInputBorder(
+                                                borderSide:
+                                                    BorderSide(color: grey),
+                                              ),
+                                            ),
+                                            initialCountryCode: 'AE',
+                                            onChanged: (phone) {},
+                                            keyboardType: TextInputType.phone,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 12),
+                                        child: Text(
+                                            'By continuing you may an SMS for verification massage and data may apply',
+                                            textAlign: TextAlign.justify,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.w500,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 25.0, bottom: 30),
+                                        child: LargeButton(
+                                          title: "Send Otp",
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  )
                           ],
                         ),
                       ),

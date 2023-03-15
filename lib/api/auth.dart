@@ -44,7 +44,7 @@ class AuthApi {
     data = {
       'name': name.text.toString(),
       'email': email.text.toString(),
-      'phone': phone.text.toString(),
+      'phone': phone.toString(),
       'password': password.text.toString(),
       'firebase_token': token,
     };
