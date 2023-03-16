@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:klicks_app/screen/order_history/search_methos.dart';
+import 'package:klicks_app/screen/order_history/search_method.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/values/colors.dart';
 
@@ -9,14 +9,24 @@ class SearchSheet extends StatefulWidget {
   State<SearchSheet> createState() => _SearchSheetState();
 }
 
-enum Searchmethod { completed, inprogess, rejected }
+enum Searchmethod { all, completed, inprogess, rejected }
 
 class _SearchSheetState extends State<SearchSheet> {
-  Searchmethod _site = Searchmethod.completed;
+  Searchmethod _site = Searchmethod.all;
   void toggleplan(Searchmethod value) {
     setState(() {
       _site = value;
+      query = value.toString();
+      print(query);
     });
+  }
+
+  late String query;
+
+  @override
+  void initState() {
+    super.initState();
+    query = '';
   }
 
   @override
@@ -32,6 +42,15 @@ class _SearchSheetState extends State<SearchSheet> {
               'Filter By',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
             ),
+          ),
+          SearchMethod(
+            title: 'All',
+            groupvalue: _site,
+            color: Colors.green,
+            value: Searchmethod.all,
+            onchaged: () {
+              toggleplan(Searchmethod.all);
+            },
           ),
           SearchMethod(
             title: 'Completed',
@@ -63,7 +82,11 @@ class _SearchSheetState extends State<SearchSheet> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 14),
-            child: LargeButton(title: "APPLY", onPressed: () {}),
+            child: LargeButton(
+                title: "APPLY",
+                onPressed: () {
+                  Navigator.pop(context, query);
+                }),
           )
         ],
       ),

@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, unused_field, unused_element
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
 import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
@@ -93,12 +94,18 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.home_filled,
+                            SvgPicture.asset(
+                              'assets/images/home.svg',
                               color: _navigationMenuIndex == 0
                                   ? mainColor
                                   : hintColor,
                             ),
+                            // Icon(
+                            //   Icons.home_filled,
+                            //   color: _navigationMenuIndex == 0
+                            //       ? mainColor
+                            //       : hintColor,
+                            // ),
                             Text(
                               "Home",
                               style: TextStyle(
@@ -129,8 +136,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.menu_book_outlined,
+                            SvgPicture.asset(
+                              'assets/images/order1.svg',
                               color: _navigationMenuIndex == 1
                                   ? mainColor
                                   : hintColor,
