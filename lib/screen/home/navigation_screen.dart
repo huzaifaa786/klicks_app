@@ -1,16 +1,11 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
-import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/qrcode/qr_code.dart';
 import 'package:klicks_app/values/colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavScreen extends StatefulWidget {
   const BottomNavScreen({Key? key, this.selectedIndex}) : super(key: key);
