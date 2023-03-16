@@ -9,6 +9,7 @@ import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
+import 'package:klicks_app/static/checkbox.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/inputfield.dart';
 import 'package:klicks_app/static/pass_inputfield_two.dart';
@@ -35,30 +36,42 @@ class _SignUpState extends State<SignUp> {
   bool nameValid = false;
   bool emailValid = false;
   String? complete_phone;
+  bool checkboxval = false;
+  _togglecheckbox() {
+    print(checkboxval);
+    setState(() {
+      checkboxval = !checkboxval;
+    });
+  }
 
   register() async {
-    if (emailValid == false ||
-        nameValid == false ||
-        nameController.text == '' ||
-        phoneController.text == '' ||
-        emailController.text == '' ||
-        passwordController.text == '' ||
-        cpasswordController.text == '') {
-      Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
-    } else {
-      if (passwordController.text != cpasswordController.text) {
-        Fluttertoast.showToast(
-            msg: 'Password and Confirm Password field are not same');
+    if (checkboxval == true) {
+      if (emailValid == false ||
+          nameValid == false ||
+          nameController.text == '' ||
+          phoneController.text == '' ||
+          emailController.text == '' ||
+          passwordController.text == '' ||
+          cpasswordController.text == '') {
+        Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
       } else {
-        if (await AuthApi.register(
-          nameController,
-          emailController,
-          complete_phone,
-          passwordController,
-        ))
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => BottomNavScreen()));
+        if (passwordController.text != cpasswordController.text) {
+          Fluttertoast.showToast(
+              msg: 'Password and Confirm Password field are not same');
+        } else {
+          if (await AuthApi.register(
+            nameController,
+            emailController,
+            complete_phone,
+            passwordController,
+          ))
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => BottomNavScreen()));
+        }
       }
+    } else {
+      Fluttertoast.showToast(
+          msg: 'Please agree terms and conditions to continue');
     }
   }
 
@@ -136,7 +149,7 @@ class _SignUpState extends State<SignUp> {
               IconInputField(
                 hint: 'Enter Username',
                 //  obscure: false,
-                imageIcon: 'assets/images/email.svg',
+                imageIcon: 'assets/images/user.svg',
                 controller: nameController,
                 onChange: onNameChanged,
               ),
@@ -213,8 +226,10 @@ class _SignUpState extends State<SignUp> {
                 imageIcon: 'assets/images/lock.svg',
                 obscure: _cpasswordVisible,
               ),
+              MCheckBox(
+                  checkbox: checkboxval, onchanged: () => _togglecheckbox()),
               Padding(
-                padding: const EdgeInsets.only(top: 25.0, bottom: 30),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 30),
                 child: LargeButton(
                   title: "Sign up",
                   onPressed: () {
@@ -222,6 +237,34 @@ class _SignUpState extends State<SignUp> {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "I already have an account.",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text(
+                        " Sign in",
+                        style: TextStyle(
+                          color: mainColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

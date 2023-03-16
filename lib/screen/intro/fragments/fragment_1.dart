@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:scroll_indicator/scroll_indicator.dart';
 
 class FragmentOne extends StatefulWidget {
   const FragmentOne({super.key, required this.controller});
@@ -18,40 +15,35 @@ class _FragmentOneState extends State<FragmentOne> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: SizedBox(
+          child: Container(
+            padding: EdgeInsets.only(top: 20),
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(
               image: AssetImage(
-                'assets/images/logo1.png',
+                'assets/images/i1.png',
               ),
               height: 300,
             ),
-            Text(
-              'Klicks Wash Service',
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'OpenSans'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
+            Container(
+              padding: EdgeInsets.only(top: 25),
+              width: MediaQuery.of(context).size.width * 0.85,
               child: Text(
-                'Lorem ipsum dolor sit amet ',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'OpenSans'),
+                'Wash your Car from our professional trained workers.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
             ),
-            Text(
-              'consectetur. Elementum purus id',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'OpenSans'),
+            Container(
+              padding: EdgeInsets.only(top: 12),
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: Text(
+                'Lorem ipsum dolor sit amet consectetur. Enim fringilla et non in erat dolor.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
             ),
           ],
         ),
