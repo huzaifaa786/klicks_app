@@ -15,6 +15,7 @@ import 'package:klicks_app/screen/order_history/order_histary.dart';
 import 'package:klicks_app/screen/notification/notification.dart';
 import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
+import 'package:klicks_app/screen/signup/emailVerified.dart';
 import 'package:klicks_app/screen/signup/signup.dart';
 import 'package:klicks_app/screen/splash/splash_screen.dart';
 import 'package:klicks_app/translations/codegen_loader.g.dart';
@@ -36,8 +37,7 @@ void main() async {
       useFallbackTranslations: true,
       fallbackLocale: Language.all[0],
       assetLoader: CodegenLoader(),
-      child: const MyApp())
-      );
+      child: const MyApp()));
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

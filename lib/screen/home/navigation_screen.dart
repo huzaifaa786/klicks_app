@@ -140,6 +140,15 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                                   ? mainColor
                                   : hintColor,
                             ),
+                            Text(
+                              "Orders",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _navigationMenuIndex == 1
+                                    ? mainColor
+                                    : hintColor,
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -165,6 +174,15 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                                   ? mainColor
                                   : hintColor,
                             ),
+                            Text(
+                              "Profile",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _navigationMenuIndex == 2
+                                    ? mainColor
+                                    : hintColor,
+                              ),
+                            )
                           ],
                         ),
                       ),

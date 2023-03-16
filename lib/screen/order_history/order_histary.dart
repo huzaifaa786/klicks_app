@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/model/Order.dart';
+import 'package:klicks_app/screen/order_history/search_sheet.dart';
 import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
@@ -88,6 +89,20 @@ class _OrderHistryState extends State<OrderHistry> {
                     onChange: searchOrders,
                     imageIcon: 'assets/images/search.png',
                     hint: LocaleKeys.search.tr(),
+                    ontap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(40),
+                          ),
+                        ),
+                        builder: (context) => Wrap(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [SearchSheet()]),
+                      );
+                    },
                   ),
                 ),
                 SizedBox(height: 13.6),

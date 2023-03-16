@@ -16,6 +16,7 @@ class SearchBar extends StatelessWidget {
       this.obscure = false,
       this.toggle,
       this.onChange,
+      this.ontap,
       this.type = TextInputType.text,
       this.onpressed})
       : super(key: key);
@@ -27,6 +28,7 @@ class SearchBar extends StatelessWidget {
   final type;
   final text;
   final icon;
+  final ontap;
   final imageIcon;
   final toggle;
   final onChange;
@@ -40,18 +42,31 @@ class SearchBar extends StatelessWidget {
       onChanged: onChange,
       decoration: InputDecoration(
         prefixIcon: Image(image: AssetImage(imageIcon)),
-        suffixIcon: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: SvgPicture.asset("assets/images/search_bar.svg",
-                height: 18, width: 18)),
+        suffixIcon: InkWell(
+          onTap: ontap,
+          child: Container(
+            decoration: BoxDecoration(
+              color: mainColor,
+              borderRadius: BorderRadius.all(Radius.circular(6)),
+            ),
+            child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SvgPicture.asset("assets/images/search_bar.svg",
+                    color: White, height: 18, width: 18)),
+          ),
+        ),
         filled: true,
-        fillColor: fieldColor,
+        fillColor: White,
         hintText: hint,
         hintStyle: TextStyle(color: hintColor),
         contentPadding: const EdgeInsets.only(left: 3.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-          borderSide: BorderSide.none,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
         ),
       ),
 
