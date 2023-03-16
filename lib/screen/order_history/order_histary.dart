@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/model/Order.dart';
+import 'package:klicks_app/screen/order_history/search_methos.dart';
 import 'package:klicks_app/screen/order_history/search_sheet.dart';
 import 'package:klicks_app/screen/order_status/order_status.dart';
+import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
 import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:klicks_app/values/colors.dart';
 
 class OrderHistry extends StatefulWidget {
   const OrderHistry({super.key});
@@ -16,9 +19,18 @@ class OrderHistry extends StatefulWidget {
   State<OrderHistry> createState() => _OrderHistryState();
 }
 
+enum Searchmethod { completed, inprogess, rejected }
+
 class _OrderHistryState extends State<OrderHistry> {
   List<OrderModal> orders = [];
   List<OrderModal> SearchOrders = [];
+  Searchmethod _site = Searchmethod.completed;
+  void toggleplan(Searchmethod value) {
+    setState(() {
+      _site = value;
+    });
+  }
+
   getOrders() async {
     var morder = await AuthApi.getorder();
     setState(() {
@@ -50,6 +62,11 @@ class _OrderHistryState extends State<OrderHistry> {
     'November',
     'December',
   ];
+
+  void ser(String query){
+    print(query);
+    Navigator.pop(context);
+  }
 
   void searchOrders(String query) {
     setState(() {
@@ -100,7 +117,60 @@ class _OrderHistryState extends State<OrderHistry> {
                         ),
                         builder: (context) => Wrap(
                             // ignore: prefer_const_literals_to_create_immutables
-                            children: [SearchSheet()]),
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 6),
+                                      child: Text(
+                                        'Filter By',
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    SearchMethod(
+                                      title: 'Completed',
+                                      groupvalue: _site,
+                                      color: Colors.green,
+                                      value: Searchmethod.completed,
+                                      onchaged: () {
+                                        toggleplan(Searchmethod.completed);
+                                      },
+                                    ),
+                                    SearchMethod(
+                                      title: 'In Progress',
+                                      value: Searchmethod.inprogess,
+                                      color: InprocessColor,
+                                      groupvalue: _site,
+                                      onchaged: () {
+                                        toggleplan(Searchmethod.inprogess);
+                                      },
+                                      onpress: () {},
+                                    ),
+                                    SearchMethod(
+                                      title: 'Rejected',
+                                      color: Colors.red,
+                                      groupvalue: _site,
+                                      value: Searchmethod.rejected,
+                                      onchaged: () {
+                                        toggleplan(Searchmethod.rejected);
+                                      },
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 14),
+                                      child: LargeButton(
+                                          title: "APPLY", onPressed: () {
+                                            ser(_site.toString());
+                                          }),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ]),
                       );
                     },
                   ),
