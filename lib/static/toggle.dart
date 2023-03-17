@@ -43,8 +43,8 @@ class TwoSwitchToggle extends StatelessWidget {
           [mainColor]
         ],
         activeFgColor: mainColor,
-        inactiveBgColor: Colors.grey[300],
-        inactiveFgColor: Colors.grey[300],
+        inactiveBgColor: Colors.blue.shade100,
+        inactiveFgColor: Colors.blue.shade50,
         initialLabelIndex: initialLabelIndex,
         totalSwitches: totalSwitches,
         labels: [text1, text2],

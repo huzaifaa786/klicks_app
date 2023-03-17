@@ -62,9 +62,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   paayment() async {
     LoadingHelper.show();
 
-    var data = await StripeApi.paymentIntent(
-      widget.data!.price,
-    );
+    var data = await StripeApi.paymentIntent(total);
     data = jsonDecode(data.toString());
     print('sdsa');
     print(data['paymentIntent']);
@@ -119,7 +117,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       widget.data!.mall!.id,
       widget.data!.plateNumber,
       widget.data!.parkingNumber,
-      widget.data!.price,
+      total,
       widget.data!.extraService,
       widget.data!.uid,
       widget.data!.cityId,
@@ -438,7 +436,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                           PPaymentMethod(
                             title: 'wallet Pay',
-                            image: "assets/images/apple.png",
+                            image: "assets/images/wallet.png",
                             groupvalue: _site,
                             value: PayMethod.walletpay,
                             onchaged: () {
@@ -452,10 +450,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                       LargeButton(
                         onPressed: () async {
-                          // Navigator.pushNamed(context, 'booking_confirm');
-                          _site == PayMethod.materCard
-                              ? await paayment()
-                              : walletpayment();
+                          if (tipcontroller.text == '') {
+                            Fluttertoast.showToast(
+                                msg: "Tip field can't be empty.");
+                          } else {
+                            _site == PayMethod.materCard
+                                ? await paayment()
+                                : walletpayment();
+                          }
                         },
                         title: LocaleKeys.continu.tr(),
                       ),

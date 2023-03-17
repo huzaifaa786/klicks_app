@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
+import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/box.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/inputfield.dart';
@@ -14,8 +15,6 @@ import 'package:klicks_app/values/colors.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class TopUp extends StatefulWidget {
- 
-
   @override
   State<TopUp> createState() => _TopUpState();
 }
@@ -48,12 +47,20 @@ class _TopUpState extends State<TopUp> {
       paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: data['paymentIntent'],
           merchantDisplayName: 'Klicks',
+          billingDetails: BillingDetails(
+              address: Address(
+                  country: "AE",
+                  city: '',
+                  line1: '',
+                  line2: '',
+                  postalCode: '',
+                  state: '')),
           // Customer params
           customerId: data['customer'].toString(),
           customerEphemeralKeySecret: data['ephemeralKey'].toString(),
           // Extra params
-          applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
-          googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
+          applePay: PaymentSheetApplePay(merchantCountryCode: 'AE'),
+          googlePay: PaymentSheetGooglePay(merchantCountryCode: 'AE'),
           style: ThemeMode.dark,
           customFlow: true
           // billingDetails: billingDetails,
@@ -89,6 +96,8 @@ class _TopUpState extends State<TopUp> {
 
   addbalance() {
     StripeApi.addbalance(Selectedvalue);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
   }
 
   @override
@@ -113,9 +122,7 @@ class _TopUpState extends State<TopUp> {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30, bottom: 12
-                      ),
+                      padding: const EdgeInsets.only(top: 30, bottom: 12),
                       child: Text(
                         'Enter the amount of top up',
                         style: TextStyle(

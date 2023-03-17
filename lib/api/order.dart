@@ -17,7 +17,7 @@ class OrderApi {
       'mall_id': id,
       'number_plate': plateNumber,
       'parking': parkingNumber,
-      'totalpayment': price,
+      'totalpayment': price.toString(),
       'user_id': uid,
       'city_id': cityId,
       'services': extraService
@@ -26,13 +26,13 @@ class OrderApi {
     LoadingHelper.dismiss();
 
     if (!response['error']) {
-      Fluttertoast.showToast(msg: 'Order created Sucessfully');
       return true;
     } else {
       return false;
     }
   }
-   static ExtraServicesINOrder(id) async {
+
+  static ExtraServicesINOrder(id) async {
     LoadingHelper.show();
     var url = BASE_URL + 'orderdetail';
     var data;
