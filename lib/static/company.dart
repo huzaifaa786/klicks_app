@@ -3,8 +3,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:klicks_app/model/City.dart';
-import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/values/colors.dart';
 

@@ -63,9 +63,9 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(25.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Stack(
@@ -73,32 +73,38 @@ class _OtpScreenState extends State<OtpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/otp.svg',
-                      height: 300,
-                      width: 300,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: SvgPicture.asset(
+                        'assets/images/otp.svg',
+                        height: 200,
+                        width: 200,
+                      ),
                     ),
                   ],
                 ),
               ],
             ),
-            Text(
-              "Verify OTP",
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                "Verify OTP",
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Text(
-                'Enter the 5 digit code received on your mobile device.',
+                'Enter the 6 digit code received on your mobile device.',
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 style: TextStyle(
-                  fontSize: 23,
+                  fontSize: 17,
                   color: Colors.grey,
                   fontWeight: FontWeight.w400,
                 ),
@@ -111,7 +117,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 color: Colors.green.shade600,
                 fontWeight: FontWeight.bold,
               ),
-              length: 5,
+              length: 6,
               blinkWhenObscuring: true,
               animationType: AnimationType.fade,
               pinTheme: PinTheme(
@@ -165,23 +171,25 @@ class _OtpScreenState extends State<OtpScreen> {
             //   ],
             // ),
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 90),
+              padding: const EdgeInsets.only(top: 40),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Not Received?',
-                     style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 16),
                   ),
+                  SizedBox(width: 4),
                   InkWell(
                       child: Text(
                     'Send Again',
-                    style: TextStyle(color: Colors.blue, fontSize: 18),
+                    style: TextStyle(color: Colors.blue, fontSize: 16),
                   ))
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 50.0, bottom: 30),
+              padding: const EdgeInsets.only(top: 40.0, bottom: 30),
               child: LargeButton(
                 title: "VERIFY",
                 onPressed: () {

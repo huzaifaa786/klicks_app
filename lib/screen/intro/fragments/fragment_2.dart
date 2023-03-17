@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FragmentTwo extends StatefulWidget {
@@ -20,41 +18,31 @@ class _FragmentTwoState extends State<FragmentTwo> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'assets/images/frag2.svg',
-              height: 280,
+            Image(
+              image: AssetImage(
+                'assets/images/i2.png',
+              ),
+              height: 300,
             ),
-            Text(
-              ' Happy Clients',
-              style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'OpenSans'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
+            Container(
+              padding: EdgeInsets.only(top: 25),
+              width: MediaQuery.of(context).size.width * 0.85,
               child: Text(
-                'Lorem ipsum dolor sit amet ',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Poppins'),
+                'And we offering extra services with best rates.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
             ),
-            Text(
-              'consectetur. Elementum purus id',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Poppins'),
-            ),
-            Text(
-              ' pellentesque',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Poppins'),
+            Container(
+              padding: EdgeInsets.only(top: 12),
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: Text(
+                'Extra services include Oil change, tyre service, engine service and much more.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
             ),
           ],
         ),

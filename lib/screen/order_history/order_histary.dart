@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/model/Order.dart';
+import 'package:klicks_app/screen/order_history/search_sheet.dart';
 import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/static/order.dart';
 import 'package:klicks_app/static/searchbar.dart';
@@ -18,6 +19,8 @@ class OrderHistry extends StatefulWidget {
 class _OrderHistryState extends State<OrderHistry> {
   List<OrderModal> orders = [];
   List<OrderModal> SearchOrders = [];
+  String? query;
+
   getOrders() async {
     var morder = await AuthApi.getorder();
     setState(() {
@@ -66,6 +69,25 @@ class _OrderHistryState extends State<OrderHistry> {
     });
   }
 
+  void filterOrder(String query) {
+    setState(() {
+      if (query == 'Searchmethod.all') {
+        SearchOrders = orders;
+        print(query);
+      } else if (query == 'Searchmethod.completed') {
+        SearchOrders = orders.where((i) => i.status == 3).toList();
+        print(query);
+      } else if (query == 'Searchmethod.inprogess') {
+        SearchOrders =
+            orders.where((i) => i.status == 0 || i.status == 1).toList();
+        print(query);
+      } else if (query == 'Searchmethod.rejected') {
+        SearchOrders = orders.where((i) => i.status == 2).toList();
+        print(query);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +110,23 @@ class _OrderHistryState extends State<OrderHistry> {
                     onChange: searchOrders,
                     imageIcon: 'assets/images/search.png',
                     hint: LocaleKeys.search.tr(),
+                    ontap: () async {
+                      query = await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(40),
+                          ),
+                        ),
+                        builder: (context) => Wrap(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [SearchSheet()]),
+                      );
+                      if (query != null) {
+                        filterOrder(query!);
+                      }
+                    },
                   ),
                 ),
                 SizedBox(height: 13.6),

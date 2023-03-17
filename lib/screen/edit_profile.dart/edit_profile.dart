@@ -1,15 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_element
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/model/User.dart';
-import 'package:klicks_app/static/button.dart';
-import 'package:klicks_app/static/icon_button.dart';
+import 'package:klicks_app/screen/edit_profile.dart/edit_model.dart';
 import 'package:klicks_app/static/inputfield.dart';
-import 'package:klicks_app/static/pass_inputfield_two.dart';
 import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -180,121 +175,9 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   ChangePassword(context, email) {
-    TextEditingController currentPassword = TextEditingController();
-    TextEditingController newPassword = TextEditingController();
-    TextEditingController confirmNewPassword = TextEditingController();
-
-    change() async {
-      if (currentPassword.text == '' ||
-          newPassword.text == '' ||
-          confirmNewPassword.text == '') {
-        Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
-      } else {
-        if (newPassword.text != confirmNewPassword.text) {
-          Fluttertoast.showToast(msg: 'New and Confirm password must be same');
-        } else {
-          await AuthApi.changeposward(
-            email.toString(),
-            currentPassword,
-            newPassword,
-          );
-          Navigator.pop(context);
-
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                Future.delayed(Duration(seconds: 1), () {
-                  Navigator.of(context).pop(true);
-                });
-                return AlertDialog(
-                  // title:
-                  content: Container(
-                    height: 150,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Image(
-                              image: AssetImage('assets/images/checked.png'),
-                              height: 50,
-                              width: 50),
-                        ),
-                        SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Password changed\n successfully!',
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              style: TextStyle(fontSize: 22),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              });
-          currentPassword.text = '';
-          newPassword.text = '';
-          confirmNewPassword.text = '';
-        }
-      }
-    }
-
-    Alert(
-        context: context,
-        // title: LocaleKeys.Change_Password.tr(),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 6),
-            Text(
-              LocaleKeys.Current_Password.tr(),
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-            ),
-            SizedBox(height: 4),
-            InputField(
-              hint: LocaleKeys.Enter_current_password.tr(),
-              obscure: true,
-              controller: currentPassword,
-            ),
-            SizedBox(height: 6),
-            Text(
-              LocaleKeys.New_Password.tr(),
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-            ),
-            SizedBox(height: 4),
-            InputField(
-              hint: LocaleKeys.Enter_new_password.tr(),
-              obscure: true,
-              controller: newPassword,
-            ),
-            SizedBox(height: 6),
-            Text(
-              LocaleKeys.Confirm_New_Password.tr(),
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-            ),
-            SizedBox(height: 4),
-            InputField(
-              hint: LocaleKeys.Enter_confirm_new_password.tr(),
-              obscure: true,
-              controller: confirmNewPassword,
-            ),
-          ],
-        ),
-        buttons: [
-          DialogButton(
-            color: mainColor,
-            onPressed: () async {
-              await change();
-            },
-            child: Text(
-              LocaleKeys.Change_Password.tr(),
-              style: TextStyle(color: Colors.white, fontSize: 14),
-            ),
-          )
-        ]).show();
+    Alert(context: context, content: EditModel(email: email), buttons: [
+      DialogButton(
+          height: 0, color: White, onPressed: () async {}, child: Text(''))
+    ]).show();
   }
 }
