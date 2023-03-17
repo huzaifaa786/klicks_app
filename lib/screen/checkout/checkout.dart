@@ -76,8 +76,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           customerId: data['customer'].toString(),
           customerEphemeralKeySecret: data['ephemeralKey'].toString(),
           // Extra params
-          applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
-          googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
+          // applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
+          // googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
           style: ThemeMode.dark,
           customFlow: true
           // billingDetails: billingDetails,
