@@ -26,7 +26,7 @@ class _SearchSheetState extends State<SearchSheet> {
   @override
   void initState() {
     super.initState();
-    query = '';
+    query = 'Searchmethod.all';
   }
 
   @override
@@ -46,7 +46,7 @@ class _SearchSheetState extends State<SearchSheet> {
           SearchMethod(
             title: 'All',
             groupvalue: _site,
-            color: Colors.green,
+            color: mainColor,
             value: Searchmethod.all,
             onchaged: () {
               toggleplan(Searchmethod.all);
@@ -55,7 +55,7 @@ class _SearchSheetState extends State<SearchSheet> {
           SearchMethod(
             title: 'Completed',
             groupvalue: _site,
-            color: Colors.green,
+            color: badgeGreen,
             value: Searchmethod.completed,
             onchaged: () {
               toggleplan(Searchmethod.completed);

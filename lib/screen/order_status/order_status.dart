@@ -223,7 +223,7 @@ class _OrderStatusState extends State<OrderStatus> {
                 ),
                 widget.order!.status == 3
                     ? Badge(
-                        title: 'Complete',
+                        title: 'Completed',
                         color: Colors.green,
                         ontap: () {},
                       )
@@ -233,17 +233,11 @@ class _OrderStatusState extends State<OrderStatus> {
                             color: Colors.red,
                             ontap: () {},
                           )
-                        : widget.order!.status == 1
-                            ? Badge(
-                                title: 'Accepted',
-                                color: Colors.green,
-                                ontap: () {},
-                              )
-                            : Badge(
-                                title: 'In process',
-                                color: InprocessColor,
-                                ontap: () {},
-                              ),
+                        : Badge(
+                            title: 'In Progress',
+                            color: InprocessColor,
+                            ontap: () {},
+                          ),
               ],
             ),
           ],
