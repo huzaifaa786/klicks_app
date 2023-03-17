@@ -10,10 +10,7 @@ class Api {
     print(url);
     print(data);
 
-    result = await dio.post(
-      url,
-      data: data,
-    );
+    result = await dio.post(url, data: data);
 
     print(result);
     var response = jsonDecode(result.toString());

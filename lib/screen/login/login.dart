@@ -10,7 +10,6 @@ import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
 import 'package:klicks_app/static/toggle.dart';
 import 'package:klicks_app/values/colors.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

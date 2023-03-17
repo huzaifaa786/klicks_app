@@ -1,14 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl_phone_field/countries.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/city_api.dart';
 import 'package:klicks_app/model/City.dart';

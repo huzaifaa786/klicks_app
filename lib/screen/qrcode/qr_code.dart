@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:flutter/material.dart';
 import 'package:klicks_app/screen/qrcode/qr_overlay.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

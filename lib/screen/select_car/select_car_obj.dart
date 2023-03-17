@@ -1,6 +1,5 @@
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
-import 'package:klicks_app/model/services.dart';
 
 class SelectedCarInfo {
   var plateNumber;

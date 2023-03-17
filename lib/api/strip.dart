@@ -1,9 +1,6 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
-import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/Account.dart';
-import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/values/string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
