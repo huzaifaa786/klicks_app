@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/screen/main/main_screen.dart';
-import 'package:klicks_app/screen/order_history/order_histary.dart';
+import 'package:klicks_app/screen/order_history/order_history.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/qrcode/qr_code.dart';
 import 'package:klicks_app/values/colors.dart';

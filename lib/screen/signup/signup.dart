@@ -1,18 +1,12 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
-import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkbox.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
-import 'package:klicks_app/static/inputfield.dart';
-import 'package:klicks_app/static/pass_inputfield_two.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
 import 'package:klicks_app/values/colors.dart';
 

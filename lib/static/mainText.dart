@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:klicks_app/values/colors.dart';
 
 class MainScreenText extends StatelessWidget {
   const MainScreenText({super.key, this.image, this.text});

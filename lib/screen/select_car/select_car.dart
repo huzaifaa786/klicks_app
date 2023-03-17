@@ -14,10 +14,8 @@ import 'package:klicks_app/static/extra_list_item.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/select_car_card.dart';
 import 'package:klicks_app/static/title_topbar.dart';
-import 'package:klicks_app/static/topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class CarSelect extends StatefulWidget {

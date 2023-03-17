@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
@@ -112,25 +111,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   orderPlaced() async {
-    // if (tipcontroller.text == '') {
-    //   Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
-    // } else {
-      if (await OrderApi.placeorder(
-        tipcontroller.text,
-        widget.data!.selectedcartype,
-        widget.data!.company!.company_id,
-        widget.data!.floorNumber,
-        widget.data!.mall!.id,
-        widget.data!.plateNumber,
-        widget.data!.parkingNumber,
-        widget.data!.price,
-        widget.data!.extraService,
-        widget.data!.uid,
-        widget.data!.cityId,
-      )) Navigator.pushNamed(context, 'booking_confirm');
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
-    // }
+    if (await OrderApi.placeorder(
+      tipcontroller.text,
+      widget.data!.selectedcartype,
+      widget.data!.company!.company_id,
+      widget.data!.floorNumber,
+      widget.data!.mall!.id,
+      widget.data!.plateNumber,
+      widget.data!.parkingNumber,
+      widget.data!.price,
+      widget.data!.extraService,
+      widget.data!.uid,
+      widget.data!.cityId,
+    )) Navigator.pushNamed(context, 'booking_confirm');
   }
 
   int? Addtip = 0;
@@ -175,7 +168,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       SizedBox(height: 16),
                       Container(
                         margin: EdgeInsets.only(right: 2, left: 1),
-                        padding: EdgeInsets.only(right: 12,left: 12,top: 16,bottom: 16),
+                        padding: EdgeInsets.only(
+                            right: 12, left: 12, top: 16, bottom: 16),
                         decoration: BoxDecoration(
                           color: White,
                           borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -206,30 +200,26 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               image: 'assets/images/numberPlate.svg',
                             ),
                             CheckOutTile(
-                              title: LocaleKeys.Parking_Number.tr() + ':',
-                              discription: widget.data!.parkingNumber,
-                              image: 'assets/images/parkingNumber.svg'
-                            ),
+                                title: LocaleKeys.Parking_Number.tr() + ':',
+                                discription: widget.data!.parkingNumber,
+                                image: 'assets/images/parkingNumber.svg'),
                             CheckOutTile(
-                              title: LocaleKeys.Mall.tr() + ':',
-                              discription: widget.data!.mall!.name,
-                              image: 'assets/images/mallCheckout.svg'
-                            ),
-                             CheckOutTile(
-                              title: LocaleKeys.Floor_Number.tr() + ':',
-                              discription: widget.data!.floorNumber!,
-                              image: 'assets/images/floorNumberCheck.svg'
-                            ),
+                                title: LocaleKeys.Mall.tr() + ':',
+                                discription: widget.data!.mall!.name,
+                                image: 'assets/images/mallCheckout.svg'),
                             CheckOutTile(
-                              title: LocaleKeys.Extras.tr() + ':',
-                              discription: widget.data!.extraService == null
-                                  ? 'No, Extra service added'
-                                  : widget.data!.extraService!.length
-                                          .toString() +
-                                      ' ' +
-                                      'Extra service added',
-                                      image: 'assets/images/Extras.svg'
-                            ),
+                                title: LocaleKeys.Floor_Number.tr() + ':',
+                                discription: widget.data!.floorNumber!,
+                                image: 'assets/images/floorNumberCheck.svg'),
+                            CheckOutTile(
+                                title: LocaleKeys.Extras.tr() + ':',
+                                discription: widget.data!.extraService == null
+                                    ? 'No, Extra service added'
+                                    : widget.data!.extraService!.length
+                                            .toString() +
+                                        ' ' +
+                                        'Extra service added',
+                                image: 'assets/images/Extras.svg'),
                           ],
                         ),
                       ),
@@ -323,18 +313,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                       SizedBox(height: 12),
                       Container(
-                        padding: EdgeInsets.only(top: 20,bottom: 20,right: 12,left: 12),
+                        padding: EdgeInsets.only(
+                            top: 20, bottom: 20, right: 12, left: 12),
                         decoration: BoxDecoration(
-                        color: White,
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
+                          color: White,
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 1,
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
                         ),
                         child: Column(
                           children: [

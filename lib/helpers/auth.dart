@@ -1,6 +1,6 @@
-import 'package:klicks_app/model/User.dart';
+// import 'package:klicks_app/model/User.dart';
 
-class Auth {
+// class Auth {
   // static User user() {
   //   return Ram.user;
   // }
@@ -25,4 +25,4 @@ class Auth {
   //   SharedPreferencesHelper.remove('apiToken');
   //   Navigator.pushNamedAndRemoveUntil(navigatorKey.currentContext, "login", ModalRoute.withName('splash'));
   // }
-}
+// }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/City.dart';
