@@ -68,6 +68,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     print('sdsa');
     print(data['paymentIntent']);
     await Stripe.instance.initPaymentSheet(
+      
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: data['paymentIntent'],
         merchantDisplayName: 'Klicks',
@@ -140,6 +141,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       getbalance();
     });
     total = widget.data!.price;
+    tipcontroller.text = '0';
     super.initState();
   }
 
