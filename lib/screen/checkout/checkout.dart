@@ -11,6 +11,7 @@ import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
+import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/static/checkout_input.dart';
@@ -68,18 +69,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     print(data['paymentIntent']);
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: data['paymentIntent'],
-          merchantDisplayName: 'Klicks',
-          // Customer params
-          customerId: data['customer'].toString(),
-          customerEphemeralKeySecret: data['ephemeralKey'].toString(),
-          // Extra params
-          // applePay: PaymentSheetApplePay(merchantCountryCode: 'GBP'),
-          // googlePay: PaymentSheetGooglePay(merchantCountryCode: 'GBP'),
-          style: ThemeMode.dark,
-          customFlow: true
-          // billingDetails: billingDetails,
-          ),
+        paymentIntentClientSecret: data['paymentIntent'],
+        merchantDisplayName: 'Klicks',
+        // Customer params
+        // customerId: data['customer'].toString(),
+        // customerEphemeralKeySecret: data['ephemeralKey'].toString(),
+        // Extra params
+        applePay: PaymentSheetApplePay(merchantCountryCode: 'AED'),
+        googlePay: PaymentSheetGooglePay(merchantCountryCode: 'AED'),
+        style: ThemeMode.dark,
+        // customFlow: true
+        // billingDetails: billingDetails,
+      ),
     );
     LoadingHelper.dismiss();
     confirmPayment();
