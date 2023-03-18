@@ -263,7 +263,7 @@ class _MainScreenState extends State<MainScreen> {
                               padding: EdgeInsets.only(top: 15.0),
                               child: MainScreenText(
                                 image: 'assets/images/mallIcon.svg',
-                                text: LocaleKeys.Select_Mall.tr(),
+                                text: LocaleKeys.Select_Company.tr(),
                               ),
                             ),
                             CompanysDropdownField(
