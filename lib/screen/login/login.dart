@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -22,8 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController verificationCode = TextEditingController();
   bool _obscureText = true;
-
+  String verificationid = "";
+  int? resendtoken;
+  int? type = 0;
   login() async {
     if (emailController.text == '' || passwordController.text == '') {
       Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
@@ -35,6 +39,23 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => BottomNavScreen()));
     }
+  }
+
+  Future registerUser() async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
+
+    _auth.verifyPhoneNumber(
+        phoneNumber:'+923154704013',
+        verificationCompleted: (AuthCredential authCredential) {},
+        verificationFailed: (FirebaseAuthException authException) {
+          print(authException.message);
+        },
+        codeSent: (String verificationId, int? forceResendingToken) {},
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationId = verificationId;
+          print(verificationId);
+          print("Timout");
+        });
   }
 
   void _toggle() {
@@ -232,7 +253,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Text(
                                               "Enter Phone Number",
                                               style: TextStyle(
-                                                fontWeight: FontWeight.w500, fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
                                               ),
                                             ),
                                           ],
@@ -248,14 +270,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                               filled: true,
                                               fillColor: White,
                                               border: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(),
+                                                borderSide: BorderSide(),
                                               ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide:
                                                     BorderSide(color: grey),
                                               ),
-                                              focusedBorder:  OutlineInputBorder(
+                                              focusedBorder: OutlineInputBorder(
                                                 borderSide:
                                                     BorderSide(color: grey),
                                               ),
@@ -282,7 +303,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                             top: 25.0, bottom: 30),
                                         child: LargeButton(
                                           title: "Send Otp",
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            registerUser();
+                                          },
                                         ),
                                       ),
                                       SizedBox(
