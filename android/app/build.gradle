@@ -73,5 +73,5 @@ dependencies {
     implementation 'com.google.mlkit:barcode-scanning:17.0.2'
     implementation platform('com.google.firebase:firebase-bom:31.2.2')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-      implementation 'com.stripe:stripe-android:20.20.0'
+    implementation 'com.stripe:stripe-android:20.20.0'
 }

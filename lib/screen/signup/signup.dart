@@ -1,9 +1,12 @@
 import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
+import 'package:klicks_app/screen/otp_screen/otp_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkbox.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
@@ -36,6 +39,66 @@ class _SignUpState extends State<SignUp> {
     setState(() {
       checkboxval = !checkboxval;
     });
+  }
+
+  void sendToken() async {
+    LoadingHelper.show();
+    log('log ???????????????????????????????????????? 01');
+    // print(phone.text);
+
+    try {
+      FirebaseAuth auth = FirebaseAuth.instance;
+      int? resendtoken;
+      String? last2;
+      String verificationid = "";
+      await auth.verifyPhoneNumber(
+        timeout: const Duration(minutes: 2),
+        phoneNumber: complete_phone,
+        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationFailed: (FirebaseAuthException e) {
+          LoadingHelper.dismiss();
+          log(e.message.toString());
+          // Fluttertoast.showToast(msg: e.message.toString());
+          // Get.snackbar('Verification failed', e.message!,
+          //     snackPosition: SnackPosition.BOTTOM,
+          //     backgroundColor: Colors.red,
+          //     colorText: primaryTextColor);
+        },
+        forceResendingToken: resendtoken,
+        codeSent: (String verificationId, int? resendToken) {
+          last2 = complete_phone!.substring(complete_phone!.length - 2);
+          verificationid = verificationId;
+          resendtoken = resendToken;
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: 'OTP has been successfully send');
+          // Get.snackbar('OTP has been successfully send', '',
+          //     snackPosition: SnackPosition.BOTTOM,
+          //     backgroundColor: Colors.green,
+          //     colorText: primaryTextColor);
+          //  Navigator.push(
+          // context,
+          // MaterialPageRoute(
+          //   builder: (context) => OtpScreen(
+          //     otp: muser.toString(),
+          //     emailcontroller: emailController.text,
+          //   ),
+          // ),
+          // );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationid = verificationId;
+          // Get.snackbar('TIMEOUT', '',
+          //     snackPosition: SnackPosition.BOTTOM,
+          //     backgroundColor: Colors.green,
+          //     colorText: primaryTextColor);
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      // Get.snackbar('Verification Failed', e.message!,
+      // snackPosition: SnackPosition.BOTTOM,
+      // backgroundColor: Colors.red,
+      // colorText: primaryTextColor);
+    }
   }
 
   register() async {
@@ -227,7 +290,8 @@ class _SignUpState extends State<SignUp> {
                 child: LargeButton(
                   title: "Sign up",
                   onPressed: () {
-                    register();
+                    // register();
+                    sendToken();
                   },
                 ),
               ),
