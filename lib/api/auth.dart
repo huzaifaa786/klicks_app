@@ -181,47 +181,26 @@ class AuthApi {
     LoadingHelper.dismiss();
     return response;
   }
-
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
-  // Future<String?> signupwithGoogle() async {
-  //   try {
-  //     LoadingHelper.show();
-  //     final GoogleSignInAccount? googleSignInAccount =
-  //         await _googleSignIn.signIn();
-  //     var email1 = googleSignInAccount!.email;
-  //     var methods =
-  //         await FirebaseAuth.instance.fetchSignInMethodsForEmail(email1);
-  //     print(methods);
-  //     if (methods.contains('google.com')) {
-  //       final GoogleSignInAuthentication googleSignInAuthentication =
-  //           await googleSignInAccount.authentication;
-  //       final AuthCredential credential = GoogleAuthProvider.credential(
-  //         // accessToken: googleSignInAuthentication.accessToken,
-  //         idToken: googleSignInAuthentication.idToken,
-  //       );
-  //       var result = await _auth.signInWithCredential(credential);
-  //       final token = await FirebaseMessaging.instance.getToken();
-  //       var collection = FirebaseFirestore.instance.collection('users');
-  //       collection.doc(firebaseUser.value!.uid).update({
-  //         'token': token,
-  //       });
-  //     } else {
-  //       final GoogleSignInAuthentication googleSignInAuthentication =
-  //           await googleSignInAccount.authentication;
-  //       email.text = googleSignInAccount.email;
-  //       userController.googleImageUrl = googleSignInAccount.photoUrl;
-  //       String? idToken = googleSignInAuthentication.idToken!;
-  //       print(idToken);
-  //       Get.offAll(() => RegisterScreen(
-  //             idToken: idToken,
-  //           ));
-  //       LoadingHelper.dismiss();
-  //     }
-  //   } on FirebaseAuthException catch (e) {
-  //     Get.snackbar('Google SignIn Failed', e.message!,
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         backgroundColor: Colors.red,
-  //         colorText: primaryTextColor);
-  //   }
-  // }
+ static googlelogin() async {
+    LoadingHelper.show();
+    var token = await FirebaseMessaging.instance.getToken();
+    var url = BASE_URL + 'googlelogin';
+  
+    var response = await Api.execute(
+      url: url,
+     
+    );
+    print(response);
+    LoadingHelper.dismiss();
+    if (!response['error']) {
+      User user = User(response['user']);
+      SharedPreferencesHelper.setString('api_token', user.apiToken!);
+      SharedPreferencesHelper.setString('user_id', user.id.toString());
+      return true;
+    } else {
+      print('error');
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
+    }
+  }
 }
