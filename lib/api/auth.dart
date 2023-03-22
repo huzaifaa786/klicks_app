@@ -7,6 +7,7 @@ import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/Order.dart';
 import 'package:klicks_app/model/User.dart';
+import 'package:klicks_app/model/mobile_user.dart';
 import 'package:klicks_app/values/string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,11 +29,28 @@ class AuthApi {
       User user = User(response['user']);
       SharedPreferencesHelper.setString('api_token', user.apiToken!);
       SharedPreferencesHelper.setString('user_id', user.id.toString());
-
       return true;
     } else {
       Fluttertoast.showToast(msg: response['error_data']);
       return false;
+    }
+  }
+
+  static Mobilelogin(phone) async {
+    LoadingHelper.show();
+    var url = BASE_URL + 'otplogin';
+    var data = {
+      'phone': phone,
+    };
+
+    var response = await Api.execute(url: url, data: data);
+    LoadingHelper.dismiss();
+    if (!response['error']) {
+      MobUser user = MobUser(response['data']);
+      return user;
+    } else {
+      Fluttertoast.showToast(msg: response['error_data']);
+      return null;
     }
   }
 
@@ -78,7 +96,8 @@ class AuthApi {
     var response = await Api.execute(url: url, data: data);
     LoadingHelper.dismiss();
     if (!response['error']) {
-      User user = User(response['user']);
+      User? user = User(response['user']);
+      print(user);
       return user;
     } else {
       Fluttertoast.showToast(msg: response['error_data']);

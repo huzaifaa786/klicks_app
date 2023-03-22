@@ -1,11 +1,18 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/model/User.dart';
+import 'package:klicks_app/model/mobile_user.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
+import 'package:klicks_app/screen/login/signinOtp.dart';
+import 'package:klicks_app/screen/signup/signup_otp.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
@@ -27,7 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
   String verificationid = "";
   int? resendtoken;
-  int? type = 0;
+  String? complete_phone;
+
   login() async {
     if (emailController.text == '' || passwordController.text == '') {
       Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
@@ -41,21 +49,60 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future registerUser() async {
-    FirebaseAuth _auth = FirebaseAuth.instance;
+  MobUser? user;
+  getuser() async {
+    var muser = await AuthApi.Mobilelogin(complete_phone);
+    log(muser.toString());
+    if (muser == null) {
+    } else {
+      setState(() {
+        user = muser;
+        print(user);
+        LoadingHelper.dismiss();
+        sendToken();
+      });
+    }
+  }
 
-    _auth.verifyPhoneNumber(
-        phoneNumber:'+923154704013',
-        verificationCompleted: (AuthCredential authCredential) {},
-        verificationFailed: (FirebaseAuthException authException) {
-          print(authException.message);
+  void sendToken() async {
+    LoadingHelper.show();
+    try {
+      FirebaseAuth auth = FirebaseAuth.instance;
+      int? resendtoken;
+      String verificationid = "";
+      await auth.verifyPhoneNumber(
+        timeout: const Duration(minutes: 2),
+        phoneNumber: complete_phone,
+        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationFailed: (FirebaseAuthException e) {
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: e.message!);
         },
-        codeSent: (String verificationId, int? forceResendingToken) {},
+        forceResendingToken: resendtoken,
+        codeSent: (String verificationId, int? resendToken) {
+          verificationid = verificationId;
+          resendtoken = resendToken;
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: 'OTP has been successfully send');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignInOtpScreen(
+                id: verificationid,
+                user: user,
+              ),
+            ),
+          );
+        },
         codeAutoRetrievalTimeout: (String verificationId) {
-          verificationId = verificationId;
-          print(verificationId);
-          print("Timout");
-        });
+          verificationid = verificationId;
+          // Fluttertoast.showToast(msg: 'TIMEOUT');
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      LoadingHelper.dismiss();
+      Fluttertoast.showToast(msg: e.message!);
+    }
   }
 
   void _toggle() {
@@ -282,7 +329,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             ),
                                             initialCountryCode: 'AE',
-                                            onChanged: (phone) {},
+                                            onChanged: (phone) {
+                                              complete_phone =
+                                                  phone.completeNumber;
+                                            },
                                             keyboardType: TextInputType.phone,
                                           ),
                                         ),
@@ -304,7 +354,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: LargeButton(
                                           title: "Send Otp",
                                           onPressed: () {
-                                            registerUser();
+                                            getuser();
                                           },
                                         ),
                                       ),
