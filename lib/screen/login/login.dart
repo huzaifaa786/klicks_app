@@ -1,18 +1,15 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'dart:developer';
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_catch_clause
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/helpers/loading.dart';
-import 'package:klicks_app/model/User.dart';
 import 'package:klicks_app/model/mobile_user.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/login/signinOtp.dart';
-import 'package:klicks_app/screen/signup/signup_otp.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
@@ -31,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController verificationCode = TextEditingController();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   bool _obscureText = true;
   String verificationid = "";
   int? resendtoken;
@@ -52,15 +50,32 @@ class _LoginScreenState extends State<LoginScreen> {
   MobUser? user;
   getuser() async {
     var muser = await AuthApi.Mobilelogin(complete_phone);
-    log(muser.toString());
     if (muser == null) {
     } else {
       setState(() {
         user = muser;
-        print(user);
         LoadingHelper.dismiss();
         sendToken();
       });
+    }
+  }
+
+  signInwithGoogle() async {
+    try {
+      LoadingHelper.show();
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      var email1 = googleSignInAccount!.email;
+      print('email1');
+      print(email1);
+      LoadingHelper.dismiss();
+      if (await AuthApi.googlelogin(email1)) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BottomNavScreen()));
+      }
+    } on FirebaseAuthException catch (e) {
+      Fluttertoast.showToast(msg: 'Google SignIn Failed');
+      LoadingHelper.dismiss();
     }
   }
 
@@ -274,11 +289,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 20.0),
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/google.png'),
-                                              height: 50,
-                                              width: 50,
+                                            child: InkWell(
+                                              onTap: () {
+                                                signInwithGoogle();
+                                              },
+                                              child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/google.png'),
+                                                height: 50,
+                                                width: 50,
+                                              ),
                                             ),
                                           ),
                                           Image(

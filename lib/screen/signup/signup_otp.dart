@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/helpers/loading.dart';
-import 'package:klicks_app/screen/forget_password/change_password.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';

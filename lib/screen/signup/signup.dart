@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, unused_catch_clause
+
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
-import 'package:klicks_app/screen/otp_screen/otp_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkbox.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
