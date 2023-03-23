@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -33,7 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
   String verificationid = "";
   int? resendtoken;
   String? complete_phone;
-
+    Map<String, dynamic>? _userData;
+  AccessToken? _accessToken;
+  bool _checking = true;
   login() async {
     if (emailController.text == '' || passwordController.text == '') {
       Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
@@ -56,6 +59,22 @@ class _LoginScreenState extends State<LoginScreen> {
         user = muser;
         LoadingHelper.dismiss();
         sendToken();
+      });
+    }
+  }
+   Future<void> _checkIfIsLogged() async {
+    final accessToken = await FacebookAuth.instance.accessToken;
+    setState(() {
+      _checking = false;
+    });
+    if (accessToken != null) {
+      // print("is Logged:::: ${prettyPrint(accessToken.toJson())}");
+      // now you can call to  FacebookAuth.instance.getUserData();
+      final userData = await FacebookAuth.instance.getUserData();
+      // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
+      _accessToken = accessToken;
+      setState(() {
+        _userData = userData;
       });
     }
   }
@@ -276,14 +295,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 20.0),
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/facebook.png'),
-                                              height: 50,
-                                              width: 50,
+                                          InkWell(
+                                            onTap: () {
+                                              _checkIfIsLogged();
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 20.0),
+                                              child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/facebook.png'),
+                                                height: 50,
+                                                width: 50,
+                                              ),
                                             ),
                                           ),
                                           Padding(

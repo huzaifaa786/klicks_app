@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="facebook_app_id">595687622481181</string>
+<string name="app_name">Klicks Wash</string>
+<string name="fb_login_protocol_scheme">fb595687622481181</string>
+<string name="facebook_client_token">41c308a26b7f14305a0144dc8408314c</string>
+</resources>
