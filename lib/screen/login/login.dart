@@ -1,12 +1,19 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/model/User.dart';
+import 'package:klicks_app/model/mobile_user.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
+import 'package:klicks_app/screen/login/signinOtp.dart';
+import 'package:klicks_app/screen/signup/signup_otp.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
@@ -28,11 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
   String verificationid = "";
   int? resendtoken;
-  int? type = 0;
-
-  Map<String, dynamic>? _userData;
-  AccessToken? _accessToken;
-  bool _checking = true;
+  String? complete_phone;
 
   login() async {
     if (emailController.text == '' || passwordController.text == '') {
@@ -47,66 +50,60 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> _checkIfIsLogged() async {
-    final accessToken = await FacebookAuth.instance.accessToken;
-    print(accessToken);
-    setState(() {
-      _checking = false;
-    });
-    if (accessToken != null) {
-      // now you can call to  FacebookAuth.instance.getUserData();
-      final userData = await FacebookAuth.instance.getUserData();
-      // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
-      _accessToken = accessToken;
+  MobUser? user;
+  getuser() async {
+    var muser = await AuthApi.Mobilelogin(complete_phone);
+    log(muser.toString());
+    if (muser == null) {
+    } else {
       setState(() {
-        _userData = userData;
+        user = muser;
+        print(user);
+        LoadingHelper.dismiss();
+        sendToken();
       });
     }
   }
 
-  Future<void> _login() async {
-    final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
-
-    // loginBehavior is only supported for Android devices, for ios it will be ignored
-    // final result = await FacebookAuth.instance.login(
-    //   permissions: ['email', 'public_profile', 'user_birthday', 'user_friends', 'user_gender', 'user_link'],
-    //   loginBehavior: LoginBehavior
-    //       .DIALOG_ONLY, // (only android) show an authentication dialog instead of redirecting to facebook app
-    // );
-
-    if (result.status == LoginStatus.success) {
-      _accessToken = result.accessToken;
-     
-      // get the user data
-      // by default we get the userId, email,name and picture
-      final userData = await FacebookAuth.instance.getUserData();
-      // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
-      _userData = userData;
-    } else {
-      print(result.status);
-      print(result.message);
-    }
-
-    setState(() {
-      _checking = false;
-    });
-  }
-
-  Future registerUser() async {
-    FirebaseAuth _auth = FirebaseAuth.instance;
-
-    _auth.verifyPhoneNumber(
-        phoneNumber: '+923154704013',
-        verificationCompleted: (AuthCredential authCredential) {},
-        verificationFailed: (FirebaseAuthException authException) {
-          print(authException.message);
+  void sendToken() async {
+    LoadingHelper.show();
+    try {
+      FirebaseAuth auth = FirebaseAuth.instance;
+      int? resendtoken;
+      String verificationid = "";
+      await auth.verifyPhoneNumber(
+        timeout: const Duration(minutes: 2),
+        phoneNumber: complete_phone,
+        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationFailed: (FirebaseAuthException e) {
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: e.message!);
         },
-        codeSent: (String verificationId, int? forceResendingToken) {},
+        forceResendingToken: resendtoken,
+        codeSent: (String verificationId, int? resendToken) {
+          verificationid = verificationId;
+          resendtoken = resendToken;
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: 'OTP has been successfully send');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignInOtpScreen(
+                id: verificationid,
+                user: user,
+              ),
+            ),
+          );
+        },
         codeAutoRetrievalTimeout: (String verificationId) {
-          verificationId = verificationId;
-          print(verificationId);
-          print("Timout");
-        });
+          verificationid = verificationId;
+          // Fluttertoast.showToast(msg: 'TIMEOUT');
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      LoadingHelper.dismiss();
+      Fluttertoast.showToast(msg: e.message!);
+    }
   }
 
   void _toggle() {
@@ -338,7 +335,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             ),
                                             initialCountryCode: 'AE',
-                                            onChanged: (phone) {},
+                                            onChanged: (phone) {
+                                              complete_phone =
+                                                  phone.completeNumber;
+                                            },
                                             keyboardType: TextInputType.phone,
                                           ),
                                         ),
@@ -360,7 +360,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: LargeButton(
                                           title: "Send Otp",
                                           onPressed: () {
-                                            registerUser();
+                                            getuser();
                                           },
                                         ),
                                       ),

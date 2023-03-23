@@ -290,8 +290,8 @@ class _SignUpState extends State<SignUp> {
                 child: LargeButton(
                   title: "Sign up",
                   onPressed: () {
-                    // register();
-                    sendToken();
+                    register();
+                    // sendToken();
                   },
                 ),
               ),
