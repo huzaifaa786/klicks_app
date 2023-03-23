@@ -1,4 +1,3 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/extra_services_detail.dart';

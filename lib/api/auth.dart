@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -147,7 +149,7 @@ class AuthApi {
 
     LoadingHelper.dismiss();
     if (response['error'] == false) {
-      User user = User(response['update']);
+      // User user = User(response['update']);
       return true;
     } else {
       Fluttertoast.showToast(msg: response['error']);
@@ -180,24 +182,21 @@ class AuthApi {
     LoadingHelper.dismiss();
     return response;
   }
- static googlelogin() async {
+
+  static googlelogin(String email) async {
     LoadingHelper.show();
     var token = await FirebaseMessaging.instance.getToken();
-    var url = BASE_URL + 'googlelogin';
-  
-    var response = await Api.execute(
-      url: url,
-     
-    );
+    var url = BASE_URL + 'userget';
+    var data = {'email': email};
+    var response = await Api.execute(url: url,data: data);
     print(response);
     LoadingHelper.dismiss();
     if (!response['error']) {
-      User user = User(response['user']);
+      User user = User(response['data']);
       SharedPreferencesHelper.setString('api_token', user.apiToken!);
       SharedPreferencesHelper.setString('user_id', user.id.toString());
       return true;
     } else {
-      print('error');
       Fluttertoast.showToast(msg: response['error_data']);
       return false;
     }

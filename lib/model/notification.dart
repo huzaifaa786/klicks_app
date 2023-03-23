@@ -1,5 +1,3 @@
-import 'package:klicks_app/model/Order.dart';
-
 class NotificationModal {
   int? id;
   String? title;
