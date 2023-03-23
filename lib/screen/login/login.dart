@@ -36,7 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
   String verificationid = "";
   int? resendtoken;
   String? complete_phone;
-
+    Map<String, dynamic>? _userData;
+  AccessToken? _accessToken;
+  bool _checking = true;
   login() async {
     if (emailController.text == '' || passwordController.text == '') {
       Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
@@ -61,6 +63,22 @@ class _LoginScreenState extends State<LoginScreen> {
         print(user);
         LoadingHelper.dismiss();
         sendToken();
+      });
+    }
+  }
+   Future<void> _checkIfIsLogged() async {
+    final accessToken = await FacebookAuth.instance.accessToken;
+    setState(() {
+      _checking = false;
+    });
+    if (accessToken != null) {
+      // print("is Logged:::: ${prettyPrint(accessToken.toJson())}");
+      // now you can call to  FacebookAuth.instance.getUserData();
+      final userData = await FacebookAuth.instance.getUserData();
+      // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
+      _accessToken = accessToken;
+      setState(() {
+        _userData = userData;
       });
     }
   }
@@ -264,7 +282,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              _login();
+                                              _checkIfIsLogged();
                                             },
                                             child: Padding(
                                               padding: const EdgeInsets.only(
