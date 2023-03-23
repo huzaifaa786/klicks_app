@@ -269,31 +269,23 @@ class _CarSelectState extends State<CarSelect> {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 2, top: 20),
-                            child: Text(
-                              "Add Extra",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 14),
-                            ),
-                          ),
+                          services.length == 0
+                              ? Container()
+                              : Padding(
+                                  padding: EdgeInsets.only(bottom: 2, top: 20),
+                                  child: Text(
+                                    "Add Extra",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14),
+                                  ),
+                                ),
                           Container(
                             height: services.length == 0
-                                ? 40
+                                ? 8
                                 : MediaQuery.of(context).size.height * 0.2,
                             child: services.length == 0
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Colors.grey[300]!),
-                                      borderRadius: BorderRadius.circular(6),
-                                      // color: gre,
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                      'No extra service provided by this company',
-                                      style: TextStyle(fontSize: 12),
-                                    )))
+                                ? Container()
                                 : ListView.builder(
                                     itemCount: services.length,
                                     itemBuilder: (context, index) {
