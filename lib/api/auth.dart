@@ -148,8 +148,7 @@ class AuthApi {
     LoadingHelper.dismiss();
     if (response['error'] == false) {
       User user = User(response['update']);
-      Fluttertoast.showToast(msg: 'Password update successfully');
-      return user;
+      return true;
     } else {
       Fluttertoast.showToast(msg: response['error']);
       return false;

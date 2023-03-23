@@ -48,12 +48,12 @@ class _EditModelState extends State<EditModel> {
       if (newPassword.text != confirmNewPassword.text) {
         Fluttertoast.showToast(msg: 'New and Confirm password must be same');
       } else {
-        await AuthApi.changeposward(
+        if(await AuthApi.changeposward(
           widget.email.toString(),
           currentPassword,
           newPassword,
-        );
-        Navigator.pop(context);
+        )){
+          Navigator.pop(context);
 
         showDialog(
             context: context,
@@ -94,6 +94,8 @@ class _EditModelState extends State<EditModel> {
         currentPassword.text = '';
         newPassword.text = '';
         confirmNewPassword.text = '';
+        }
+        
       }
     }
   }
