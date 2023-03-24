@@ -68,12 +68,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: data['paymentIntent'],
         merchantDisplayName: 'Klicks',
+         customFlow: true,
         // Customer params
         // customerId: data['customer'].toString(),
         // customerEphemeralKeySecret: data['ephemeralKey'].toString(),
         // Extra params
-        applePay: PaymentSheetApplePay(merchantCountryCode: 'UAE',),
-        googlePay: PaymentSheetGooglePay(merchantCountryCode: 'UAE',currencyCode: 'AED'),
+        applePay: PaymentSheetApplePay(merchantCountryCode: 'UAE'),
+        googlePay: PaymentSheetGooglePay(merchantCountryCode: 'UAE',currencyCode: 'AED',testEnv: true,),
         style: ThemeMode.dark,
         // customFlow: true
         // billingDetails: billingDetails,

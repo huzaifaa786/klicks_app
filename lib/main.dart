@@ -19,10 +19,13 @@ import 'package:klicks_app/screen/signup/signup.dart';
 import 'package:klicks_app/screen/splash/splash_screen.dart';
 import 'package:klicks_app/translations/codegen_loader.g.dart';
 import 'package:klicks_app/values/styles.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   await EasyLocalization.ensureInitialized();
   // MessagingManager().configure();
   Stripe.publishableKey =
