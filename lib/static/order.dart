@@ -58,6 +58,7 @@ class Order extends StatelessWidget {
                             ? Container(
                                 height: 60,
                                 width: 60,
+                                padding: EdgeInsets.only(left: 4,right: 4),
                                 decoration: BoxDecoration(
                                   color: White,
                                   borderRadius:
@@ -79,6 +80,7 @@ class Order extends StatelessWidget {
                             : Container(
                                 height: 60,
                                 width: 60,
+                                padding: EdgeInsets.only(left: 4,right: 4),
                                 decoration: BoxDecoration(
                                   color: White,
                                   borderRadius:

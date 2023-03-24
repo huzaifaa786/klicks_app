@@ -50,12 +50,12 @@ class NotificationTile extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 2),
-                      Text(
-                        day,
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w500),
-                      )
+                      // SizedBox(height: 2),
+                      // Text(
+                      //   day,
+                      //   style: TextStyle(
+                      //       fontSize: 12, fontWeight: FontWeight.w500),
+                      // )
                     ],
                   ),
                 )
