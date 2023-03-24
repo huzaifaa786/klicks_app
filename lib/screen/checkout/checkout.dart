@@ -323,25 +323,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               toggleplan(PayMethod.materCard);
                             },
                           ),
-                          PPaymentMethod(
-                            title: 'Google Pay',
-                            image: "assets/images/google.png",
-                            value: PayMethod.googlePay,
-                            groupvalue: _site,
-                            onchaged: () {
-                              toggleplan(PayMethod.googlePay);
-                            },
-                            onpress: () {},
-                          ),
-                          PPaymentMethod(
-                            title: 'Apple Pay',
-                            image: "assets/images/apple.png",
-                            groupvalue: _site,
-                            value: PayMethod.applePay,
-                            onchaged: () {
-                              toggleplan(PayMethod.applePay);
-                            },
-                          ),
+                          // PPaymentMethod(
+                          //   title: 'Google Pay',
+                          //   image: "assets/images/google.png",
+                          //   value: PayMethod.googlePay,
+                          //   groupvalue: _site,
+                          //   onchaged: () {
+                          //     toggleplan(PayMethod.googlePay);
+                          //   },
+                          //   onpress: () {},
+                          // ),
+                          // PPaymentMethod(
+                          //   title: 'Apple Pay',
+                          //   image: "assets/images/apple.png",
+                          //   groupvalue: _site,
+                          //   value: PayMethod.applePay,
+                          //   onchaged: () {
+                          //     toggleplan(PayMethod.applePay);
+                          //   },
+                          // ),
                           PPaymentMethod(
                             title: 'wallet Pay',
                             image: "assets/images/wallet.png",

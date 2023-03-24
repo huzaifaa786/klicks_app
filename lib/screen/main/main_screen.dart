@@ -56,6 +56,7 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       companyValue = null;
       companys = mCompanys;
+      companyValue = companys[0];
     });
   }
 
@@ -259,26 +260,26 @@ class _MainScreenState extends State<MainScreen> {
                                 getcomapnys(value.id);
                               },
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 15.0),
-                              child: MainScreenText(
-                                image: 'assets/images/mallIcon.svg',
-                                text: LocaleKeys.Select_Company.tr(),
-                              ),
-                            ),
-                            CompanysDropdownField(
-                              imageIcon: 'assets/images/mall.svg',
-                              text: LocaleKeys.Choose_Company.tr(),
-                              selectedvalue: companyValue,
-                              items: companys,
-                              icon: ImageIcon(
-                                  AssetImage('assets/images/drop_arrow.png')),
-                              onChange: (value) {
-                                setState(() {
-                                  companyValue = value;
-                                });
-                              },
-                            ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(top: 15.0),
+                            //   child: MainScreenText(
+                            //     image: 'assets/images/mallIcon.svg',
+                            //     text: LocaleKeys.Select_Company.tr(),
+                            //   ),
+                            // ),
+                            // CompanysDropdownField(
+                            //   imageIcon: 'assets/images/mall.svg',
+                            //   text: LocaleKeys.Choose_Company.tr(),
+                            //   selectedvalue: companyValue,
+                            //   items: companys,
+                            //   icon: ImageIcon(
+                            //       AssetImage('assets/images/drop_arrow.png')),
+                            //   onChange: (value) {
+                            //     setState(() {
+                            //       companyValue = value;
+                            //     });
+                            //   },
+                            // ),
                             Padding(
                               padding: EdgeInsets.only(top: 50, bottom: 40),
                               child: LargeButton(

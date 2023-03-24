@@ -65,6 +65,7 @@ class NotificationTile extends StatelessWidget {
                 ? Container(
                     height: 60,
                     width: 60,
+                    padding: EdgeInsets.only(left: 4,right: 4),
                     decoration: BoxDecoration(
                       color: White,
                       borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -85,6 +86,7 @@ class NotificationTile extends StatelessWidget {
                 : Container(
                     height: 60,
                     width: 60,
+                    padding: EdgeInsets.only(left: 4,right: 4),
                     decoration: BoxDecoration(
                       color: White,
                       borderRadius: BorderRadius.all(Radius.circular(6)),

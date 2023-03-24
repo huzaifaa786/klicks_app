@@ -11,7 +11,7 @@ class NotificationApi {
     var url = BASE_URL + 'usernotfion';
     var data;
     final prefs = await SharedPreferences.getInstance();
-    data = {'id': prefs.getString('user_id')!};
+    data = {'user_id': prefs.getString('user_id')!};
 
     var response = await Api.execute(url: url, data: data);
     print(response);
