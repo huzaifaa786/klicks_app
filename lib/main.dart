@@ -15,6 +15,7 @@ import 'package:klicks_app/screen/order_history/order_history.dart';
 import 'package:klicks_app/screen/notification/notification.dart';
 import 'package:klicks_app/screen/order_status/order_status.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
+import 'package:klicks_app/screen/profile/translate.dart';
 import 'package:klicks_app/screen/signup/signup.dart';
 import 'package:klicks_app/screen/splash/splash_screen.dart';
 import 'package:klicks_app/translations/codegen_loader.g.dart';
@@ -89,6 +90,7 @@ class _MyAppState extends State<MyApp> {
           'intro': (context) => const IntroScreen(),
           'signup': (context) => const SignUp(),
           'forgot_screen': (context) => ForgotScreen(),
+          'Lang': (context) => TranslateScreen(),
         },
       ),
     );

@@ -23,7 +23,6 @@ import 'package:easy_localization/easy_localization.dart';
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
   final SelectedCarInfo? data;
- 
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -35,6 +34,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   bool val = false;
   bool val1 = false;
   bool tip = false;
+  String? method;
 
   TextEditingController tipcontroller = TextEditingController();
   List<Coupon> coupons = [];
@@ -52,7 +52,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   walletpayment() {
-    if (account!.balance! <= total!) {
+    if (account!.balance! < total!) {
       Fluttertoast.showToast(msg: 'wallet amount is less then order amount');
     } else {
       orderPlaced();
@@ -71,13 +71,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: data['paymentIntent'],
         merchantDisplayName: 'Klicks',
-         customFlow: true,
+        customFlow: true,
         // Customer params
         // customerId: data['customer'].toString(),
         // customerEphemeralKeySecret: data['ephemeralKey'].toString(),
         // Extra params
         applePay: PaymentSheetApplePay(merchantCountryCode: 'UAE'),
-        googlePay: PaymentSheetGooglePay(merchantCountryCode: 'UAE',currencyCode: 'AED',testEnv: true,),
+        googlePay: PaymentSheetGooglePay(
+          merchantCountryCode: 'UAE',
+          currencyCode: 'AED',
+          testEnv: true,
+        ),
         style: ThemeMode.dark,
         // customFlow: true
         // billingDetails: billingDetails,
@@ -123,11 +127,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       widget.data!.extraService,
       widget.data!.uid,
       widget.data!.cityId,
+      method,
     )) Navigator.pushNamed(context, 'booking_confirm');
   }
 
   int? Addtip = 0;
-  
+
   Account? account;
   getbalance() async {
     var mbalance = await StripeApi.balance();
@@ -137,7 +142,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   getcoupon() async {
-    var mcoupon = await  CouponApi.getcoupon(widget.data!.company!.company_id);
+    var mcoupon = await CouponApi.getcoupon(widget.data!.company!.company_id);
     setState(() {
       coupons = mcoupon;
     });
@@ -150,6 +155,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
     total = widget.data!.price;
     tipcontroller.text = '0';
+    method = 'stripe';
     super.initState();
   }
 
@@ -233,15 +239,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                       SizedBox(height: 18),
-                      CheckOutInputField(
-                        hint: LocaleKeys.Enter_Coupon_Code.tr(),
-                        onpressed: () {
-                          setState(() {
-                            val = !val;
-                          });
-                        },
-                        readOnly: val,
-                      ),
+                      // CheckOutInputField(
+                      //   hint: LocaleKeys.Enter_Coupon_Code.tr(),
+                      //   onpressed: () {
+                      //     setState(() {
+                      //       val = !val;
+                      //     });
+                      //   },
+                      //   readOnly: val,
+                      // ),
                       SizedBox(height: 12),
                       Container(
                         padding: EdgeInsets.only(
@@ -260,22 +266,22 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         TextStyle(fontWeight: FontWeight.w600))
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(LocaleKeys.discount_amount.tr(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600)),
-                                  Text("10%",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14)),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(top: 12.0),
+                            //   child: Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceBetween,
+                            //     children: [
+                            //       Text(LocaleKeys.discount_amount.tr(),
+                            //           style: TextStyle(
+                            //               fontWeight: FontWeight.w600)),
+                            //       Text("10%",
+                            //           style: TextStyle(
+                            //               fontWeight: FontWeight.w600,
+                            //               fontSize: 14)),
+                            //     ],
+                            //   ),
+                            // ),
                             Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -369,14 +375,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                       LargeButton(
                         onPressed: () async {
-                          if (tipcontroller.text == '') {
-                            Fluttertoast.showToast(
-                                msg: "Tip field can't be empty.");
-                          } else {
+                          setState(() {
                             _site == PayMethod.materCard
-                                ? await paayment()
-                                : walletpayment();
-                          }
+                                ? method = 'stripe'
+                                : method = 'wallet';
+                          });
+                          _site == PayMethod.materCard
+                              ? await paayment()
+                              : walletpayment();
                         },
                         title: LocaleKeys.continu.tr(),
                       ),

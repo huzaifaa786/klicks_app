@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/model/Account.dart';
-import 'package:klicks_app/model/lang.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
@@ -137,9 +136,7 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                       image: 'assets/images/language.svg',
                       text: LocaleKeys.Language.tr(),
                       ontap: () {
-                        setState(() {
-                          context.setLocale(Language.all[0]);
-                        });
+                        Navigator.pushNamed(context, 'Lang');
                       },
                     ),
                   ),
