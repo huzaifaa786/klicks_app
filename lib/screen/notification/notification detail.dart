@@ -111,7 +111,9 @@ class _NotificationDetailState extends State<NotificationDetail> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  LocaleKeys.order_id.tr() + ': ' + widget.order!.id.toString(),
+                  LocaleKeys.order_id.tr() +
+                      ': ' +
+                      widget.order!.orderId.toString(),
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
                 SizedBox(height: 20),

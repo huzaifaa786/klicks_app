@@ -74,6 +74,7 @@ class CityDropdownField extends StatelessWidget {
                                     NetworkImage(item.image.toString()),
                                 foregroundImage:
                                     NetworkImage(item.image.toString()),
+                                    child: Image(image: NetworkImage(item.image.toString())),
                               )
                             : CircleAvatar(
                                 radius: 15,
