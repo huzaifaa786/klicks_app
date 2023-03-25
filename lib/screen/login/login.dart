@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_catch_clause
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_catch_clause, unused_field, unused_element
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String verificationid = "";
   int? resendtoken;
   String? complete_phone;
-    Map<String, dynamic>? _userData;
+  Map<String, dynamic>? _userData;
   AccessToken? _accessToken;
   bool _checking = true;
   login() async {
@@ -62,8 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
   }
+
   Future<void> _login() async {
-    final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
+    final LoginResult result = await FacebookAuth.instance
+        .login(); // by default we request the email and the public profile
 
     // loginBehavior is only supported for Android devices, for ios it will be ignored
     // final result = await FacebookAuth.instance.login(

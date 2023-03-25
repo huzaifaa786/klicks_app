@@ -12,7 +12,6 @@ import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/screen/select_car/select_car.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/citydropdown.dart';
-import 'package:klicks_app/static/company.dart';
 import 'package:klicks_app/static/mainText.dart';
 import 'package:klicks_app/static/mallsdropdown.dart';
 import 'package:klicks_app/static/topbar.dart';
@@ -216,12 +215,11 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 20.0),
-                              child: MainScreenText(
-                                image: 'assets/images/locationIcon.svg',
-                                text: LocaleKeys.Select_Location.tr(),
-                              )
-                            ),
+                                padding: EdgeInsets.only(top: 20.0),
+                                child: MainScreenText(
+                                  image: 'assets/images/locationIcon.svg',
+                                  text: LocaleKeys.Select_Location.tr(),
+                                )),
                             CityDropdownField(
                               imageIcon: 'assets/images/location.svg',
                               text: LocaleKeys.Choose_City.tr(),

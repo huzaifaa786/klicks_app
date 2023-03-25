@@ -55,7 +55,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   return NotificationTile(
                     type: "suv",
                     title: notification[index].title!,
-                    // day: notification[index].dateTime.toString(),
                     ontap: () {
                       Navigator.push(
                           context,
