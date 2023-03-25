@@ -306,42 +306,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
+                                          // InkWell(
+                                          //   onTap: () {
+                                          //     _login();
+                                          //   },
+                                          //   child: Padding(
+                                          //     padding: const EdgeInsets.only(
+                                          //         right: 20.0),
+                                          //     child: Image(
+                                          //       image: AssetImage(
+                                          //           'assets/images/facebook.png'),
+                                          //       height: 50,
+                                          //       width: 50,
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           InkWell(
                                             onTap: () {
-                                              _login();
+                                              signInwithGoogle();
                                             },
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 20.0),
-                                              child: Image(
-                                                image: AssetImage(
-                                                    'assets/images/facebook.png'),
-                                                height: 50,
-                                                width: 50,
-                                              ),
+                                            child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/google.png'),
+                                              height: 50,
+                                              width: 50,
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 20.0),
-                                            child: InkWell(
-                                              onTap: () {
-                                                signInwithGoogle();
-                                              },
-                                              child: Image(
-                                                image: AssetImage(
-                                                    'assets/images/google.png'),
-                                                height: 50,
-                                                width: 50,
-                                              ),
-                                            ),
-                                          ),
-                                          Image(
-                                            image: AssetImage(
-                                                'assets/images/apple.png'),
-                                            height: 50,
-                                            width: 50,
-                                          )
+                                          // Image(
+                                          //   image: AssetImage(
+                                          //       'assets/images/apple.png'),
+                                          //   height: 50,
+                                          //   width: 50,
+                                          // )
                                         ],
                                       ),
                                     ],

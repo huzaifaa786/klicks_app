@@ -3,8 +3,8 @@ class User {
   String? name;
   String? email;
   String? apiToken;
-   String? phone;
- 
+  String? phone;
+
   User(user) {
     id = user['id'];
     name = user['name'];

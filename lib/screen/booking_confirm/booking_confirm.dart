@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -17,29 +18,25 @@ class _BookingConfirmState extends State<BookingConfirm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mainColor,
+      backgroundColor: White,
       body: SafeArea(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.only(top: 224),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Image(
-                image: AssetImage(
-                  'assets/images/Vector.png',
-                ),
-              ),
+              SvgPicture.asset('assets/images/Group 1000005263.svg'),
               Padding(
                   padding: EdgeInsets.only(
-                    top: 21,
+                    top: 30,
                   ),
                   child: Text(
                     LocaleKeys.Booking_Confirmed.tr(),
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 23,
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'Poppins'),
                   )),
               Padding(
@@ -47,8 +44,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                 child: Text(
                   LocaleKeys.Your_order_has_been_placed_successfully.tr(),
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Poppins'),
                 ),
@@ -62,15 +58,13 @@ class _BookingConfirmState extends State<BookingConfirm> {
               //       fontFamily: 'Poppins'),
               // ),
               Padding(
-                padding: const EdgeInsets.only(top: 49),
+                padding: const EdgeInsets.only(top: 40),
                 child: LargeButton(
-                  title: LocaleKeys.Got_IT.tr(),
+                  title: 'Back to home',
                   screenRatio: 0.75,
                   onPressed: () {
                     Navigator.pushNamed(context, 'home');
                   },
-                  color: Colors.white,
-                  textcolor: Colors.black,
                 ),
               )
             ],

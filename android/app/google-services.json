@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "1096481329706",
-    "project_id": "klick-wash-6efd7",
-    "storage_bucket": "klick-wash-6efd7.appspot.com"
+    "project_number": "187311862034",
+    "project_id": "klick-wash-f903c",
+    "storage_bucket": "klick-wash-f903c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1096481329706:android:5f6343ee7da84b52986953",
+        "mobilesdk_app_id": "1:187311862034:android:673ab0395873a3165b43cb",
         "android_client_info": {
-          "package_name": "com.example.klicks_app"
+          "package_name": "com.klickwash.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1096481329706-eeib1bf4nojbmn4ec1h8fh32e06aavqa.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.klicks_app",
-            "certificate_hash": "7fcdb3799ecf46658f131ed7ebe19a2735101b61"
-          }
-        },
-        {
-          "client_id": "1096481329706-ivo3t9hup4t4ng8mn771jftmqb9mruqp.apps.googleusercontent.com",
+          "client_id": "187311862034-pi4vigkibs311clmeujtfu41qbs1hq5n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAwSldjs82BB7bV45jO1ugRR9Dz4rtR-E4"
+          "current_key": "AIzaSyB5M8WjpcdNu6mmYZDeWIW5iLxJk3TaHjw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1096481329706-b9avdd7sfuv43g6k345rou6dij6l265h.apps.googleusercontent.com",
+              "client_id": "187311862034-pi4vigkibs311clmeujtfu41qbs1hq5n.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

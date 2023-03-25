@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/api/notification_api.dart';
 import 'package:klicks_app/model/notification.dart';
+import 'package:klicks_app/screen/notification/notification%20detail.dart';
 import 'package:klicks_app/static/notification.dart';
 import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -46,7 +47,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             },
           ),
           Container(
-            padding: const EdgeInsets.only(left: 14, right: 14,top: 12),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 12),
             height: MediaQuery.of(context).size.height * 0.89,
             child: ListView.builder(
                 itemCount: notification.length,
@@ -54,7 +55,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   return NotificationTile(
                     type: "suv",
                     title: notification[index].title!,
-                    day: notification[index].dateTime.toString(),
+                    // day: notification[index].dateTime.toString(),
+                    ontap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NotificationDetail(
+                                  order: notification[index])));
+                    },
                   );
                 }),
           ),

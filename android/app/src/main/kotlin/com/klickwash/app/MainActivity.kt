@@ -1,4 +1,4 @@
-package com.example.klicks_app
+package com.klickwash.app
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

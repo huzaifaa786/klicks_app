@@ -52,7 +52,7 @@ class CheckOutTile extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.35,
             child: Text(
-              discription,
+             discription,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.w500,

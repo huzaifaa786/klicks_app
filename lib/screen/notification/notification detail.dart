@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:klicks_app/api/notification_api.dart';
 import 'package:klicks_app/api/order.dart';
-import 'package:klicks_app/model/Order.dart';
 import 'package:klicks_app/model/extra_services_detail.dart';
+import 'package:klicks_app/model/notification.dart';
+import 'package:klicks_app/model/order_detail.dart';
 import 'package:klicks_app/static/badge.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
@@ -13,7 +15,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class NotificationDetail extends StatefulWidget {
   const NotificationDetail({super.key, this.order});
-  final OrderModal? order;
+  final NotificationModal? order;
 
   @override
   State<NotificationDetail> createState() => _NotificationDetailState();
@@ -23,16 +25,26 @@ class _NotificationDetailState extends State<NotificationDetail> {
   List<ExtraServiceDetail> services = [];
   getservice() async {
     var morderServices =
-        await OrderApi.ExtraServicesINOrder(widget.order!.id.toString());
+        await OrderApi.ExtraServicesINOrder(widget.order!.orderId.toString());
     setState(() {
       services = [];
       services = morderServices;
     });
   }
 
+  OrderDetail? orderDetail;
+  getMallandCompany() async {
+    var morderdetail =
+        await NotificationApi.MallandCmp((widget.order!.orderId.toString()));
+    setState(() {
+      orderDetail = morderdetail;
+    });
+  }
+
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getMallandCompany();
       getservice();
     });
   }
@@ -126,11 +138,13 @@ class _NotificationDetailState extends State<NotificationDetail> {
                         discription: widget.order!.cartype,
                         image: 'assets/images/vehicleType.svg',
                       ),
-                      CheckOutTile(
-                        title: LocaleKeys.Build_Company.tr() + ':',
-                        discription: widget.order!.company,
-                        image: 'assets/images/providerCompany.svg',
-                      ),
+                      orderDetail == null
+                          ? SizedBox()
+                          : CheckOutTile(
+                              title: LocaleKeys.Build_Company.tr() + ':',
+                              discription: orderDetail!.company_name,
+                              image: 'assets/images/providerCompany.svg',
+                            ),
                       CheckOutTile(
                         title: LocaleKeys.Number_Plate.tr() + ':',
                         discription: widget.order!.plate_number,
@@ -140,10 +154,12 @@ class _NotificationDetailState extends State<NotificationDetail> {
                           title: LocaleKeys.Parking_Number.tr() + ':',
                           discription: widget.order!.parking,
                           image: 'assets/images/parkingNumber.svg'),
-                      CheckOutTile(
-                          title: LocaleKeys.Mall.tr() + ':',
-                          discription: widget.order!.mall,
-                          image: 'assets/images/mallCheckout.svg'),
+                      orderDetail == null
+                          ? SizedBox()
+                          : CheckOutTile(
+                              title: LocaleKeys.Mall.tr() + ':',
+                              discription: orderDetail!.mall_name,
+                              image: 'assets/images/mallCheckout.svg'),
                       CheckOutTile(
                           title: LocaleKeys.Floor_Number.tr() + ':',
                           discription: widget.order!.floor,

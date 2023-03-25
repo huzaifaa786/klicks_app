@@ -47,20 +47,24 @@ class _TopUpState extends State<TopUp> {
       paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: data['paymentIntent'],
           merchantDisplayName: 'Klicks',
-          billingDetails: BillingDetails(
-              address: Address(
-                  country: "AE",
-                  city: '',
-                  line1: '',
-                  line2: '',
-                  postalCode: '',
-                  state: '')),
-          // Customer params
-          customerId: data['customer'].toString(),
-          customerEphemeralKeySecret: data['ephemeralKey'].toString(),
+          // billingDetails: BillingDetails(
+          //     address: Address(
+          //         country: "AE",
+          //         city: '',
+          //         line1: '',
+          //         line2: '',
+          //         postalCode: '',
+          // state: '')),
+          // // Customer params
+          // customerId: data['customer'].toString(),
+          // customerEphemeralKeySecret: data['ephemeralKey'].toString(),
           // Extra params
-          applePay: PaymentSheetApplePay(merchantCountryCode: 'AE'),
-          googlePay: PaymentSheetGooglePay(merchantCountryCode: 'AE'),
+          applePay: PaymentSheetApplePay(merchantCountryCode: 'UAE'),
+          googlePay: PaymentSheetGooglePay(
+            merchantCountryCode: 'UAE',
+            currencyCode: 'AED',
+            testEnv: true,
+          ),
           style: ThemeMode.dark,
           customFlow: true
           // billingDetails: billingDetails,
@@ -249,24 +253,24 @@ class _TopUpState extends State<TopUp> {
                               toggleplan(payMethod.materCard);
                             },
                           ),
-                          PPaymentMethod(
-                            title: 'Google Pay',
-                            image: "assets/images/google.png",
-                            value: payMethod.googlePay,
-                            groupvalue: _site,
-                            onchaged: () {
-                              toggleplan(payMethod.googlePay);
-                            },
-                          ),
-                          PPaymentMethod(
-                            title: 'Apple Pay',
-                            image: "assets/images/apple.png",
-                            groupvalue: _site,
-                            value: payMethod.applePay,
-                            onchaged: () {
-                              toggleplan(payMethod.applePay);
-                            },
-                          ),
+                          // PPaymentMethod(
+                          //   title: 'Google Pay',
+                          //   image: "assets/images/google.png",
+                          //   value: payMethod.googlePay,
+                          //   groupvalue: _site,
+                          //   onchaged: () {
+                          //     toggleplan(payMethod.googlePay);
+                          //   },
+                          // ),
+                          // PPaymentMethod(
+                          //   title: 'Apple Pay',
+                          //   image: "assets/images/apple.png",
+                          //   groupvalue: _site,
+                          //   value: payMethod.applePay,
+                          //   onchaged: () {
+                          //     toggleplan(payMethod.applePay);
+                          //   },
+                          // ),
                         ],
                       ),
                     ),
