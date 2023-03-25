@@ -53,7 +53,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 itemCount: notification.length,
                 itemBuilder: (BuildContext context, int index) {
                   return NotificationTile(
-                    type: "suv",
+                    type: notification[index].cartype,
                     title: notification[index].title!,
                     ontap: () {
                       Navigator.push(
