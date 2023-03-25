@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:klicks_app/api/coupon.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/Account.dart';
+import 'package:klicks_app/model/Coupon.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
@@ -21,6 +23,7 @@ import 'package:easy_localization/easy_localization.dart';
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
   final SelectedCarInfo? data;
+ 
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -34,7 +37,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   bool tip = false;
 
   TextEditingController tipcontroller = TextEditingController();
-
+  List<Coupon> coupons = [];
   PayMethod _site = PayMethod.materCard;
   void toggleplan(PayMethod value) {
     setState(() {
@@ -123,7 +126,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   int? Addtip = 0;
-
+  
   Account? account;
   getbalance() async {
     var mbalance = await StripeApi.balance();
@@ -132,9 +135,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
+  getcoupon() async {
+    var mcoupon = await  CouponApi.getcoupon(widget.data!.company!.company_id);
+    setState(() {
+      coupons = mcoupon;
+    });
+  }
+
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getbalance();
+      getcoupon();
     });
     total = widget.data!.price;
     tipcontroller.text = '0';
