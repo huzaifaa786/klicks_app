@@ -155,8 +155,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
   }
 
+    refreshTotal() async {
+      total = widget.data!.price;
+      setState(() {
+        
+      });
+  }
+
   checkprice() {
-    LoadingHelper.show();
+    // LoadingHelper.show();
     if (int.parse(coupons!.minimum!) > total!) {
       LoadingHelper.dismiss();
       Fluttertoast.showToast(
@@ -169,9 +176,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   discount() {
     var per = int.parse(coupons!.percentage!) / 100;
     var discount = per * total!;
-    print(discount);
-    // total = total! - int.parse(discount.toString);
+    var totalp = total! - discount;
+    total = totalp.toInt();
+
+    setState(() {});
     LoadingHelper.dismiss();
+  }
+  original(){
+
   }
 
   void initState() {
@@ -179,6 +191,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       getbalance();
     });
     total = widget.data!.price;
+
     tipcontroller.text = '0';
     method = 'stripe';
     super.initState();
@@ -273,6 +286,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           });
                           if (val == true) {
                             validatecoupon();
+                          } else {
+                            refreshTotal();
                           }
                         },
                         readOnly: val,
@@ -295,22 +310,22 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         TextStyle(fontWeight: FontWeight.w600))
                               ],
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 12.0),
-                            //   child: Row(
-                            //     mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       Text(LocaleKeys.discount_amount.tr(),
-                            //           style: TextStyle(
-                            //               fontWeight: FontWeight.w600)),
-                            //       Text("10%",
-                            //           style: TextStyle(
-                            //               fontWeight: FontWeight.w600,
-                            //               fontSize: 14)),
-                            //     ],
-                            //   ),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(LocaleKeys.discount_amount.tr(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                  Text(coupons!.percentage! + '%',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14)),
+                                ],
+                              ),
+                            ),
                             Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
