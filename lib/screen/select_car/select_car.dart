@@ -332,20 +332,28 @@ class _CarSelectState extends State<CarSelect> {
                         setState(() {
                           data.price = price;
                         });
-                        if (data.floorNumber == null &&
-                            data.plateNumber == null &&
-                            data.parkingNumber == null) {
+                        if (data.floorNumber == null) {
                           Fluttertoast.showToast(
-                              msg: "Fill out all input fields");
+                              msg: "Floor Number can't be empty");
                         } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CheckOutScreen(
-                                data: data,
-                              ),
-                            ),
-                          );
+                          if (data.parkingNumber == null) {
+                            Fluttertoast.showToast(
+                                msg: "Parking Number can't be empty");
+                          } else {
+                            if (data.plateNumber == null) {
+                              Fluttertoast.showToast(
+                                  msg: "Plate Number can't be empty");
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CheckOutScreen(
+                                    data: data,
+                                  ),
+                                ),
+                              );
+                            }
+                          }
                         }
                       },
                       price: price.toString(),
