@@ -69,7 +69,7 @@ class CityDropdownField extends StatelessWidget {
                       children: [
                         item.image != null
                             ? CircleAvatar(
-                                radius: 15,
+                                radius: 19,
                                 backgroundImage:
                                     NetworkImage(item.image.toString()),
                                 foregroundImage:
@@ -77,7 +77,7 @@ class CityDropdownField extends StatelessWidget {
                                     child: Image(image: NetworkImage(item.image.toString())),
                               )
                             : CircleAvatar(
-                                radius: 15,
+                                radius: 19,
                                 backgroundColor: mainColor,
                                 child: Text('City',
                                     textAlign: TextAlign.center,

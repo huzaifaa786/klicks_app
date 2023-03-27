@@ -69,14 +69,14 @@ class MallsDropdownField extends StatelessWidget {
                       children: [
                         item.image != null
                             ? CircleAvatar(
-                                radius: 15,
+                                radius: 19,
                                 backgroundImage:
                                     NetworkImage(item.image.toString()),
                                 foregroundImage:
                                     NetworkImage(item.image.toString()),
                               )
                             : CircleAvatar(
-                                radius: 15,
+                                radius: 19,
                                 backgroundColor: mainColor,
                                 child: Text('Mall',
                                     textAlign: TextAlign.center,
