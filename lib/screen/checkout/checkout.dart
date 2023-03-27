@@ -155,11 +155,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
   }
 
-    refreshTotal() async {
-      total = widget.data!.price;
-      setState(() {
-        
-      });
+  refreshTotal() async {
+    total = widget.data!.price;
+    setState(() {});
   }
 
   checkprice() {
@@ -182,9 +180,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     setState(() {});
     LoadingHelper.dismiss();
   }
-  original(){
 
-  }
+  original() {}
 
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -319,10 +316,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   Text(LocaleKeys.discount_amount.tr(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600)),
-                                  Text(coupons!.percentage! + '%',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14)),
+                                  coupons != null
+                                      ? Text(coupons!.percentage! + '%',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14))
+                                      : Text('0%', style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14))
                                 ],
                               ),
                             ),
