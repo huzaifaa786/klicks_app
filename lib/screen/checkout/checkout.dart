@@ -147,9 +147,31 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   validatecoupon() async {
     var mcoupon = await CouponApi.ValidateCoupon(
         widget.data!.company!.company_id, couponController.text);
-    setState(() {
-      coupons = mcoupon;
-    });
+    if (mcoupon != null) {
+      setState(() {
+        coupons = mcoupon;
+        checkprice();
+      });
+    }
+  }
+
+  checkprice() {
+    LoadingHelper.show();
+    if (int.parse(coupons!.minimum!) > total!) {
+      LoadingHelper.dismiss();
+      Fluttertoast.showToast(
+          msg: 'Coupon not apply. Minimum price is' + coupons!.minimum!);
+    } else {
+      discount();
+    }
+  }
+
+  discount() {
+    var per = int.parse(coupons!.percentage!) / 100;
+    var discount = per * total!;
+    print(discount);
+    // total = total! - int.parse(discount.toString);
+    LoadingHelper.dismiss();
   }
 
   void initState() {

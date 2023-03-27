@@ -13,12 +13,12 @@ class CouponApi {
     var response = await Api.execute(url: url, data: data);
     LoadingHelper.dismiss();
     if (!response['error']) {
-      Coupon? coupon = Coupon(response['coupon']);
+      Coupon? coupon = Coupon(response['coupons']);
       print(coupon);
       return coupon;
     } else {
       Fluttertoast.showToast(msg: response['error_data']);
-      return false;
+      return null;
     }
   }
 }
