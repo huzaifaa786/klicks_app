@@ -10,7 +10,8 @@ import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/mobile_user.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
-import 'package:klicks_app/screen/login/signinOtp.dart';
+import 'package:klicks_app/screen/login/signin_otp.dart';
+import 'package:klicks_app/screen/login/signup-otp.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
@@ -54,6 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
   getuser() async {
     var muser = await AuthApi.Mobilelogin(complete_phone);
     if (muser == null) {
+      LoadingHelper.dismiss();
+      sendTokenforSignUP();
     } else {
       setState(() {
         user = muser;
@@ -98,12 +101,22 @@ class _LoginScreenState extends State<LoginScreen> {
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
       var email1 = googleSignInAccount!.email;
+      var name = googleSignInAccount.displayName;
       print('email1');
       print(email1);
       LoadingHelper.dismiss();
       if (await AuthApi.googlelogin(email1)) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => BottomNavScreen()));
+      } else {
+        print(name);
+        if (await AuthApi.googleSignup(
+          name,
+          email1,
+          'google'
+        ))
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BottomNavScreen()));
       }
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(msg: 'Google SignIn Failed');
@@ -137,6 +150,47 @@ class _LoginScreenState extends State<LoginScreen> {
               builder: (context) => SignInOtpScreen(
                 id: verificationid,
                 user: user,
+              ),
+            ),
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationid = verificationId;
+          // Fluttertoast.showToast(msg: 'TIMEOUT');
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      LoadingHelper.dismiss();
+      Fluttertoast.showToast(msg: e.message!);
+    }
+  }
+
+  void sendTokenforSignUP() async {
+    LoadingHelper.show();
+    try {
+      FirebaseAuth auth = FirebaseAuth.instance;
+      int? resendtoken;
+      String verificationid = "";
+      await auth.verifyPhoneNumber(
+        timeout: const Duration(minutes: 2),
+        phoneNumber: complete_phone,
+        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationFailed: (FirebaseAuthException e) {
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: e.message!);
+        },
+        forceResendingToken: resendtoken,
+        codeSent: (String verificationId, int? resendToken) {
+          verificationid = verificationId;
+          resendtoken = resendToken;
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: 'OTP has been successfully send');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignUpOtpScreen(
+                id: verificationid,
+                phone: complete_phone,
               ),
             ),
           );
@@ -367,6 +421,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           child: IntlPhoneField(
                                             controller: phoneController,
                                             decoration: const InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.only(bottom: 1),
                                               filled: true,
                                               fillColor: White,
                                               border: OutlineInputBorder(

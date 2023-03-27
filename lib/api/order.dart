@@ -1,7 +1,6 @@
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/extra_services_detail.dart';
-import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/values/string.dart';
 
 class OrderApi {

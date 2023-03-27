@@ -51,12 +51,12 @@ class AuthApi {
       MobUser user = MobUser(response['data']);
       return user;
     } else {
-      Fluttertoast.showToast(msg: response['error_data']);
+      // Fluttertoast.showToast(msg: response['error_data']);
       return null;
     }
   }
 
-  static register(name, email, phone, password) async {
+  static register(name, email, phone, password,type) async {
     LoadingHelper.show();
     var token = await FirebaseMessaging.instance.getToken();
     var url = BASE_URL + 'register';
@@ -67,6 +67,7 @@ class AuthApi {
       'phone': phone.toString(),
       'password': password.text.toString(),
       'firebase_token': token,
+      'user_type': type
     };
 
     var response = await Api.execute(
@@ -188,7 +189,7 @@ class AuthApi {
     var token = await FirebaseMessaging.instance.getToken();
     var url = BASE_URL + 'userget';
     var data = {'email': email};
-    var response = await Api.execute(url: url,data: data);
+    var response = await Api.execute(url: url, data: data);
     print(response);
     LoadingHelper.dismiss();
     if (!response['error']) {
@@ -197,6 +198,36 @@ class AuthApi {
       SharedPreferencesHelper.setString('user_id', user.id.toString());
       return true;
     } else {
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
+    }
+  }
+
+  static googleSignup(name, email, type) async {
+    LoadingHelper.show();
+    var token = await FirebaseMessaging.instance.getToken();
+    var url = BASE_URL + 'register';
+    var data;
+    data = {
+      'name': name.toString(),
+      'email': email.toString(),
+      'firebase_token': token,
+      'user_type': type,
+    };
+
+    var response = await Api.execute(
+      url: url,
+      data: data,
+    );
+    print(response);
+    LoadingHelper.dismiss();
+    if (!response['error']) {
+      User user = User(response['user']);
+      SharedPreferencesHelper.setString('api_token', user.apiToken!);
+      SharedPreferencesHelper.setString('user_id', user.id.toString());
+      return true;
+    } else {
+      print('error');
       Fluttertoast.showToast(msg: response['error_data']);
       return false;
     }

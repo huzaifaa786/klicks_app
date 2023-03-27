@@ -283,18 +283,20 @@ class _MainScreenState extends State<MainScreen> {
                               child: LargeButton(
                                 title: LocaleKeys.Submit.tr(),
                                 onPressed: () {
-                                  if (cityvalue != null &&
-                                      mallValue != null &&
-                                      companyValue != null) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => CarSelect(
-                                                  mall: mallValue!,
-                                                  company: companyValue!,
-                                                  city: cityvalue!,
-                                                  uid: user!.id!,
-                                                )));
+                                  if (cityvalue != null && mallValue != null) {
+                                    if (companyValue != null) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => CarSelect(
+                                                    mall: mallValue!,
+                                                    company: companyValue!,
+                                                    city: cityvalue!,
+                                                    uid: user!.id!,
+                                                  )));
+                                    } else {
+                                      print('');
+                                    }
                                   } else {
                                     Fluttertoast.showToast(
                                         msg:
