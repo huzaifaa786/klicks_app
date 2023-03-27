@@ -38,7 +38,7 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       user = muser;
       nameController.text = user!.name!;
-      phoneController.text = user!.phone!;
+      phoneController.text = user!.phone.toString();
       emailController.text = user!.email!;
     });
   }
@@ -63,6 +63,7 @@ class _EditProfileState extends State<EditProfile> {
               },
               text: LocaleKeys.Edit_Profile.tr(),
             ),
+            user != null?
             Flexible(
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.89,
@@ -99,45 +100,54 @@ class _EditProfileState extends State<EditProfile> {
                           hint: 'Enter Email',
                           controller: emailController,
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                          child: Text(
-                            LocaleKeys.Phone_Number.tr(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
-                        ),
-                        InputField(
-                          readOnly: true,
-                          hint: 'Enter phone number',
-                          controller: phoneController,
-                          type: TextInputType.number,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                LocaleKeys.Password.tr(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 16),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  ChangePassword(context, user!.email);
-                                },
+                        user!.type != 'google'
+                            ? Padding(
+                                padding: EdgeInsets.only(top: 12.0, bottom: 6),
                                 child: Text(
-                                  LocaleKeys.Change_Password.tr(),
+                                  LocaleKeys.Phone_Number.tr(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                      color: mainColor),
+                                      fontSize: 16),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
+                              )
+                            : Container(),
+                        user!.type != 'google'
+                            ? InputField(
+                                readOnly: true,
+                                hint: 'Enter phone number',
+                                controller: phoneController,
+                                type: TextInputType.number,
+                              )
+                            : Container(),
+                        user!.type != 'google'
+                            ? Padding(
+                                padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      LocaleKeys.Password.tr(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        ChangePassword(context, user!.email);
+                                      },
+                                      child: Text(
+                                        LocaleKeys.Change_Password.tr(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                            color: mainColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container()
                       ],
                     ),
                     //   show == false
@@ -165,9 +175,9 @@ class _EditProfileState extends State<EditProfile> {
                     //           ),
                     //         )
                   ],
-                ),
+                )
               ),
-            ),
+            ):Container()
           ],
         ),
       ),
