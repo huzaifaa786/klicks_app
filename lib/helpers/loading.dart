@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:klicks_app/values/colors.dart';
 
 class LoadingHelper {
   static bool absorbClick = false;
@@ -9,14 +8,7 @@ class LoadingHelper {
   static show() {
     absorbClick = true;
     onChangeAbsorbClick();
-    EasyLoading.show(
-      status: 'Loading...',
-      maskType: EasyLoadingMaskType.black,
-      indicator: CircularProgressIndicator(
-        backgroundColor: Colors.white,
-        valueColor: AlwaysStoppedAnimation<Color>(mainColor),
-      ),
-    );
+    EasyLoading.show();
   }
 
   static dismiss() {
@@ -28,17 +20,17 @@ class LoadingHelper {
   static init() {
     EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)
-      ..indicatorType = EasyLoadingIndicatorType.wave
+      ..indicatorType = EasyLoadingIndicatorType.circle
       ..loadingStyle = EasyLoadingStyle.custom
       ..indicatorSize = 50.0
       ..radius = 10.0
       ..progressColor = Colors.white
-      ..backgroundColor = Colors.blue
-      ..indicatorColor = Colors.white
-      ..textColor = Colors.white
+      ..backgroundColor = Colors.transparent
+      ..indicatorColor = Colors.blue
+      ..textColor = Colors.blue
       ..maskColor = Colors.blue.withOpacity(0.5)
-      ..userInteractions = true
-      ..dismissOnTap = false;
-    // ..customAnimation = customAnimation();
+      ..userInteractions = false
+      ..dismissOnTap = false
+      ..boxShadow = <BoxShadow>[];
   }
 }

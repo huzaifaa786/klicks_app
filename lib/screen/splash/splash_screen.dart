@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/intro/intro.dart';
 import 'package:klicks_app/screen/login/login.dart';
@@ -38,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    LoadingHelper.init();
     initscreen();
   }
 
