@@ -198,7 +198,6 @@ class AuthApi {
       SharedPreferencesHelper.setString('user_id', user.id.toString());
       return true;
     } else {
-      Fluttertoast.showToast(msg: response['error_data']);
       return false;
     }
   }
@@ -209,7 +208,7 @@ class AuthApi {
     var url = BASE_URL + 'register';
     var data;
     data = {
-      'name': name.toString(),
+      'name': name,
       'email': email.toString(),
       'firebase_token': token,
       'user_type': type,
