@@ -245,8 +245,8 @@ class _TopUpState extends State<TopUp> {
                             ),
                           ),
                           PPaymentMethod(
-                            title: 'Mastercard',
-                            image: "assets/images/masterCard.png",
+                            title: 'Credit/Debit Card',
+                            image: "assets/images/credit-card.png",
                             groupvalue: _site,
                             value: payMethod.materCard,
                             onchaged: () {
