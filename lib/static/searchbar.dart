@@ -38,7 +38,7 @@ class SearchBar extends StatelessWidget {
       controller: controller,
       onChanged: onChange,
       decoration: InputDecoration(
-        prefixIcon: Image(image: AssetImage(imageIcon)),
+        prefixIcon: Icon(Icons.search),
         suffixIcon: InkWell(
           onTap: ontap,
           child: Container(

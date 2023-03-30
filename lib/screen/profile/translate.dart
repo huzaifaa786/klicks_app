@@ -40,87 +40,47 @@ class _TranslateScreenState extends State<TranslateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: context.locale.toString() == 'ar'
-              ? Column(
-                  children: [
-                    TitleTopbar(
-                      ontap: () {
-                        Navigator.pop(context);
-                      },
-                      text: 'Change Language',
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Column(
-                        children: [
-                          TranslateMethod(
-                            title: 'English',
-                            groupvalue: _site,
-                            value: translateMethod.English,
-                            onchaged: () async {
-                              await toggleplan(translateMethod.English);
-                              setState(() {
-                                context.setLocale(Language.all[0]);
-                              });
-                            },
-                          ),
-                          TranslateMethod(
-                            title: 'Arabic',
-                            groupvalue: _site,
-                            value: translateMethod.Arabic,
-                            onchaged: () async {
-                              await toggleplan(translateMethod.Arabic);
-                              setState(() {
-                                context.setLocale(Language.all[1]);
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                )
-              : Column(
-                  children: [
-                    TitleTopbar(
-                      ontap: () {
-                        Navigator.pop(context);
-                      },
-                      text: 'Change Language',
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Column(
-                        children: [
-                          TranslateMethod(
-                            title: 'English',
-                            groupvalue: _site,
-                            value: translateMethod.English,
-                            onchaged: () async {
-                              await toggleplan(translateMethod.English);
-                              setState(() {
-                                context.setLocale(Language.all[0]);
-                              });
-                              Navigator.popAndPushNamed(context, 'home');
-                            },
-                          ),
-                          TranslateMethod(
-                            title: 'Arabic',
-                            groupvalue: _site,
-                            value: translateMethod.Arabic,
-                            onchaged: () async {
-                              await toggleplan(translateMethod.Arabic);
-                              setState(() {
-                                context.setLocale(Language.all[1]);
-                              });
-                              Navigator.popAndPushNamed(context, 'home');
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                )),
+          child: Column(
+        children: [
+          TitleTopbar(
+            ontap: () {
+              Navigator.pop(context);
+            },
+            text: 'Change Language',
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              children: [
+                TranslateMethod(
+                  title: 'English',
+                  groupvalue: _site,
+                  value: translateMethod.English,
+                  onchaged: () async {
+                    await toggleplan(translateMethod.English);
+                    setState(() {
+                      context.setLocale(Language.all[0]);
+                    });
+                    Navigator.popAndPushNamed(context, 'home');
+                  },
+                ),
+                TranslateMethod(
+                  title: 'Arabic',
+                  groupvalue: _site,
+                  value: translateMethod.Arabic,
+                  onchaged: () async {
+                    await toggleplan(translateMethod.Arabic);
+                    setState(() {
+                      context.setLocale(Language.all[1]);
+                    });
+                    Navigator.popAndPushNamed(context, 'home');
+                  },
+                ),
+              ],
+            ),
+          )
+        ],
+      )),
     );
   }
 }
