@@ -9,6 +9,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/mobile_user.dart';
+import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/login/signin_otp.dart';
 import 'package:klicks_app/screen/login/signup-otp.dart';
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         passwordController,
       ))
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BottomNavScreen()));
+            MaterialPageRoute(builder: (context) => CheckOutScreen()));
     }
   }
 

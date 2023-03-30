@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkbox.dart';
@@ -125,7 +126,7 @@ class _SignUpState extends State<SignUp> {
             'email'
           ))
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => BottomNavScreen()));
+                MaterialPageRoute(builder: (context) => CheckOutScreen()));
         }
       }
     } else {
