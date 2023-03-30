@@ -96,15 +96,21 @@ class _MainScreenState extends State<MainScreen> {
     'November',
     'December',
   ];
+  date() {
+    setState(() {
+      
+    });
+    now = DateTime.now();
+    monthName = monthNames[now!.month];
+    weekdayName = weekdays[now!.weekday];
+  }
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      getuser();
-      now = DateTime.now();
-      monthName = monthNames[now!.month];
-      weekdayName = weekdays[now!.weekday];
+      // getuser();
+      date();
       getcity();
     });
   }
@@ -123,198 +129,196 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           children: [
             Topbar(),
-            user != null
-                ? Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      height: MediaQuery.of(context).size.height * 0.85,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            Flexible(
+              child: Container(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                height: MediaQuery.of(context).size.height * 0.85,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 4, bottom: 4),
+                        child: Text(
+                          user != null
+                              ? LocaleKeys.Hello.tr() + ", " + user!.name!
+                              : '',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                              fontFamily: 'Poppins'),
+                        ),
+                      ),
+                      Text(
+                        weekdayName != null
+                              ? weekdayName! +
+                            ', ' +
+                            monthName! +
+                            ' ' +
+                            now!.day.toString():'',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            fontFamily: 'Poppins'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Stack(
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 4, bottom: 4),
-                              child: Text(
-                                LocaleKeys.Hello.tr() + ", " + user!.name!,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 24,
-                                    fontFamily: 'Poppins'),
+                            SizedBox(
+                              height: 200,
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  autoPlay: true,
+                                  viewportFraction: 1,
+                                  enlargeCenterPage: false,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _current = index;
+                                    });
+                                  },
+                                ),
+                                items: imgList.map((i) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                        ),
+                                        child: Image.asset(
+                                          i,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }).toList(),
                               ),
                             ),
-                            Text(
-                              weekdayName! +
-                                  ', ' +
-                                  monthName! +
-                                  ' ' +
-                                  now!.day.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  fontFamily: 'Poppins'),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 200,
-                                    child: CarouselSlider(
-                                      options: CarouselOptions(
-                                        autoPlay: true,
-                                        viewportFraction: 1,
-                                        enlargeCenterPage: false,
-                                        onPageChanged: (index, reason) {
-                                          setState(() {
-                                            _current = index;
-                                          });
-                                        },
-                                      ),
-                                      items: imgList.map((i) {
-                                        return Builder(
-                                          builder: (BuildContext context) {
-                                            return Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                              ),
-                                              child: Image.asset(
-                                                i,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 10,
-                                    right: 150,
-                                    child: Row(
-                                      children: [1, 2, 3]
-                                          .map((i) => Container(
-                                                width: 8.0,
-                                                height: 8.0,
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 2.0),
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: _current == i - 1
-                                                        ? mainColor
-                                                        : Colors.white),
-                                              ))
-                                          .toList(),
-                                    ),
-                                  )
-                                ],
+                            Positioned(
+                              bottom: 10,
+                              right: 150,
+                              child: Row(
+                                children: [1, 2, 3]
+                                    .map((i) => Container(
+                                          width: 8.0,
+                                          height: 8.0,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 2.0),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: _current == i - 1
+                                                  ? mainColor
+                                                  : Colors.white),
+                                        ))
+                                    .toList(),
                               ),
-                            ),
-                            Padding(
-                                padding: EdgeInsets.only(top: 20.0),
-                                child: MainScreenText(
-                                  image: 'assets/images/locationIcon.svg',
-                                  text: LocaleKeys.Select_Location.tr(),
-                                )),
-                            CityDropdownField(
-                              imageIcon: 'assets/images/location.svg',
-                              text: LocaleKeys.Choose_City.tr(),
-                              selectedvalue: cityvalue,
-                              items: cities.toList(),
-                              icon: ImageIcon(
-                                  AssetImage('assets/images/drop_arrow.png')),
-                              onChange: (value) {
-                                setState(() {
-                                  cityvalue = value;
-                                  malls = [];
-                                  companys = [];
-                                });
-                                getmalls(value.id);
-                              },
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 15.0),
-                              child: MainScreenText(
-                                image: 'assets/images/mallIcon.svg',
-                                text: LocaleKeys.Select_Mall.tr(),
-                              ),
-                            ),
-                            MallsDropdownField(
-                              imageIcon: 'assets/images/mall.svg',
-                              text: LocaleKeys.Choose_Mall.tr(),
-                              selectedvalue: mallValue,
-                              items: malls,
-                              icon: ImageIcon(
-                                  AssetImage('assets/images/drop_arrow.png')),
-                              onChange: (value) {
-                                setState(() {
-                                  mallValue = value;
-                                  companys = [];
-                                });
-                                getcomapnys(value.id);
-                              },
-                            ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(top: 15.0),
-                            //   child: MainScreenText(
-                            //     image: 'assets/images/mallIcon.svg',
-                            //     text: LocaleKeys.Select_Company.tr(),
-                            //   ),
-                            // ),
-                            // CompanysDropdownField(
-                            //   imageIcon: 'assets/images/mall.svg',
-                            //   text: LocaleKeys.Choose_Company.tr(),
-                            //   selectedvalue: companyValue,
-                            //   items: companys,
-                            //   icon: ImageIcon(
-                            //       AssetImage('assets/images/drop_arrow.png')),
-                            //   onChange: (value) {
-                            //     setState(() {
-                            //       companyValue = value;
-                            //     });
-                            //   },
-                            // ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 50, bottom: 40),
-                              child: LargeButton(
-                                title: LocaleKeys.Submit.tr(),
-                                onPressed: () {
-                                  if (cityvalue != null && mallValue != null) {
-                                    if (companyValue != null) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => CarSelect(
-                                                    mall: mallValue!,
-                                                    company: companyValue!,
-                                                    city: cityvalue!,
-                                                    uid: user!.id!,
-                                                  )));
-                                    } else {
-                                      print('');
-                                    }
-                                  } else {
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            "You can't perfom any function until you select the your desire data");
-                                  }
-                                },
-                                textcolor: Colors.white,
-                              ),
-                            ),
-                            // SizedBox(
-                            //   height: 20,
-                            // ),
+                            )
                           ],
                         ),
                       ),
-                    ),
-                  )
-                : Container()
+                      Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: MainScreenText(
+                            image: 'assets/images/locationIcon.svg',
+                            text: LocaleKeys.Select_Location.tr(),
+                          )),
+                      CityDropdownField(
+                        imageIcon: 'assets/images/location.svg',
+                        text: LocaleKeys.Choose_City.tr(),
+                        selectedvalue: cityvalue,
+                        items: cities.toList(),
+                        icon: ImageIcon(
+                            AssetImage('assets/images/drop_arrow.png')),
+                        onChange: (value) {
+                          setState(() {
+                            cityvalue = value;
+                            malls = [];
+                            companys = [];
+                          });
+                          getmalls(value.id);
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 15.0),
+                        child: MainScreenText(
+                          image: 'assets/images/mallIcon.svg',
+                          text: LocaleKeys.Select_Mall.tr(),
+                        ),
+                      ),
+                      MallsDropdownField(
+                        imageIcon: 'assets/images/mall.svg',
+                        text: LocaleKeys.Choose_Mall.tr(),
+                        selectedvalue: mallValue,
+                        items: malls,
+                        icon: ImageIcon(
+                            AssetImage('assets/images/drop_arrow.png')),
+                        onChange: (value) {
+                          setState(() {
+                            mallValue = value;
+                            companys = [];
+                          });
+                          getcomapnys(value.id);
+                        },
+                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(top: 15.0),
+                      //   child: MainScreenText(
+                      //     image: 'assets/images/mallIcon.svg',
+                      //     text: LocaleKeys.Select_Company.tr(),
+                      //   ),
+                      // ),
+                      // CompanysDropdownField(
+                      //   imageIcon: 'assets/images/mall.svg',
+                      //   text: LocaleKeys.Choose_Company.tr(),
+                      //   selectedvalue: companyValue,
+                      //   items: companys,
+                      //   icon: ImageIcon(
+                      //       AssetImage('assets/images/drop_arrow.png')),
+                      //   onChange: (value) {
+                      //     setState(() {
+                      //       companyValue = value;
+                      //     });
+                      //   },
+                      // ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 50, bottom: 40),
+                        child: LargeButton(
+                          title: LocaleKeys.Submit.tr(),
+                          onPressed: () {
+                            if (cityvalue != null && mallValue != null) {
+                              if (companyValue != null) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CarSelect(
+                                              mall: mallValue!,
+                                              company: companyValue!,
+                                              city: cityvalue!,
+                                              // uid: user!.id!,
+                                            )));
+                              } else {
+                                print('');
+                              }
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg:
+                                      "You can't perfom any function until you select the your desire data");
+                            }
+                          },
+                          textcolor: Colors.white,
+                        ),
+                      ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

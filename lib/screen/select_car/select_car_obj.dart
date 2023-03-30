@@ -25,4 +25,15 @@ class SelectedCarInfo {
     this.extraService,
     this.price,
   });
+    Map<String, dynamic> toJson() => {
+        'plateNumber': plateNumber,
+        'floorNumber': floorNumber,
+        'parkingNumber': parkingNumber,
+        'selectedcartype': selectedcartype,
+        'mall': mall,
+        'company': company,
+        'cityId': cityId,
+        'extraService': extraService,
+        'price': price,
+      };
 }

@@ -11,6 +11,7 @@ import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/model/Coupon.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
+import 'package:klicks_app/screen/login/login.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
@@ -19,6 +20,7 @@ import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
@@ -99,6 +101,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       // 3. display the payment sheet.
       await Stripe.instance.presentPaymentSheet();
       print('object');
+      check();
       orderPlaced();
       Fluttertoast.showToast(msg: 'Payment succesfully completed');
       return true;
@@ -113,6 +116,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         return false;
       }
     }
+  }
+
+  check() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? authCheck = prefs.getString('api_token');
+    if (authCheck == null) {
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+    } else
+      orderPlaced();
   }
 
   orderPlaced() async {
@@ -181,15 +194,26 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     LoadingHelper.dismiss();
   }
 
-  original() {}
+  original() async {
+    print('object');
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('data', json.encode(widget.data!.toJson()));
+    SharedPreferences.getInstance();
+    final String? authCheck = prefs.getString('api_token');
+    if (authCheck == null) {
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+    } else {}
+  }
 
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      getbalance();
+      original();
+
+      // getbalance();
     });
     total = widget.data!.price;
 
-    tipcontroller.text = '0';
     method = 'stripe';
     super.initState();
   }
@@ -321,7 +345,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14))
-                                      : Text('0%', style: TextStyle(
+                                      : Text('0%',
+                                          style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14))
                                 ],

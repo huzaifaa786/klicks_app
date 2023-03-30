@@ -20,12 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     bool _seen = (prefs.getBool('seen') ?? false);
 
     if (_seen) {
-      final prefs = await SharedPreferences.getInstance();
-      final String? authCheck = prefs.getString('api_token');
-      if (authCheck == null) {
-        Navigator.of(context).pushReplacement(
-            new MaterialPageRoute(builder: (context) => new LoginScreen()));
-      } else {
+      {
         Navigator.of(context).pushReplacement(
             new MaterialPageRoute(builder: (context) => new BottomNavScreen()));
       }

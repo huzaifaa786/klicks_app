@@ -24,12 +24,12 @@ class CarSelect extends StatefulWidget {
     required this.company,
     required this.mall,
     required this.city,
-    required this.uid,
+    // required this.uid,
   }) : super(key: key);
   final Mall mall;
   final Company company;
   final City city;
-  final int uid;
+  // final int uid;
   @override
   State<CarSelect> createState() => _CarSelectState();
 }
@@ -77,7 +77,7 @@ class _CarSelectState extends State<CarSelect> {
     data.mall = widget.mall;
     data.company = widget.company;
     data.selectedcartype = Selectedvalue;
-    data.uid = widget.uid;
+    // data.uid = widget.uid;
     data.cityId = widget.city.id;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getservice();
