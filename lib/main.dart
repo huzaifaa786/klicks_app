@@ -79,7 +79,6 @@ class _MyAppState extends State<MyApp> {
         initialRoute: 'splash',
         routes: {
           'splash': (context) => const SplashScreen(),
-          'login': (context) => const LoginScreen(),
           'home': (context) => const BottomNavScreen(),
           'booking_confirm': (context) => const BookingConfirm(),
           'order_status': (context) => const OrderStatus(),

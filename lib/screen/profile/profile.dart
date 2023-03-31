@@ -3,6 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/model/Account.dart';
+import 'package:klicks_app/screen/login/login.dart';
+import 'package:klicks_app/screen/main/main_screen.dart';
 import 'package:klicks_app/screen/top_up/top_up.dart';
 import 'package:klicks_app/static/icon_button.dart';
 import 'package:klicks_app/static/logoutTile.dart';
@@ -155,8 +157,11 @@ class _ProfileScreeenState extends State<ProfileScreeen> {
                         text: LocaleKeys.Log_out.tr(),
                         ontap: () {
                           AuthApi.logout();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, 'login', (route) => false);
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => MainScreen(
+                                      )),
+                              (Route<dynamic> route) => false);
                           Fluttertoast.showToast(msg: "Logout successful");
                         }),
                   )

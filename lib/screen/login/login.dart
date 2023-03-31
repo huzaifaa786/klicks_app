@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_catch_clause, unused_field, unused_element
 
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -13,15 +15,18 @@ import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/login/signin_otp.dart';
 import 'package:klicks_app/screen/login/signup-otp.dart';
+import 'package:klicks_app/screen/main/main_screen.dart';
+import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
 import 'package:klicks_app/static/toggle.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
+  const LoginScreen({super.key, required this.nextScreen});
+  final String? nextScreen;
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -46,9 +51,21 @@ class _LoginScreenState extends State<LoginScreen> {
       if (await AuthApi.login(
         emailController,
         passwordController,
-      ))
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => CheckOutScreen()));
+      )) {
+        if (widget.nextScreen == 'checkout') {
+          final prefs = await SharedPreferences.getInstance();
+
+          var mdata = prefs.getString('data');
+          var jsonstring = jsonDecode(mdata!);
+          print(jsonstring);
+          SelectedCarInfo carinfo = SelectedCarInfo.fromJson(jsonstring);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CheckOutScreen(data: carinfo,)));
+        } else {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
+        }
+      }
     }
   }
 
@@ -111,11 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => BottomNavScreen()));
       } else {
         print(name);
-        if (await AuthApi.googleSignup(
-          name,
-          email1,
-          'google'
-        ))
+        if (await AuthApi.googleSignup(name, email1, 'google'))
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => BottomNavScreen()));
       }

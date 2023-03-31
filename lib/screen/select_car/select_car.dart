@@ -72,28 +72,19 @@ class _CarSelectState extends State<CarSelect> {
       log(services.length.toString());
     });
   }
-   original() async {
-  
-  final prefs = await SharedPreferences.getInstance();
+
+  proceed() async {
+    final prefs = await SharedPreferences.getInstance();
     final String? authCheck = prefs.getString('api_token');
     if (authCheck == null) {
-
-        final prefs = await SharedPreferences.getInstance();
-  prefs.setString('data', json.encode(data.toJson()));
+      prefs.setString('data', jsonEncode(data));
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new LoginScreen()));
-
-
+          new MaterialPageRoute(builder: (context) => new LoginScreen(nextScreen : 'checkout')));
     } else {
-         Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new CheckOutScreen(data: data)));
+      Navigator.of(context).pushReplacement(new MaterialPageRoute(
+          builder: (context) => new CheckOutScreen(data: data)));
     }
-
-
-
-
-         
-    }
+  }
 
   void initState() {
     super.initState();
@@ -116,6 +107,7 @@ class _CarSelectState extends State<CarSelect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: White,
       body: SafeArea(
         child: Column(
@@ -369,7 +361,7 @@ class _CarSelectState extends State<CarSelect> {
                               Fluttertoast.showToast(
                                   msg: "Plate Number can't be empty");
                             } else {
-                             original();
+                              proceed();
                             }
                           }
                         }

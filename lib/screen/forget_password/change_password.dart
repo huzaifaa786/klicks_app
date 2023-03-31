@@ -31,7 +31,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       await AuthApi.forget(widget.email, passwordController.text);
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen(nextScreen: 'any',)),
           (route) => false);
       Fluttertoast.showToast(msg: 'update successfully');
       passwordController.text = '';

@@ -8,6 +8,7 @@ import 'package:klicks_app/api/coupon.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/model/Coupon.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
@@ -123,14 +124,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final String? authCheck = prefs.getString('api_token');
     if (authCheck == null) {
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+          new MaterialPageRoute(builder: (context) => new LoginScreen(nextScreen: 'any',)));
     } else
       orderPlaced();
   }
 
   orderPlaced() async {
+      var token = await SharedPreferencesHelper.getString('api_token');
     if (await OrderApi.placeorder(
-      tipcontroller.text,
       widget.data!.selectedcartype,
       widget.data!.company!.company_id,
       widget.data!.floorNumber,
@@ -139,7 +140,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       widget.data!.parkingNumber,
       total,
       widget.data!.extraService,
-      widget.data!.uid,
+      token,
       widget.data!.cityId,
       method,
     )) Navigator.pushNamed(context, 'booking_confirm');
@@ -201,20 +202,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   SelectedCarInfo? data;
 
-  void initState()async {
+  void initState() {
     super.initState();
-    print('object');
-   
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final prefs = await SharedPreferences.getInstance();
-    final String? data = prefs.getString('data');
-      String dataString = json.encode(widget.data!.toJson());
-      Map<String, dynamic> orderdata = json.decode(dataString);
-      print('object');
-      print(data);
+    setState(() {
+    total = widget.data!.price;
     });
-    // total = widget.data!.price;
-
     method = 'stripe';
   }
 
@@ -231,7 +223,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Navigator.pop(context);
               },
             ),
-            data != null?
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.89,
               child: Padding(
@@ -466,7 +457,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                 ),
               ),
-            ):Container()
+            )
           ],
         ),
       ),
