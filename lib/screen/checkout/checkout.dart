@@ -199,11 +199,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void initState()async {
     super.initState();
     print('object');
-     final prefs = await SharedPreferences.getInstance();
-    final String? orderdata = prefs.getString('api_token');
+   
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+        final prefs = await SharedPreferences.getInstance();
+    final String? data = prefs.getString('data');
       String dataString = json.encode(widget.data!.toJson());
-      Map<String, dynamic> data = json.decode(dataString);
+      Map<String, dynamic> orderdata = json.decode(dataString);
       print('object');
       print(data);
     });

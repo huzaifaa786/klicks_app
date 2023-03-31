@@ -77,8 +77,13 @@ class _CarSelectState extends State<CarSelect> {
   final prefs = await SharedPreferences.getInstance();
     final String? authCheck = prefs.getString('api_token');
     if (authCheck == null) {
+
+        final prefs = await SharedPreferences.getInstance();
+  prefs.setString('data', json.encode(data.toJson()));
       Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new LoginScreen()));
+
+
     } else {
          Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new CheckOutScreen(data: data)));
