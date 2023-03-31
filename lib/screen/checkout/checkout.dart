@@ -154,6 +154,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       account = mbalance;
     });
   }
+   checkCoupon() async{
+  
+    print('dsfasdfasdfasdfasdfasdfasdfasdfasdf');
+    print(coupons);
+  }
 
   Coupon? coupons;
 
@@ -296,9 +301,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       CheckOutInputField(
                         controller: couponController,
                         hint: LocaleKeys.Enter_Coupon_Code.tr(),
-                        onpressed: () {
+                        onpressed: () async{
+                           await checkCoupon();
+
                           setState(() {
-                            val = !val;
+                            val=!val;
                           });
                           if (val == true) {
                             validatecoupon();

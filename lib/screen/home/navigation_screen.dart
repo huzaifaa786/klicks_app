@@ -7,7 +7,7 @@ import 'package:klicks_app/screen/order_history/order_history.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/qrcode/qr_code.dart';
 import 'package:klicks_app/values/colors.dart';
-
+import 'dart:ui' as ui;
 class BottomNavScreen extends StatefulWidget {
   const BottomNavScreen({Key? key, this.selectedIndex}) : super(key: key);
   final selectedIndex;
@@ -56,142 +56,145 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
       const OrderHistry(),
       const ProfileScreeen(),
     ];
-    return WillPopScope(
-      onWillPop: () => Future.value(false),
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: mainColor,
-          onPressed: () => Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => QrCodeScreen())),
-          child: Icon(
-            Icons.qr_code,
-            color: White,
+    return Directionality(
+      textDirection: ui.TextDirection.ltr,
+      child: WillPopScope(
+        onWillPop: () => Future.value(false),
+        child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: mainColor,
+            onPressed: () => Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => QrCodeScreen())),
+            child: Icon(
+              Icons.qr_code,
+              color: White,
+            ),
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        body: SafeArea(
-          child: _fragments[_navigationMenuIndex],
-        ),
-        bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          notchMargin: 5,
-          child: SizedBox(
-            height: 60,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Expanded(
-                  child: Material(
-                    color: White,
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _navigationMenuIndex = 0;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/home.svg',
-                              color: _navigationMenuIndex == 0
-                                  ? mainColor
-                                  : hintColor,
-                            ),
-                            // Icon(
-                            //   Icons.home_filled,
-                            //   color: _navigationMenuIndex == 0
-                            //       ? mainColor
-                            //       : hintColor,
-                            // ),
-                            Text(
-                              "Home",
-                              style: TextStyle(
-                                fontSize: 10,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          body: SafeArea(
+            child: _fragments[_navigationMenuIndex],
+          ),
+          bottomNavigationBar: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            notchMargin: 5,
+            child: SizedBox(
+              height: 60,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Material(
+                      color: White,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _navigationMenuIndex = 0;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/home.svg',
                                 color: _navigationMenuIndex == 0
                                     ? mainColor
                                     : hintColor,
                               ),
-                            )
-                          ],
+                              // Icon(
+                              //   Icons.home_filled,
+                              //   color: _navigationMenuIndex == 0
+                              //       ? mainColor
+                              //       : hintColor,
+                              // ),
+                              Text(
+                                "Home",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: _navigationMenuIndex == 0
+                                      ? mainColor
+                                      : hintColor,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(child: Container()),
-                Expanded(child: Container()),
-                Expanded(
-                  child: Material(
-                    color: White,
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _navigationMenuIndex = 1;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/order1.svg',
-                              color: _navigationMenuIndex == 1
-                                  ? mainColor
-                                  : hintColor,
-                            ),
-                            Text(
-                              "Orders",
-                              style: TextStyle(
-                                fontSize: 10,
+                  Expanded(child: Container()),
+                  Expanded(child: Container()),
+                  Expanded(
+                    child: Material(
+                      color: White,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _navigationMenuIndex = 1;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/order1.svg',
                                 color: _navigationMenuIndex == 1
                                     ? mainColor
                                     : hintColor,
                               ),
-                            )
-                          ],
+                              Text(
+                                "Orders",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: _navigationMenuIndex == 1
+                                      ? mainColor
+                                      : hintColor,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Material(
-                    color: White,
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _navigationMenuIndex = 2;
-                          });
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.person_outlined,
-                              color: _navigationMenuIndex == 2
-                                  ? mainColor
-                                  : hintColor,
-                            ),
-                            Text(
-                              "Profile",
-                              style: TextStyle(
-                                fontSize: 10,
+                  Expanded(
+                    child: Material(
+                      color: White,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _navigationMenuIndex = 2;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.person_outlined,
                                 color: _navigationMenuIndex == 2
                                     ? mainColor
                                     : hintColor,
                               ),
-                            )
-                          ],
+                              Text(
+                                "Profile",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: _navigationMenuIndex == 2
+                                      ? mainColor
+                                      : hintColor,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

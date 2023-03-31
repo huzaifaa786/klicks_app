@@ -13,37 +13,40 @@ class TitleTopbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20, right: 20, left: 20 ,bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: ontap,
-            child: Container(
-              decoration: BoxDecoration(
-               border: Border.all(
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(45),
-                  ),
-              ),
-              child: Icon(
-                Icons.keyboard_arrow_left_outlined,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20, right: 20, left: 20 ,bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: ontap,
+              child: Container(
+                decoration: BoxDecoration(
+                 border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(45),
+                    ),
+                ),
+                child: Icon(
+                  Icons.keyboard_arrow_left_outlined,
+                ),
               ),
             ),
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+            Text(
+              text,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          Text('')
-        ],
+            Text('')
+          ],
+        ),
       ),
     );
   }
