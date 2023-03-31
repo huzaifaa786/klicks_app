@@ -9,20 +9,33 @@ class SelectedCarInfo {
   Mall? mall;
   Company? company;
   var price;
-  var uid;
   var cityId;
   List? extraService = [];
 
-  SelectedCarInfo({
-    this.plateNumber,
-    this.floorNumber,
-    this.parkingNumber,
-    this.selectedcartype,
-    this.mall,
-    this.company,
-    this.uid,
-    this.cityId,
-    this.extraService,
-    this.price,
-  });
+  SelectedCarInfo();
+
+    SelectedCarInfo.fromJson(Map<String, dynamic> json)
+      : plateNumber = json['plateNumber'],
+        floorNumber = json['floorNumber'],
+        parkingNumber = json['parkingNumber'],
+        selectedcartype = json['selectedcartype'],
+        mall = Mall(json['mall']),
+        company = Company(json['company']),
+        cityId = json['cityId'],
+        extraService = json['extraService'],
+        price = json['price'];
+
+
+
+    Map<String, dynamic> toJson() => {
+        'plateNumber': plateNumber,
+        'floorNumber': floorNumber,
+        'parkingNumber': parkingNumber,
+        'selectedcartype': selectedcartype,
+        'mall': mall,
+        'company': company,
+        'cityId': cityId,
+        'extraService': extraService,
+        'price': price,
+      };
 }

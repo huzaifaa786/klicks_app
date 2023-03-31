@@ -8,4 +8,10 @@ class Mall {
     name = mall['name'];
     image = mall['image'];
   }
+    Map<String, dynamic> toJson() => {
+        'name': name,
+         'id': id,
+          'image': image,
+       
+      };
 }

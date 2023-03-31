@@ -8,9 +8,11 @@ import 'package:klicks_app/api/coupon.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/model/Coupon.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
+import 'package:klicks_app/screen/login/login.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkOut_tile.dart';
@@ -19,6 +21,7 @@ import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key, @required this.data});
@@ -99,6 +102,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       // 3. display the payment sheet.
       await Stripe.instance.presentPaymentSheet();
       print('object');
+      check();
       orderPlaced();
       Fluttertoast.showToast(msg: 'Payment succesfully completed');
       return true;
@@ -115,9 +119,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
   }
 
+  check() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? authCheck = prefs.getString('api_token');
+    if (authCheck == null) {
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new LoginScreen(nextScreen: 'any',)));
+    } else
+      orderPlaced();
+  }
+
   orderPlaced() async {
+      var token = await SharedPreferencesHelper.getString('api_token');
     if (await OrderApi.placeorder(
-      tipcontroller.text,
       widget.data!.selectedcartype,
       widget.data!.company!.company_id,
       widget.data!.floorNumber,
@@ -126,7 +140,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       widget.data!.parkingNumber,
       total,
       widget.data!.extraService,
-      widget.data!.uid,
+      token,
       widget.data!.cityId,
       method,
     )) Navigator.pushNamed(context, 'booking_confirm');
@@ -140,6 +154,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     setState(() {
       account = mbalance;
     });
+  }
+   checkCoupon() async{
+  
+    print('dsfasdfasdfasdfasdfasdfasdfasdfasdf');
+    print(coupons);
   }
 
   Coupon? coupons;
@@ -181,17 +200,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     LoadingHelper.dismiss();
   }
 
-  original() {}
+  SelectedCarInfo? data;
 
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      getbalance();
-    });
-    total = widget.data!.price;
-
-    tipcontroller.text = '0';
-    method = 'stripe';
     super.initState();
+    setState(() {
+    total = widget.data!.price;
+    });
+    method = 'stripe';
   }
 
   @override
@@ -277,9 +293,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       CheckOutInputField(
                         controller: couponController,
                         hint: LocaleKeys.Enter_Coupon_Code.tr(),
-                        onpressed: () {
+                        onpressed: () async{
+                           await checkCoupon();
+
                           setState(() {
-                            val = !val;
+                            val=!val;
                           });
                           if (val == true) {
                             validatecoupon();
@@ -321,7 +339,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14))
-                                      : Text('0%', style: TextStyle(
+                                      : Text('0%',
+                                          style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14))
                                 ],
@@ -438,7 +457,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
