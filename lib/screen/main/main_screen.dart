@@ -19,6 +19,7 @@ import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:ui' as ui;
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -127,27 +128,41 @@ class _MainScreenState extends State<MainScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Topbar(),
-            Flexible(
-              child: Container(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                height: MediaQuery.of(context).size.height * 0.85,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      user != null
-                          ? Padding(
-                              padding: EdgeInsets.only(top: 4, bottom: 4),
-                              child: Text(
-                                LocaleKeys.Hello.tr() + ", " + user!.name!,
+    return Directionality(
+      textDirection: ui.TextDirection.ltr,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Topbar(),
+              user != null
+                  ? Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        height: MediaQuery.of(context).size.height * 0.85,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 4, bottom: 4),
+                                child: Text(
+                                  LocaleKeys.Hello.tr() + ", " + user!.name!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 24,
+                                      fontFamily: 'Poppins'),
+                                ),
+                              ),
+                              Text(
+                                weekdayName! +
+                                    ', ' +
+                                    monthName! +
+                                    ' ' +
+                                    now!.day.toString(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
                                     fontFamily: 'Poppins'),
                               ),
                             )
