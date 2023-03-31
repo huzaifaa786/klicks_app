@@ -194,36 +194,22 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     LoadingHelper.dismiss();
   }
 
-  // original() async {
-  //   if (widget.data ==null ){
-  //   print('object');
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setString('data', json.encode(widget.data!.toJson()));
-  //   }else{
+  SelectedCarInfo? data;
 
-  // Map<String, dynamic> data = json.decode(widget.data!.toJson());
-
-  //   }
-  //   SharedPreferences.getInstance();
-  //   final String? authCheck = prefs.getString('api_token');
-  //   if (authCheck == null) {
-  //     Navigator.of(context).pushReplacement(
-  //         new MaterialPageRoute(builder: (context) => new LoginScreen()));
-  //   } else {}
-  // }
-
-  void initState() {
-      super.initState();
+  void initState()async {
+    super.initState();
+    print('object');
+     final prefs = await SharedPreferences.getInstance();
+    final String? orderdata = prefs.getString('api_token');
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // original();
-
-      // getbalance();
+      String dataString = json.encode(widget.data!.toJson());
+      Map<String, dynamic> data = json.decode(dataString);
+      print('object');
+      print(data);
     });
-    total = widget.data!.price;
+    // total = widget.data!.price;
 
     method = 'stripe';
-  
-
   }
 
   @override
@@ -239,6 +225,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Navigator.pop(context);
               },
             ),
+            data != null?
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.89,
               child: Padding(
@@ -471,7 +458,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                 ),
               ),
-            ),
+            ):Container()
           ],
         ),
       ),

@@ -18,6 +18,7 @@ import 'package:klicks_app/static/topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -61,10 +62,14 @@ class _MainScreenState extends State<MainScreen> {
 
   User? user;
   getuser() async {
-    var muser = await AuthApi.getuser();
-    setState(() {
-      user = muser;
-    });
+    final prefs = await SharedPreferences.getInstance();
+    final String? authCheck = prefs.getString('api_token');
+    if (authCheck!=null) {
+      var muser = await AuthApi.getuser();
+      setState(() {
+        user = muser;
+      });
+    }
   }
 
   DateTime? now;
@@ -97,9 +102,7 @@ class _MainScreenState extends State<MainScreen> {
     'December',
   ];
   date() {
-    setState(() {
-      
-    });
+    setState(() {});
     now = DateTime.now();
     monthName = monthNames[now!.month];
     weekdayName = weekdays[now!.weekday];
@@ -109,7 +112,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // getuser();
+      getuser();
       date();
       getcity();
     });
@@ -137,25 +140,35 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 4, bottom: 4),
-                        child: Text(
-                          user != null
-                              ? LocaleKeys.Hello.tr() + ", " + user!.name!
-                              : '',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 24,
-                              fontFamily: 'Poppins'),
-                        ),
-                      ),
+                      user != null
+                          ? Padding(
+                              padding: EdgeInsets.only(top: 4, bottom: 4),
+                              child: Text(
+                                LocaleKeys.Hello.tr() + ", " + user!.name!,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 24,
+                                    fontFamily: 'Poppins'),
+                              ),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(top: 4, bottom: 4),
+                              child: Text(
+                                LocaleKeys.Hello.tr(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 24,
+                                    fontFamily: 'Poppins'),
+                              ),
+                            ),
                       Text(
                         weekdayName != null
-                              ? weekdayName! +
-                            ', ' +
-                            monthName! +
-                            ' ' +
-                            now!.day.toString():'',
+                            ? weekdayName! +
+                                ', ' +
+                                monthName! +
+                                ' ' +
+                                now!.day.toString()
+                            : '',
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,

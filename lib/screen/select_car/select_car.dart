@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +9,7 @@ import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/company.dart';
 import 'package:klicks_app/model/services.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
+import 'package:klicks_app/screen/login/login.dart';
 import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/checkoutBtn.dart';
 import 'package:klicks_app/static/extra_list_item.dart';
@@ -17,6 +19,7 @@ import 'package:klicks_app/static/title_topbar.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CarSelect extends StatefulWidget {
   CarSelect({
@@ -69,6 +72,23 @@ class _CarSelectState extends State<CarSelect> {
       log(services.length.toString());
     });
   }
+   original() async {
+  
+  final prefs = await SharedPreferences.getInstance();
+    final String? authCheck = prefs.getString('api_token');
+    if (authCheck == null) {
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+    } else {
+         Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new CheckOutScreen(data: data)));
+    }
+
+
+
+
+         
+    }
 
   void initState() {
     super.initState();
@@ -344,14 +364,7 @@ class _CarSelectState extends State<CarSelect> {
                               Fluttertoast.showToast(
                                   msg: "Plate Number can't be empty");
                             } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CheckOutScreen(
-                                    data: data,
-                                  ),
-                                ),
-                              );
+                             original();
                             }
                           }
                         }
