@@ -36,81 +36,88 @@ class CityDropdownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton2(
-          hint: Row(
-            children: [
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: SvgPicture.asset(
-                  imageIcon,
-                  height: 18,
-                  width: 18,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 6.0),
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: hintColor,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton2(
+            hint: Row(
+              children: [
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: SvgPicture.asset(
+                    imageIcon,
+                    height: 18,
+                    width: 18,
                   ),
                 ),
-              ),
-            ],
-          ),
-          items: items!
-              .map((item) => DropdownMenuItem<City>(
-                    value: item,
-                    child: Row(
-                      children: [
-                        item.image != null
-                            ? CircleAvatar(
-                                radius: 19,
-                                backgroundImage:
-                                    NetworkImage(item.image.toString()),
-                                foregroundImage:
-                                    NetworkImage(item.image.toString()),
-                                    child: Image(image: NetworkImage(item.image.toString())),
-                              )
-                            : CircleAvatar(
-                                radius: 19,
-                                backgroundColor: mainColor,
-                                child: Text('City',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 7, color: Colors.white)),
-                              ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(
-                            item.name.toString(),
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 6.0),
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: hintColor,
                     ),
-                  ))
-              .toList(),
-          value: selectedvalue,
-          onChanged: (value) {
-            onChange(value);
-          },
-          buttonHeight: 50,
-          buttonWidth: MediaQuery.of(context).size.width,
-          buttonPadding: EdgeInsets.only(left: 12, right: 12),
-          itemHeight: 40,
-          icon: icon,
-          buttonDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-                color: Colors.grey[300]!,
-              )
+                  ),
+                ),
+              ],
+            ),
+            items: items!
+                .map((item) => DropdownMenuItem<City>(
+                      value: item,
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Row(
+                          children: [
+                            item.image != null
+                                ? CircleAvatar(
+                                    radius: 19,
+                                    backgroundImage:
+                                        NetworkImage(item.image.toString()),
+                                    foregroundImage:
+                                        NetworkImage(item.image.toString()),
+                                    child: Image(
+                                        image: NetworkImage(
+                                            item.image.toString())),
+                                  )
+                                : CircleAvatar(
+                                    radius: 19,
+                                    backgroundColor: mainColor,
+                                    child: Text('City',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 7, color: Colors.white)),
+                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                item.name.toString(),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ))
+                .toList(),
+            value: selectedvalue,
+            onChanged: (value) {
+              onChange(value);
+            },
+            buttonHeight: 50,
+            buttonWidth: MediaQuery.of(context).size.width,
+            buttonPadding: EdgeInsets.only(left: 12, right: 12),
+            itemHeight: 40,
+            icon: icon,
+            buttonDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.grey[300]!,
+                )),
           ),
         ),
       ),

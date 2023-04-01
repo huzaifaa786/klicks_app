@@ -179,7 +179,7 @@ class _OrderStatusState extends State<OrderStatus> {
                                       ),
                                     ),
                                     Text(
-                                      'Extras',
+                                      LocaleKeys.Extras.tr(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14,
@@ -225,18 +225,18 @@ class _OrderStatusState extends State<OrderStatus> {
                   ),
                   widget.order!.status == 3
                       ? Badge(
-                          title: 'Completed',
+                          title: LocaleKeys.Completed.tr(),
                           color: Colors.green,
                           ontap: () {},
                         )
                       : widget.order!.status == 2
                           ? Badge(
-                              title: 'Rejected',
+                              title: LocaleKeys.Rejected.tr(),
                               color: Colors.red,
                               ontap: () {},
                             )
                           : Badge(
-                              title: 'In Progress',
+                              title: LocaleKeys.In_progress.tr(),
                               color: InprocessColor,
                               ontap: () {},
                             ),

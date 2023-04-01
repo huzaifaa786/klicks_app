@@ -6,8 +6,11 @@ import 'package:klicks_app/screen/main/main_screen.dart';
 import 'package:klicks_app/screen/order_history/order_history.dart';
 import 'package:klicks_app/screen/profile/profile.dart';
 import 'package:klicks_app/screen/qrcode/qr_code.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'dart:ui' as ui;
+import 'package:easy_localization/easy_localization.dart';
+
 class BottomNavScreen extends StatefulWidget {
   const BottomNavScreen({Key? key, this.selectedIndex}) : super(key: key);
   final selectedIndex;
@@ -109,7 +112,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                               //       : hintColor,
                               // ),
                               Text(
-                                "Home",
+                                LocaleKeys.home.tr(),
                                 style: TextStyle(
                                   fontSize: 10,
                                   color: _navigationMenuIndex == 0
@@ -145,7 +148,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                                     : hintColor,
                               ),
                               Text(
-                                "Orders",
+                                LocaleKeys.orders.tr(),
                                 style: TextStyle(
                                   fontSize: 10,
                                   color: _navigationMenuIndex == 1
@@ -179,7 +182,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> with RouteAware {
                                     : hintColor,
                               ),
                               Text(
-                                "Profile",
+                                LocaleKeys.profile.tr(),
                                 style: TextStyle(
                                   fontSize: 10,
                                   color: _navigationMenuIndex == 2

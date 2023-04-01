@@ -10,6 +10,7 @@ import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui' as ui;
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -54,131 +55,134 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: White,
-      body: SafeArea(
-        child: Column(
-          children: [
-            TitleTopbar(
-              ontap: () {
-                Navigator.pop(context);
-              },
-              text: LocaleKeys.Edit_Profile.tr(),
-            ),
-            user != null?
-            Flexible(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.89,
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                          child: Text(
-                            LocaleKeys.Username.tr(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
+      body: Directionality(
+        textDirection: ui.TextDirection.ltr,
+        child: SafeArea(
+          child: Column(
+            children: [
+              TitleTopbar(
+                ontap: () {
+                  Navigator.pop(context);
+                },
+                text: LocaleKeys.Edit_Profile.tr(),
+              ),
+              user != null?
+              Flexible(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.89,
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                            child: Text(
+                              LocaleKeys.Username.tr(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 16),
+                            ),
                           ),
-                        ),
-                        InputField(
-                          readOnly: true,
-                          hint: 'Enter Username',
-                          controller: nameController,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                          child: Text(
-                            "Email",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
+                          InputField(
+                            readOnly: true,
+                            hint: 'Enter Username',
+                            controller: nameController,
                           ),
-                        ),
-                        InputField(
-                          readOnly: true,
-                          hint: 'Enter Email',
-                          controller: emailController,
-                        ),
-                        user!.type != 'google'
-                            ? Padding(
-                                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                                child: Text(
-                                  LocaleKeys.Phone_Number.tr(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16),
-                                ),
-                              )
-                            : Container(),
-                        user!.type != 'google'
-                            ? InputField(
-                                readOnly: true,
-                                hint: 'Enter phone number',
-                                controller: phoneController,
-                                type: TextInputType.number,
-                              )
-                            : Container(),
-                        user!.type != 'google'
-                            ? Padding(
-                                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.Password.tr(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        ChangePassword(context, user!.email);
-                                      },
-                                      child: Text(
-                                        LocaleKeys.Change_Password.tr(),
+                          Padding(
+                            padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                            child: Text(
+                              LocaleKeys.Email.tr(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 16),
+                            ),
+                          ),
+                          InputField(
+                            readOnly: true,
+                            hint: 'Enter Email',
+                            controller: emailController,
+                          ),
+                          user!.type != 'google'
+                              ? Padding(
+                                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                                  child: Text(
+                                    LocaleKeys.Phone_Number.tr(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                )
+                              : Container(),
+                          user!.type != 'google'
+                              ? InputField(
+                                  readOnly: true,
+                                  hint: 'Enter phone number',
+                                  controller: phoneController,
+                                  type: TextInputType.number,
+                                )
+                              : Container(),
+                          user!.type != 'google'
+                              ? Padding(
+                                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        LocaleKeys.Password.tr(),
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            color: mainColor),
+                                            fontSize: 16),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container()
-                      ],
-                    ),
-                    //   show == false
-                    //       ? Padding(
-                    //           padding: const EdgeInsets.only(bottom: 12),
-                    //           child: LargeButton(
-                    //               title: "Update Profile",
-                    //               onPressed: () {
-                    //                 setState(() {
-                    //                   show = !show;
-                    //                 });
-                    //               }),
-                    //         )
-                    //       : Padding(
-                    //           padding: const EdgeInsets.only(bottom: 12),
-                    //           child: IconsButton(
-                    //             title: 'Changes saved successfully!',
-                    //             color: Colors.green,
-                    //             rounded: true,
-                    //             onPressed: () {
-                    //               setState(() {
-                    //                 show = !show;
-                    //               });
-                    //             },
-                    //           ),
-                    //         )
-                  ],
-                )
-              ),
-            ):Container()
-          ],
+                                      InkWell(
+                                        onTap: () {
+                                          ChangePassword(context, user!.email);
+                                        },
+                                        child: Text(
+                                          LocaleKeys.Change_Password.tr(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                              color: mainColor),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container()
+                        ],
+                      ),
+                      //   show == false
+                      //       ? Padding(
+                      //           padding: const EdgeInsets.only(bottom: 12),
+                      //           child: LargeButton(
+                      //               title: "Update Profile",
+                      //               onPressed: () {
+                      //                 setState(() {
+                      //                   show = !show;
+                      //                 });
+                      //               }),
+                      //         )
+                      //       : Padding(
+                      //           padding: const EdgeInsets.only(bottom: 12),
+                      //           child: IconsButton(
+                      //             title: 'Changes saved successfully!',
+                      //             color: Colors.green,
+                      //             rounded: true,
+                      //             onPressed: () {
+                      //               setState(() {
+                      //                 show = !show;
+                      //               });
+                      //             },
+                      //           ),
+                      //         )
+                    ],
+                  )
+                ),
+              ):Container()
+            ],
+          ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/city_api.dart';
+import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/User.dart';
@@ -52,11 +53,13 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   getcomapnys(id) async {
+    LoadingHelper.show();
     var mCompanys = await CityApi.getcompany(id);
     setState(() {
       companyValue = null;
       companys = mCompanys;
       companyValue = companys[0];
+      LoadingHelper.dismiss();
     });
   }
 
@@ -64,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
   getuser() async {
     final prefs = await SharedPreferences.getInstance();
     final String? authCheck = prefs.getString('api_token');
-    if (authCheck!=null) {
+    if (authCheck != null) {
       var muser = await AuthApi.getuser();
       setState(() {
         user = muser;
