@@ -217,103 +217,103 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: White,
-      body: Directionality(
-        textDirection: ui.TextDirection.ltr,
-        child: SafeArea(
-          child: Column(
-            children: [
-              TitleTopbar(
-                text: LocaleKeys.Checkout.tr(),
-                ontap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.88,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 16),
-                        Container(
-                          margin: EdgeInsets.only(right: 2, left: 1),
-                          padding: EdgeInsets.only(
-                              right: 12, left: 12, top: 16, bottom: 16),
-                          decoration: BoxDecoration(
-                            color: White,
-                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.4),
-                                spreadRadius: 1,
-                                blurRadius: 10,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              CheckOutTile(
-                                title: LocaleKeys.Vehicle_Type.tr() + ':',
-                                discription: widget.data!.selectedcartype,
-                                image: 'assets/images/vehicleType.svg',
-                              ),
-                              CheckOutTile(
-                                title: LocaleKeys.Build_Company.tr() + ':',
-                                discription: widget.data!.company!.name,
-                                image: 'assets/images/providerCompany.svg',
-                              ),
-                              CheckOutTile(
-                                title: LocaleKeys.Number_Plate.tr() + ':',
-                                discription: widget.data!.plateNumber,
-                                image: 'assets/images/numberPlate.svg',
-                              ),
-                              CheckOutTile(
-                                  title: LocaleKeys.Parking_Number.tr() + ':',
-                                  discription: widget.data!.parkingNumber,
-                                  image: 'assets/images/parkingNumber.svg'),
-                              CheckOutTile(
-                                  title: LocaleKeys.Mall.tr() + ':',
-                                  discription: widget.data!.mall!.name,
-                                  image: 'assets/images/mallCheckout.svg'),
-                              CheckOutTile(
-                                  title: LocaleKeys.Floor_Number.tr() + ':',
-                                  discription: widget.data!.floorNumber!,
-                                  image: 'assets/images/floorNumberCheck.svg'),
-                              CheckOutTile(
-                                  title: LocaleKeys.Extras.tr() + ':',
-                                  discription: widget.data!.extraService == null
-                                      ? 'No, Extra service added'
-                                      : widget.data!.extraService!.length
-                                              .toString() +
-                                          ' ' +
-                                          'Extra service added',
-                                  image: 'assets/images/Extras.svg'),
-                            ],
-                          ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            TitleTopbar(
+              text: LocaleKeys.Checkout.tr(),
+              ontap: () {
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.88,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 16),
+                      Container(
+                        margin: EdgeInsets.only(right: 2, left: 1),
+                        padding: EdgeInsets.only(
+                            right: 12, left: 12, top: 16, bottom: 16),
+                        decoration: BoxDecoration(
+                          color: White,
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 18),
-                        CheckOutInputField(
-                          controller: couponController,
-                          hint: LocaleKeys.Enter_Coupon_Code.tr(),
-                          onpressed: () async {
-                            await checkCoupon();
+                        child: Column(
+                          children: [
+                            CheckOutTile(
+                              title: LocaleKeys.Vehicle_Type.tr() + ':',
+                              discription: widget.data!.selectedcartype,
+                              image: 'assets/images/vehicleType.svg',
+                            ),
+                            CheckOutTile(
+                              title: LocaleKeys.Build_Company.tr() + ':',
+                              discription: widget.data!.company!.name,
+                              image: 'assets/images/providerCompany.svg',
+                            ),
+                            CheckOutTile(
+                              title: LocaleKeys.Number_Plate.tr() + ':',
+                              discription: widget.data!.plateNumber,
+                              image: 'assets/images/numberPlate.svg',
+                            ),
+                            CheckOutTile(
+                                title: LocaleKeys.Parking_Number.tr() + ':',
+                                discription: widget.data!.parkingNumber,
+                                image: 'assets/images/parkingNumber.svg'),
+                            CheckOutTile(
+                                title: LocaleKeys.Mall.tr() + ':',
+                                discription: widget.data!.mall!.name,
+                                image: 'assets/images/mallCheckout.svg'),
+                            CheckOutTile(
+                                title: LocaleKeys.Floor_Number.tr() + ':',
+                                discription: widget.data!.floorNumber!,
+                                image: 'assets/images/floorNumberCheck.svg'),
+                            CheckOutTile(
+                                title: LocaleKeys.Extras.tr() + ':',
+                                discription: widget.data!.extraService == null
+                                    ? 'No, Extra service added'
+                                    : widget.data!.extraService!.length
+                                            .toString() +
+                                        ' ' +
+                                        'Extra service added',
+                                image: 'assets/images/Extras.svg'),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 18),
+                      CheckOutInputField(
+                        controller: couponController,
+                        hint: LocaleKeys.Enter_Coupon_Code.tr(),
+                        onpressed: () async {
+                          await checkCoupon();
 
-                            setState(() {
-                              val = !val;
-                            });
-                            if (val == true) {
-                              validatecoupon();
-                            } else {
-                              refreshTotal();
-                            }
-                          },
-                          readOnly: val,
-                        ),
-                        SizedBox(height: 12),
-                        Container(
+                          setState(() {
+                            val = !val;
+                          });
+                          if (val == true) {
+                            validatecoupon();
+                          } else {
+                            refreshTotal();
+                          }
+                        },
+                        readOnly: val,
+                      ),
+                      SizedBox(height: 12),
+                      Directionality(
+                        textDirection: ui.TextDirection.ltr,
+                        child: Container(
                           padding: EdgeInsets.only(
                               top: 20, bottom: 20, right: 12, left: 12),
                           child: Column(
@@ -382,8 +382,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 12),
-                        Column(
+                      ),
+                      SizedBox(height: 12),
+                      Directionality(
+                        textDirection: ui.TextDirection.ltr,
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
@@ -443,32 +446,32 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        LargeButton(
-                          onPressed: () async {
-                            setState(() {
-                              _site == PayMethod.materCard
-                                  ? method = 'stripe'
-                                  : method = 'wallet';
-                            });
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      LargeButton(
+                        onPressed: () async {
+                          setState(() {
                             _site == PayMethod.materCard
-                                ? await paayment()
-                                : walletpayment();
-                          },
-                          title: LocaleKeys.continu.tr(),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
+                                ? method = 'stripe'
+                                : method = 'wallet';
+                          });
+                          _site == PayMethod.materCard
+                              ? await paayment()
+                              : walletpayment();
+                        },
+                        title: LocaleKeys.continu.tr(),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

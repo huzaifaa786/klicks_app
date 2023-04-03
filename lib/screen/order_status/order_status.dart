@@ -40,8 +40,9 @@ class _OrderStatusState extends State<OrderStatus> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: ui.TextDirection.ltr,
+      textDirection: context.locale.toString() == 'en'?  ui.TextDirection.ltr : ui.TextDirection.rtl,
       child: Scaffold(
+        backgroundColor: White,
         body: SafeArea(
             child: Padding(
           padding: EdgeInsets.only(right: 20, left: 20),
@@ -50,53 +51,56 @@ class _OrderStatusState extends State<OrderStatus> {
             children: [
               Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.grey,
+                  Directionality(
+                    textDirection: ui.TextDirection.ltr,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(45),
+                                ),
                               ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(45),
+                              child: Icon(
+                                Icons.keyboard_arrow_left_outlined,
                               ),
-                            ),
-                            child: Icon(
-                              Icons.keyboard_arrow_left_outlined,
                             ),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 6.0),
-                              child: Text(
-                                LocaleKeys.Order_Detail.tr(),
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Poppins'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 6.0),
+                                child: Text(
+                                  LocaleKeys.Order_Detail.tr(),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Poppins'),
+                                ),
                               ),
-                            ),
-                            FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: SvgPicture.asset('assets/images/order.svg',
-                                    height: 20, width: 20)),
-                          ],
-                        ),
-                        Text(
-                          '.sdkjf',
-                          style: TextStyle(color: White),
-                        )
-                      ],
+                              FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: SvgPicture.asset('assets/images/order.svg',
+                                      height: 20, width: 20)),
+                            ],
+                          ),
+                          Text(
+                            '.sdkjf',
+                            style: TextStyle(color: White),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 30),
@@ -160,7 +164,7 @@ class _OrderStatusState extends State<OrderStatus> {
                                 child: Row(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 8),
+                                      padding: context.locale.toString() == 'en'? EdgeInsets.only(right: 8): EdgeInsets.only(left: 8),
                                       child: Container(
                                         padding: const EdgeInsets.all(4),
                                         decoration: BoxDecoration(

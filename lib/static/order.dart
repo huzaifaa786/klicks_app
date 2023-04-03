@@ -58,7 +58,7 @@ class Order extends StatelessWidget {
                             ? Container(
                                 height: 60,
                                 width: 60,
-                                padding: EdgeInsets.only(left: 4,right: 4),
+                                padding: EdgeInsets.only(left: 4, right: 4),
                                 decoration: BoxDecoration(
                                   color: White,
                                   borderRadius:
@@ -80,7 +80,7 @@ class Order extends StatelessWidget {
                             : Container(
                                 height: 60,
                                 width: 60,
-                                padding: EdgeInsets.only(left: 4,right: 4),
+                                padding: EdgeInsets.only(left: 4, right: 4),
                                 decoration: BoxDecoration(
                                   color: White,
                                   borderRadius:
@@ -95,7 +95,7 @@ class Order extends StatelessWidget {
                                   ],
                                 ),
                                 child: Image(
-                                  image: AssetImage('assets/images/car1.png'),
+                                  image: AssetImage('assets/images/sedan1.png'),
                                   height: 12,
                                 ),
                               ),
@@ -122,12 +122,11 @@ class Order extends StatelessWidget {
                               Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(right:4.0),
+                                    padding: const EdgeInsets.only(right: 4.0),
                                     child: Container(
                                       padding: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
-                                        color:
-                                            Colors.grey[300],
+                                        color: Colors.grey[300],
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: FittedBox(

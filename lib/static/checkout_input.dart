@@ -69,7 +69,7 @@ class CheckOutInputField extends StatelessWidget {
               child: readOnly == false? Text(LocaleKeys.Apply.tr(),style: TextStyle(color: mainColor),) : Text(LocaleKeys.Remove.tr(),style: TextStyle(color: Colors.red),),
             ),
           ),
-          contentPadding: EdgeInsets.only(left: 12),
+          contentPadding: context.locale.toString() == 'en'? EdgeInsets.only(left: 12) : EdgeInsets.only(right: 12),
           hintStyle: TextStyle(color: hintColor),
           enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Colors.grey[300]!),
