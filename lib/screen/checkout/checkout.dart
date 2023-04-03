@@ -104,7 +104,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       await Stripe.instance.presentPaymentSheet();
       print('object');
       check();
-      orderPlaced();
       Fluttertoast.showToast(msg: 'Payment succesfully completed');
       return true;
     } on Exception catch (e) {
@@ -230,7 +229,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 },
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.89,
+                height: MediaQuery.of(context).size.height * 0.88,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: SingleChildScrollView(

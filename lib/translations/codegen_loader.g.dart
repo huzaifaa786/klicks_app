@@ -92,7 +92,7 @@ class CodegenLoader extends AssetLoader{
   "Booking_Confirmed": "تم تأكيد الطلب",
   "Your_order_has_been_placed_successfully": "تم وضع طلبك بنجاح",
   "Got_IT": "حسناً",
-  "order_id": "رقم التعريف الخاص بالطلب",
+  "order_id": "رقم الطلب",
   "search": "بحث",
   "Status": "الحالة",
   "Accepted": "تم القبول",

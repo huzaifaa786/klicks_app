@@ -20,7 +20,7 @@ class TitleTopbar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
+            InkWell(
               onTap: ontap,
               child: Container(
                 decoration: BoxDecoration(

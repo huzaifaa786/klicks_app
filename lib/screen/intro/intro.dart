@@ -77,7 +77,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         screenRatio: 0.75,
                         title: "GET STARTED",
                         onPressed: () {
-                          Navigator.popAndPushNamed(context, 'login');
+                          Navigator.popAndPushNamed(context, 'home');
                         },
                       ),
               ],
