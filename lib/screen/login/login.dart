@@ -346,6 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.w600,
+                              color: Colors.black.withOpacity(0.8)
                             ),
                           ),
                           Padding(
@@ -501,12 +502,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       padding:
                                           const EdgeInsets.only(top: 12),
                                       child: Container(
-                                        height: 70,
+                                        height: 75,
                                         child: IntlPhoneField(
+                                             style: TextStyle(fontSize: 14),
+
                                           controller: phoneController,
                                           decoration: const InputDecoration(
                                             contentPadding:
-                                                EdgeInsets.only(bottom: 1),
+                                                EdgeInsets.only(bottom: 0.5),
+                                            hintStyle: TextStyle(fontSize: 12),
                                             filled: true,
                                             fillColor: White,
                                             border: OutlineInputBorder(

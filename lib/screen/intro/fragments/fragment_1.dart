@@ -33,7 +33,7 @@ class _FragmentOneState extends State<FragmentOne> {
               child: Text(
                 'Wash your Car from our professional trained workers.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600,fontFamily: 'OpenSans'),
               ),
             ),
             Container(
@@ -42,7 +42,7 @@ class _FragmentOneState extends State<FragmentOne> {
               child: Text(
                 'Lorem ipsum dolor sit amet consectetur. Enim fringilla et non in erat dolor.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,fontFamily: 'OpenSans'),
               ),
             ),
           ],

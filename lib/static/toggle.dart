@@ -42,18 +42,18 @@ class TwoSwitchToggle extends StatelessWidget {
           [mainColor],
           [mainColor]
         ],
-        activeFgColor: mainColor,
-        inactiveBgColor: Colors.blue.shade100,
-        inactiveFgColor: Colors.blue.shade50,
+        activeFgColor: Colors.white,
+        inactiveBgColor: Colors.blue.withOpacity(0.2),
+        inactiveFgColor: Colors.black,
         initialLabelIndex: initialLabelIndex,
         totalSwitches: totalSwitches,
         labels: [text1, text2],
         radiusStyle: true,
         // ignore: prefer_const_literals_to_create_immutables
-        customTextStyles: [
-          TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-          TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-        ],
+        // customTextStyles: [
+        //   TextStyle(fontSize: 16, fontWeight: FontWeight.w600,color: Colors.white),
+        //   TextStyle(fontSize: 16, fontWeight: FontWeight.w600,color: Colors.white),
+        // ],
         onToggle: (index) {
           switchToggle(index);
         },

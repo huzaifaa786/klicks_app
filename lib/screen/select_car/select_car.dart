@@ -138,7 +138,7 @@ class _CarSelectState extends State<CarSelect> {
                               child: Text(
                                 LocaleKeys.Choose_your_car.tr(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 14),
+                                    fontWeight: FontWeight.w500, fontSize: 15),
                               ),
                             ),
                             SelectCarCard(
@@ -174,7 +174,7 @@ class _CarSelectState extends State<CarSelect> {
                               child: Text(
                                 LocaleKeys.Floor_Number.tr(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 14),
+                                    fontWeight: FontWeight.w500, fontSize: 15),
                               ),
                             ),
                             IconInputField(
@@ -188,7 +188,7 @@ class _CarSelectState extends State<CarSelect> {
                               child: Text(
                                 LocaleKeys.Parking_Number.tr(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 14),
+                                    fontWeight: FontWeight.w500, fontSize: 15),
                               ),
                             ),
                             IconInputField(
@@ -202,7 +202,7 @@ class _CarSelectState extends State<CarSelect> {
                               child: Text(
                                 LocaleKeys.Plate_Number.tr(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 14),
+                                    fontWeight: FontWeight.w500, fontSize: 15),
                               ),
                             ),
                             IconInputField(
@@ -216,7 +216,7 @@ class _CarSelectState extends State<CarSelect> {
                               child: Text(
                                 LocaleKeys.Selected_Mall.tr(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 14),
+                                    fontWeight: FontWeight.w500, fontSize: 15),
                               ),
                             ),
                             Row(
@@ -256,7 +256,7 @@ class _CarSelectState extends State<CarSelect> {
                               child: Text(
                                 LocaleKeys.Selected_Company.tr(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 14),
+                                    fontWeight: FontWeight.w500, fontSize: 15),
                               ),
                             ),
                             Row(

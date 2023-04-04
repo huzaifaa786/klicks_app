@@ -6,7 +6,7 @@ import 'package:klicks_app/values/string.dart';
 
 class OrderApi {
   static placeorder(selectedcartype, company_id, floorNumber, id,
-      plateNumber, parkingNumber, price, extraService,token, cityId,PMethod) async {
+      plateNumber, parkingNumber, price, extraService,token, cityId,PMethod,intent) async {
     LoadingHelper.show();
     var url = BASE_URL + 'ordersave';
     var data = {
@@ -20,7 +20,8 @@ class OrderApi {
       'city_id': cityId,
       'services': extraService,
       'paymentmethod': PMethod,
-      'api_token' :token
+      'api_token' :token,
+      'payment_intent' :intent,
     };
     var response = await Api.execute(url: url, data: data);
     LoadingHelper.dismiss();

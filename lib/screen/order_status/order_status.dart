@@ -228,18 +228,18 @@ class _OrderStatusState extends State<OrderStatus> {
                     height: 4,
                   ),
                   widget.order!.status == 3
-                      ? Badge(
+                      ? MBadge(
                           title: LocaleKeys.Completed.tr(),
                           color: Colors.green,
                           ontap: () {},
                         )
                       : widget.order!.status == 2
-                          ? Badge(
+                          ? MBadge(
                               title: LocaleKeys.Rejected.tr(),
                               color: Colors.red,
                               ontap: () {},
                             )
-                          : Badge(
+                          : MBadge(
                               title: LocaleKeys.In_progress.tr(),
                               color: InprocessColor,
                               ontap: () {},

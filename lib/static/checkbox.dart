@@ -28,6 +28,7 @@ class _MCheckBoxState extends State<MCheckBox> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
+      contentPadding: EdgeInsets.all(0),
       controlAffinity: ListTileControlAffinity.leading,
       checkColor: Colors.white,
       activeColor: mainColor,
@@ -36,7 +37,7 @@ class _MCheckBoxState extends State<MCheckBox> {
           text: LocaleKeys.I_agree_to_terms_and_conditions.tr(),
           style: TextStyle(
             color: Colors.black,
-            fontSize: 12,
+            fontSize: 15,
           ),
         ),
       ),

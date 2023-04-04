@@ -57,7 +57,7 @@ class CityDropdownField extends StatelessWidget {
                   child: Text(
                     text,
                     style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 13,
                       color: hintColor,
                     ),
                   ),

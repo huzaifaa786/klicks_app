@@ -22,8 +22,8 @@ class MainScreenText extends StatelessWidget {
               fit: BoxFit.scaleDown,
               child: SvgPicture.asset(
                 image,
-                height: 12,
-                width: 14,
+                height: 17,
+                width: 17,
               ),
             ),
           ),
@@ -31,7 +31,7 @@ class MainScreenText extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-              fontWeight: FontWeight.w500, fontSize: 15, fontFamily: 'Poppins'),
+              fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'Poppins'),
         ),
       ],
     );

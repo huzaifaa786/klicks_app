@@ -150,7 +150,8 @@ class _MainScreenState extends State<MainScreen> {
                                 LocaleKeys.Hello.tr() + ", " + user!.name!,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                    fontSize: 25,
+                                    color: Colors.black.withOpacity(0.8),
                                     fontFamily: 'Poppins'),
                               ),
                             )
@@ -160,7 +161,8 @@ class _MainScreenState extends State<MainScreen> {
                                 LocaleKeys.Hello.tr(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                    fontSize: 25,
+                                    color: Colors.black.withOpacity(0.8),
                                     fontFamily: 'Poppins'),
                               ),
                             ),

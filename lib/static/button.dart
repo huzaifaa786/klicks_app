@@ -49,7 +49,7 @@ class LargeButton extends StatelessWidget {
                 color: textcolor,
                 fontFamily: 'Poppins',
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

@@ -31,7 +31,7 @@ class _FragmentTwoState extends State<FragmentTwo> {
               child: Text(
                 'And we offering extra services with best rates.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600,fontFamily: 'OpenSans'),
               ),
             ),
             Container(
@@ -40,7 +40,7 @@ class _FragmentTwoState extends State<FragmentTwo> {
               child: Text(
                 'Extra services include Oil change, tyre service, engine service and much more.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,fontFamily: 'OpenSans'),
               ),
             ),
           ],

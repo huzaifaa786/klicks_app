@@ -39,6 +39,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   bool val1 = false;
   bool tip = false;
   String? method;
+  String? intent;
 
   TextEditingController tipcontroller = TextEditingController();
   TextEditingController couponController = TextEditingController();
@@ -70,8 +71,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     var data = await StripeApi.paymentIntent(total);
     data = jsonDecode(data.toString());
-    print('sdsa');
-    print(data['paymentIntent']);
+    setState(() {
+      intent = data['intent']['id'] ;
+    });
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: data['paymentIntent'],
@@ -145,6 +147,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       token,
       widget.data!.cityId,
       method,
+      intent,
     )) Navigator.pushNamed(context, 'booking_confirm');
   }
 

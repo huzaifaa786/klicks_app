@@ -122,6 +122,10 @@ flutter:
     - family:  OpenSans
       fonts:
         - asset: assets/fonts/OpenSans-Regular.ttf
+    - family: Mazzard
+      fonts:
+        - asset: assets/fonts/MazzardH-Black.otf
+        - asset: assets/fonts/MazzardH-BlackItalic.otf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
