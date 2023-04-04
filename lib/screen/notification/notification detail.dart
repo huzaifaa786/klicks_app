@@ -67,51 +67,54 @@ class _NotificationDetailState extends State<NotificationDetail> {
                     textDirection: context.locale.toString() == 'en'?  ui.TextDirection.ltr : ui.TextDirection.rtl,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
+                      child: Directionality(
+                        textDirection: ui.TextDirection.ltr,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(45),
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(45),
+                                child: Icon(
+                                  Icons.keyboard_arrow_left_outlined,
                                 ),
-                              ),
-                              child: Icon(
-                                Icons.keyboard_arrow_left_outlined,
                               ),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 6.0),
-                                child: Text(
-                                  LocaleKeys.Order_Detail.tr(),
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Poppins'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 6.0),
+                                  child: Text(
+                                    LocaleKeys.Order_Detail.tr(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Poppins'),
+                                  ),
                                 ),
-                              ),
-                              FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: SvgPicture.asset('assets/images/order.svg',
-                                      height: 20, width: 20)),
-                            ],
-                          ),
-                          Text(
-                            '.sdkjf',
-                            style: TextStyle(color: White),
-                          )
-                        ],
+                                FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: SvgPicture.asset('assets/images/order.svg',
+                                        height: 20, width: 20)),
+                              ],
+                            ),
+                            Text(
+                              '.sdkjf',
+                              style: TextStyle(color: White),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
