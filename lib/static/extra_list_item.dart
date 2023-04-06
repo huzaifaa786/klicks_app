@@ -23,8 +23,9 @@ class ExtraListTile extends StatelessWidget {
             children: [
               Image(
                 image: NetworkImage(image),
-                height: 35,
-                width: 35,
+                height: 25,
+                width: 30,
+                fit: BoxFit.contain,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8),
