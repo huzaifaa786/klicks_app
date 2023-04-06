@@ -138,7 +138,7 @@ class _OrderStatusState extends State<OrderStatus> {
                           image: 'assets/images/providerCompany.svg',
                         ),
                         CheckOutTile(
-                          title: LocaleKeys.Number_Plate.tr() + ':',
+                          title: LocaleKeys.Plate_Number.tr() + ':',
                           discription: widget.order!.plate_number,
                           image: 'assets/images/numberPlate.svg',
                         ),

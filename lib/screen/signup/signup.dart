@@ -323,33 +323,38 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        LocaleKeys.already.tr() + "? ",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              new MaterialPageRoute(
-                                  builder: (context) =>
-                                      new LoginScreen(nextScreen: 'any')));
-                        },
-                        child: Text(
-                          LocaleKeys.Sign_in.tr(),
+                  child: Directionality(
+                    textDirection: context.locale.toString() == 'en'
+                        ? ui.TextDirection.ltr
+                        : ui.TextDirection.rtl,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          LocaleKeys.already.tr() + "? ",
                           style: TextStyle(
-                            color: mainColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                      ),
-                    ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                                new MaterialPageRoute(
+                                    builder: (context) =>
+                                        new LoginScreen(nextScreen: 'any')));
+                          },
+                          child: Text(
+                            LocaleKeys.Sign_in.tr(),
+                            style: TextStyle(
+                              color: mainColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

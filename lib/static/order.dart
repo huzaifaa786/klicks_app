@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui' as ui;
 
 class Order extends StatelessWidget {
   const Order({
@@ -104,19 +105,22 @@ class Order extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    LocaleKeys.order_id.tr() + ': ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: mainColor),
-                                  ),
-                                  Text(
-                                    orderId,
-                                    style: TextStyle(color: mainColor),
-                                  ),
-                                ],
+                              Directionality(
+                                textDirection: context.locale.toString() == 'en'? ui.TextDirection.ltr: ui.TextDirection.rtl,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      LocaleKeys.order_id.tr() + ': ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: mainColor),
+                                    ),
+                                    Text(
+                                      orderId,
+                                      style: TextStyle(color: mainColor),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Text(cartype),
                               Row(

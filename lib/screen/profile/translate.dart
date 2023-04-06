@@ -50,7 +50,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
               ontap: () {
                 Navigator.pop(context);
               },
-              text: LocaleKeys.Change,
+              text: LocaleKeys.Change_Language.tr(),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),

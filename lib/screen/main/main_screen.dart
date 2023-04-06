@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/city_api.dart';
+import 'package:klicks_app/api/notification_api.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
@@ -111,12 +112,23 @@ class _MainScreenState extends State<MainScreen> {
     weekdayName = weekdays[now!.weekday];
   }
 
+    bool? checkNoti = false;
+
+  checkNotifications() async {
+    var mcheckNotification = await NotificationApi.CheckNotications();
+    setState(() {
+      checkNoti = mcheckNotification;
+      print(checkNoti);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getuser();
       date();
+      checkNotifications();
       getcity();
     });
   }
@@ -134,7 +146,9 @@ class _MainScreenState extends State<MainScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Topbar(),
+            Topbar(
+              checkNewNoti: checkNoti,
+            ),
             Flexible(
               child: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20),

@@ -267,7 +267,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               image: 'assets/images/providerCompany.svg',
                             ),
                             CheckOutTile(
-                              title: LocaleKeys.Number_Plate.tr() + ':',
+                              title: LocaleKeys.Plate_Number.tr() + ':',
                               discription: widget.data!.plateNumber,
                               image: 'assets/images/numberPlate.svg',
                             ),
@@ -314,141 +314,135 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         readOnly: val,
                       ),
                       SizedBox(height: 12),
-                      Directionality(
-                        textDirection: ui.TextDirection.ltr,
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              top: 20, bottom: 20, right: 12, left: 12),
-                          child: Column(
-                            children: [
-                              Row(
+                      Container(
+                        padding: EdgeInsets.only(
+                            top: 20, bottom: 20, right: 12, left: 12),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(LocaleKeys.Subtotal.tr(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600)),
+                                Text(
+                                    'AED' +
+                                        ' ' +
+                                        widget.data!.price.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(LocaleKeys.Subtotal.tr(),
+                                  Text(LocaleKeys.discount_amount.tr(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600)),
-                                  Text(
-                                      'AED' +
-                                          ' ' +
-                                          widget.data!.price.toString(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600))
+                                  coupons != null
+                                      ? Text(coupons!.percentage! + '%',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14))
+                                      : Text('0%',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14))
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(LocaleKeys.discount_amount.tr(),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600)),
-                                    coupons != null
-                                        ? Text(coupons!.percentage! + '%',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14))
-                                        : Text('0%',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14))
-                                  ],
+                            ),
+                            Divider(),
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  LocaleKeys.Total_bill.tr(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
                                 ),
-                              ),
-                              Divider(),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    LocaleKeys.Total_bill.tr(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('${total}',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20)),
-                                      Text('AED',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Directionality(
-                        textDirection: ui.TextDirection.ltr,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12, top: 12),
-                              child: Text(
-                                LocaleKeys.Payment_Method.tr(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 21),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12, top: 8),
-                              child: Text(
-                                LocaleKeys.Select_your_Payment_Method.tr(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14,
-                                    color: hintColor),
-                              ),
-                            ),
-                            PPaymentMethod(
-                              title: LocaleKeys.Credit_debit_card.tr(),
-                              image: "assets/images/credit-card.png",
-                              groupvalue: _site,
-                              value: PayMethod.materCard,
-                              onchaged: () {
-                                toggleplan(PayMethod.materCard);
-                              },
-                            ),
-                            // PPaymentMethod(
-                            //   title: 'Google Pay',
-                            //   image: "assets/images/google.png",
-                            //   value: PayMethod.googlePay,
-                            //   groupvalue: _site,
-                            //   onchaged: () {
-                            //     toggleplan(PayMethod.googlePay);
-                            //   },
-                            //   onpress: () {},
-                            // ),
-                            // PPaymentMethod(
-                            //   title: 'Apple Pay',
-                            //   image: "assets/images/apple.png",
-                            //   groupvalue: _site,
-                            //   value: PayMethod.applePay,
-                            //   onchaged: () {
-                            //     toggleplan(PayMethod.applePay);
-                            //   },
-                            // ),
-                            PPaymentMethod(
-                              title: LocaleKeys.Wallet_pay.tr(),
-                              image: "assets/images/wallet.png",
-                              groupvalue: _site,
-                              value: PayMethod.walletpay,
-                              onchaged: () {
-                                toggleplan(PayMethod.walletpay);
-                              },
+                                Row(
+                                  children: [
+                                    Text('${total} ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20)),
+                                    Text('AED',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20))
+                                  ],
+                                )
+                              ],
                             ),
                           ],
                         ),
+                      ),
+                      SizedBox(height: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12, top: 12),
+                            child: Text(
+                              LocaleKeys.Payment_Method.tr(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 21),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12, top: 8),
+                            child: Text(
+                              LocaleKeys.Select_your_Payment_Method.tr(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: hintColor),
+                            ),
+                          ),
+                          PPaymentMethod(
+                            title: LocaleKeys.Credit_debit_card.tr(),
+                            image: "assets/images/credit-card.png",
+                            groupvalue: _site,
+                            value: PayMethod.materCard,
+                            onchaged: () {
+                              toggleplan(PayMethod.materCard);
+                            },
+                          ),
+                          // PPaymentMethod(
+                          //   title: 'Google Pay',
+                          //   image: "assets/images/google.png",
+                          //   value: PayMethod.googlePay,
+                          //   groupvalue: _site,
+                          //   onchaged: () {
+                          //     toggleplan(PayMethod.googlePay);
+                          //   },
+                          //   onpress: () {},
+                          // ),
+                          // PPaymentMethod(
+                          //   title: 'Apple Pay',
+                          //   image: "assets/images/apple.png",
+                          //   groupvalue: _site,
+                          //   value: PayMethod.applePay,
+                          //   onchaged: () {
+                          //     toggleplan(PayMethod.applePay);
+                          //   },
+                          // ),
+                          PPaymentMethod(
+                            title: LocaleKeys.Wallet_pay.tr(),
+                            image: "assets/images/wallet.png",
+                            groupvalue: _site,
+                            value: PayMethod.walletpay,
+                            onchaged: () {
+                              toggleplan(PayMethod.walletpay);
+                            },
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 20,

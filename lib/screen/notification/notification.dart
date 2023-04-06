@@ -76,7 +76,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               return NotificationTile(
                                 type: notification[index].cartype,
-                                title: notification[index].title!,
+                                title: notification[index].title! ==
+                                        'New order placed'
+                                    ? LocaleKeys.New_Order_Placed.tr()
+                                    : notification[index].title! ==
+                                            'Your order has been accepted'
+                                        ? LocaleKeys.Order_has_accepted.tr()
+                                        : notification[index].title! ==
+                                                'Your order has been rejected and order amount was refunded'
+                                            ? LocaleKeys.Order_has_rejected.tr()
+                                            : LocaleKeys.Order_has_completed
+                                                .tr(),
                                 ontap: () {
                                   Navigator.push(
                                       context,

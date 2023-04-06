@@ -42,10 +42,15 @@ class _NotificationDetailState extends State<NotificationDetail> {
     });
   }
 
+  readNoti() async {
+    await NotificationApi.readnotifications(widget.order!.id);
+  }
+
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getMallandCompany();
+      readNoti();
       getservice();
     });
   }
@@ -54,7 +59,9 @@ class _NotificationDetailState extends State<NotificationDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Directionality(
-        textDirection: context.locale.toString() == 'en'? ui.TextDirection.ltr :ui.TextDirection.rtl,
+        textDirection: context.locale.toString() == 'en'
+            ? ui.TextDirection.ltr
+            : ui.TextDirection.rtl,
         child: SafeArea(
             child: Padding(
           padding: EdgeInsets.only(right: 20, left: 20),
@@ -64,7 +71,9 @@ class _NotificationDetailState extends State<NotificationDetail> {
               Column(
                 children: [
                   Directionality(
-                    textDirection: context.locale.toString() == 'en'?  ui.TextDirection.ltr : ui.TextDirection.rtl,
+                    textDirection: context.locale.toString() == 'en'
+                        ? ui.TextDirection.ltr
+                        : ui.TextDirection.rtl,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20, bottom: 10),
                       child: Directionality(
@@ -105,8 +114,10 @@ class _NotificationDetailState extends State<NotificationDetail> {
                                 ),
                                 FittedBox(
                                     fit: BoxFit.scaleDown,
-                                    child: SvgPicture.asset('assets/images/order.svg',
-                                        height: 20, width: 20)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/order.svg',
+                                        height: 20,
+                                        width: 20)),
                               ],
                             ),
                             Text(
@@ -128,8 +139,8 @@ class _NotificationDetailState extends State<NotificationDetail> {
                   SizedBox(height: 20),
                   Container(
                     margin: EdgeInsets.only(right: 2, left: 1),
-                    padding:
-                        EdgeInsets.only(right: 12, left: 12, top: 16, bottom: 16),
+                    padding: EdgeInsets.only(
+                        right: 12, left: 12, top: 16, bottom: 16),
                     decoration: BoxDecoration(
                       color: White,
                       borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -157,7 +168,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                                 image: 'assets/images/providerCompany.svg',
                               ),
                         CheckOutTile(
-                          title: LocaleKeys.Number_Plate.tr() + ':',
+                          title: LocaleKeys.Plate_Number.tr() + ':',
                           discription: widget.order!.plate_number,
                           image: 'assets/images/numberPlate.svg',
                         ),
@@ -185,13 +196,16 @@ class _NotificationDetailState extends State<NotificationDetail> {
                                 child: Row(
                                   children: [
                                     Padding(
-                                      padding: context.locale.toString() == 'en'? EdgeInsets.only(right: 8): EdgeInsets.only(left: 8),
+                                      padding: context.locale.toString() == 'en'
+                                          ? EdgeInsets.only(right: 8)
+                                          : EdgeInsets.only(left: 8),
                                       child: Container(
                                         padding: const EdgeInsets.all(4),
                                         decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(255, 224, 240, 255),
-                                          borderRadius: BorderRadius.circular(15),
+                                          color: Color.fromARGB(
+                                              255, 224, 240, 255),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: FittedBox(
                                           fit: BoxFit.scaleDown,

@@ -4,7 +4,7 @@ abstract class  LocaleKeys {
   static const Hello = 'Hello';
   static const Sign_in_to_continue = 'Sign_in_to_continue';
   static const Email = 'Email';
-  static const Otp = 'OTP';
+  static const Otp = 'Otp';
   static const Forgot_Password = 'Forgot_Password';
   static const Sign_in = 'Sign_in';
   static const Or = 'Or';
@@ -39,7 +39,7 @@ abstract class  LocaleKeys {
   static const Choose_Mall = 'Choose_Mall';
   static const Select_Company = 'Select_Company';
   static const Choose_Company = 'Choose_Company';
-  static const Submit = 'SUBMIT';
+  static const Submit = 'Submit';
   static const Floor_Number = 'Floor_Number';
   static const Enter_Floor_Number = 'Enter_Floor_Number';
   static const Parking_Number = 'Parking_Number';
@@ -119,5 +119,10 @@ abstract class  LocaleKeys {
   static const profile = 'profile';
   static const home = 'home';
   static const orders = 'orders';
+  static const add_extra = 'add_extra';
+  static const New_Order_Placed = 'New_Order_Placed';
+  static const Order_has_rejected = 'Order_has_rejected';
+  static const Order_has_accepted = 'Order_has_accepted';
+  static const Order_has_completed = 'Order_has_completed';
 
 }

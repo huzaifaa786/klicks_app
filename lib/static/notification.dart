@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class NotificationTile extends StatelessWidget {
-  const NotificationTile({super.key, this.type = 'suv', this.title, this.day,this.ontap});
+  const NotificationTile(
+      {super.key, this.type = 'suv', this.title, this.day, this.ontap});
 
   final type;
   final title;
@@ -18,7 +19,7 @@ class NotificationTile extends StatelessWidget {
         elevation: 3,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(6, 10, 6, 10),
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -50,15 +51,7 @@ class NotificationTile extends StatelessWidget {
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Poppins'),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
                         ),
-                        // SizedBox(height: 2),
-                        // Text(
-                        //   day,
-                        //   style: TextStyle(
-                        //       fontSize: 12, fontWeight: FontWeight.w500),
-                        // )
                       ],
                     ),
                   )
@@ -68,7 +61,7 @@ class NotificationTile extends StatelessWidget {
                   ? Container(
                       height: 60,
                       width: 60,
-                      padding: EdgeInsets.only(left: 4,right: 4),
+                      padding: EdgeInsets.only(left: 4, right: 4),
                       decoration: BoxDecoration(
                         color: White,
                         borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -89,7 +82,7 @@ class NotificationTile extends StatelessWidget {
                   : Container(
                       height: 60,
                       width: 60,
-                      padding: EdgeInsets.only(left: 4,right: 4),
+                      padding: EdgeInsets.only(left: 4, right: 4),
                       decoration: BoxDecoration(
                         color: White,
                         borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -103,7 +96,7 @@ class NotificationTile extends StatelessWidget {
                         ],
                       ),
                       child: Image(
-                        image: AssetImage('assets/images/car1.png'),
+                        image: AssetImage('assets/images/sedan1.png'),
                         height: 12,
                       ),
                     ),

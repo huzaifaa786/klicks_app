@@ -344,10 +344,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             LocaleKeys.Sign_in_to_continue.tr(),
                             style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(0.8)
-                            ),
+                                fontSize: 26,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black.withOpacity(0.8)),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 20),
@@ -363,18 +362,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               ? Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(top: 20.0),
+                                      padding: const EdgeInsets.only(top: 20.0),
                                       child: IconInputField(
                                         controller: emailController,
-                                        imageIcon:
-                                            'assets/images/email.svg',
+                                        imageIcon: 'assets/images/email.svg',
                                         hint: LocaleKeys.Email.tr(),
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(top: 12.0),
+                                      padding: const EdgeInsets.only(top: 12.0),
                                       child: InputFieldPassword(
                                         controller: passwordController,
                                         imageIcon: 'assets/images/lock.svg',
@@ -396,12 +392,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   context, 'forgot_screen');
                                             },
                                             child: Text(
-                                              LocaleKeys.Forgot_Password
-                                                  .tr(),
+                                              LocaleKeys.Forgot_Password.tr(),
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  fontWeight:
-                                                      FontWeight.w500,
+                                                  fontWeight: FontWeight.w500,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -483,13 +477,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               : Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(top: 20),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Row(
                                         children: [
                                           Text(
-                                            LocaleKeys.Enter_phone_number
-                                                .tr(),
+                                            LocaleKeys.Enter_phone_number.tr(),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 14,
@@ -499,13 +491,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(top: 12),
+                                      padding: const EdgeInsets.only(top: 12),
                                       child: Container(
                                         height: 75,
                                         child: IntlPhoneField(
-                                             style: TextStyle(fontSize: 14),
-
+                                          style: TextStyle(fontSize: 14),
                                           controller: phoneController,
                                           decoration: const InputDecoration(
                                             contentPadding:
@@ -516,13 +506,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                             border: OutlineInputBorder(
                                               borderSide: BorderSide(),
                                             ),
-                                            enabledBorder:
-                                                OutlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide:
                                                   BorderSide(color: grey),
                                             ),
-                                            focusedBorder:
-                                                OutlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide:
                                                   BorderSide(color: grey),
                                             ),
@@ -537,8 +525,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(top: 12),
+                                      padding: const EdgeInsets.only(top: 12),
                                       child: Text(
                                           LocaleKeys
                                                   .By_continuing_you_may_an_sms_for_verification_massege_and_data_may_apply
@@ -569,9 +556,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0,top: 25),
+                      padding: const EdgeInsets.only(bottom: 10.0, top: 25),
                       child: Directionality(
-                        textDirection: ui.TextDirection.ltr,
+                        textDirection: context.locale.toString() == 'en'
+                            ? ui.TextDirection.ltr
+                            : ui.TextDirection.rtl,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -591,8 +580,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => SignUp(
-                                                nextScreen:
-                                                    widget.nextScreen,
+                                                nextScreen: widget.nextScreen,
                                               )));
                                 } else {
                                   Navigator.push(
