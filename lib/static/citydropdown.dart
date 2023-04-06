@@ -4,6 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/model/City.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:klicks_app/values/colors.dart';
 
 class CityDropdownField extends StatelessWidget {
@@ -71,25 +72,26 @@ class CityDropdownField extends StatelessWidget {
                         textDirection: TextDirection.ltr,
                         child: Row(
                           children: [
-                            item.image != null
-                                ? CircleAvatar(
-                                    radius: 19,
-                                    backgroundImage:
-                                        NetworkImage(item.image.toString()),
-                                    foregroundImage:
-                                        NetworkImage(item.image.toString()),
-                                    child: Image(
-                                        image: NetworkImage(
-                                            item.image.toString())),
-                                  )
-                                : CircleAvatar(
-                                    radius: 19,
-                                    backgroundColor: mainColor,
-                                    child: Text('City',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 7, color: Colors.white)),
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(top :2.0,bottom: 2),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  image: item.image != null
+                                      ? DecorationImage(
+                                          image:
+                                              CachedNetworkImageProvider(item.image.toString()),
+                                          fit: BoxFit.contain)
+                                      : DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/logo1.png'),
+                                          fit: BoxFit.contain),
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8),
                               child: Text(
