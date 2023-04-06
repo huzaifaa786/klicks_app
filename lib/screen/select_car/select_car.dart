@@ -42,6 +42,7 @@ class _CarSelectState extends State<CarSelect> {
   SelectedCarInfo data = SelectedCarInfo();
   List<ExtraService> services = [];
   List selectedExtraService = [];
+  List selectedExtraServicenames = [];
   List<bool> checked = [];
   TextEditingController plateNumberController = TextEditingController();
   plateNumber(Value) {
@@ -79,10 +80,10 @@ class _CarSelectState extends State<CarSelect> {
     final String? authCheck = prefs.getString('api_token');
     if (authCheck == null) {
       prefs.setString('data', jsonEncode(data));
-      Navigator.of(context).pushReplacement(new MaterialPageRoute(
+      Navigator.of(context).push(new MaterialPageRoute(
           builder: (context) => new LoginScreen(nextScreen: 'checkout')));
     } else {
-      Navigator.of(context).pushReplacement(new MaterialPageRoute(
+      Navigator.of(context).push(new MaterialPageRoute(
           builder: (context) => new CheckOutScreen(data: data)));
     }
   }
@@ -306,7 +307,7 @@ class _CarSelectState extends State<CarSelect> {
                             Container(
                               height: services.length == 0
                                   ? 8
-                                  : MediaQuery.of(context).size.height * 0.2,
+                                  : MediaQuery.of(context).size.height * 0.13,
                               child: services.length == 0
                                   ? Container()
                                   : ListView.builder(
@@ -324,19 +325,24 @@ class _CarSelectState extends State<CarSelect> {
                                                   : price = int.parse(widget
                                                       .company.sedan_price!);
                                               selectedExtraService = [];
+                                              selectedExtraServicenames = [];
                                               for (int i = 0;
                                                   i < services.length;
                                                   i++) {
                                                 if (checked[i]) {
                                                   selectedExtraService
                                                       .add(services[i].id);
+                                                      selectedExtraServicenames
+                                                      .add(services[i].service_name);
                                                   price += int.parse(services[i]
                                                       .price
                                                       .toString());
                                                 }
                                               }
                                               data.extraService =
-                                                  selectedExtraService;
+                                                  selectedExtraService; 
+                                              data.extraServicenames =
+                                                  selectedExtraServicenames;
                                               print(data.extraService);
                                             });
                                           },

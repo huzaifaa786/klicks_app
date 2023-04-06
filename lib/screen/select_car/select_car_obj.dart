@@ -11,6 +11,7 @@ class SelectedCarInfo {
   var price;
   var cityId;
   List? extraService = [];
+  List? extraServicenames = [];
 
   SelectedCarInfo();
 
@@ -23,6 +24,7 @@ class SelectedCarInfo {
         company = Company(json['company']),
         cityId = json['cityId'],
         extraService = json['extraService'],
+        extraServicenames = json['extraServicenames'],
         price = json['price'];
 
 
@@ -36,6 +38,7 @@ class SelectedCarInfo {
         'company': company,
         'cityId': cityId,
         'extraService': extraService,
+        'extraServicenames': extraServicenames,
         'price': price,
       };
 }

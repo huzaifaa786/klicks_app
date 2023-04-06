@@ -287,10 +287,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 title: LocaleKeys.Extras.tr() + ':',
                                 discription: widget.data!.extraService == null
                                     ? 'No, Extra service added'
-                                    : widget.data!.extraService!.length
-                                            .toString() +
-                                        ' ' +
-                                        'Extra service added',
+                                    : widget.data!.extraServicenames!.join(','),
                                 image: 'assets/images/Extras.svg'),
                           ],
                         ),
