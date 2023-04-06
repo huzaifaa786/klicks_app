@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/city_api.dart';
@@ -225,14 +226,14 @@ class _CarSelectState extends State<CarSelect> {
                               children: [
                                 widget.mall.image != null
                                     ? CircleAvatar(
-                                        radius: 15,
+                                        radius: 19,
                                         backgroundImage:
-                                            NetworkImage(widget.mall.image!),
+                                            CachedNetworkImageProvider(widget.mall.image!),
                                         foregroundImage:
-                                            NetworkImage(widget.mall.image!),
+                                            CachedNetworkImageProvider(widget.mall.image!),
                                       )
                                     : CircleAvatar(
-                                        radius: 15,
+                                        radius: 19,
                                         backgroundColor: mainColor,
                                         child: Text('Mall',
                                             textAlign: TextAlign.center,
@@ -265,14 +266,14 @@ class _CarSelectState extends State<CarSelect> {
                               children: [
                                 widget.company.image != null
                                     ? CircleAvatar(
-                                        radius: 15,
+                                        radius: 19,
                                         backgroundImage:
-                                            NetworkImage(widget.company.image!),
+                                            CachedNetworkImageProvider(widget.company.image!),
                                         foregroundImage:
-                                            NetworkImage(widget.company.image!),
+                                            CachedNetworkImageProvider(widget.company.image!),
                                       )
                                     : CircleAvatar(
-                                        radius: 15,
+                                        radius: 19,
                                         backgroundColor: mainColor,
                                         child: Text('Company',
                                             textAlign: TextAlign.center,

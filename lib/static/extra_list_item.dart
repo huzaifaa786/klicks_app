@@ -22,25 +22,18 @@ class ExtraListTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Image(
-              //   image: NetworkImage(image),
-              //   height: 25,
-              //   width: 30,
-              //   fit: BoxFit.contain,
-              // ),
               Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  image: image != null
-                      ? DecorationImage(
+                height: 45,
+                width: 50,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: image != null
+                      ? Image(
                           image: CachedNetworkImageProvider(image.toString()),
-                          fit: BoxFit.contain)
-                      : DecorationImage(
+                          fit: BoxFit.fill)
+                      : Image(
                           image: AssetImage('assets/images/logo1.png'),
                           fit: BoxFit.contain),
-                  color: Colors.white,
-                  shape: BoxShape.circle,
                 ),
               ),
               Padding(

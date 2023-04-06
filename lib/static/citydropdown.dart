@@ -74,7 +74,8 @@ class CityDropdownField extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top :2.0,bottom: 2),
-                              child: Container(
+                              child:
+                               Container(
                                 height: 40,
                                 width: 40,
                                 decoration: BoxDecoration(
@@ -87,8 +88,6 @@ class CityDropdownField extends StatelessWidget {
                                           image: AssetImage(
                                               'assets/images/logo1.png'),
                                           fit: BoxFit.contain),
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
                                 ),
                               ),
                             ),
