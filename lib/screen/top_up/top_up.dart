@@ -284,11 +284,14 @@ class _TopUpState extends State<TopUp> {
                       ),
                     ],
                   ),
-                  LargeButton(
-                      title: LocaleKeys.ADD.tr(),
-                      onPressed: () {
-                        paayment();
-                      })
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: LargeButton(
+                        title: LocaleKeys.ADD.tr(),
+                        onPressed: () {
+                          paayment();
+                        }),
+                  )
                 ],
               ),
             ),

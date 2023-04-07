@@ -192,7 +192,7 @@ static const Map<String,dynamic> en = {
   "CANCEL": "CANCEL",
   "Checkout": "Checkout",
   "Total": "Total",
-  "top_UP": "top UP",
+  "top_UP": "Top Up",
   "Enter_the_amount_of_top_up": "Enter the amount of top up",
   "Enter_your_amount": "Enter your amount",
   "Enter_amount": "Enter amount",

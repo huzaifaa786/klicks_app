@@ -72,7 +72,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     var data = await StripeApi.paymentIntent(total);
     data = jsonDecode(data.toString());
     setState(() {
-      intent = data['intent']['id'] ;
+      intent = data['intent']['id'];
     });
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
@@ -169,27 +169,37 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   Coupon? coupons;
 
   validatecoupon() async {
-    var mcoupon = await CouponApi.ValidateCoupon(
-        widget.data!.company!.company_id, couponController.text);
-    if (mcoupon != null) {
+    if (couponController.text != '') {
+      var mcoupon = await CouponApi.ValidateCoupon(
+          widget.data!.company!.company_id, couponController.text);
+      if (mcoupon != null) {
+        setState(() {
+          coupons = mcoupon;
+          checkprice();
+        });
+      }
+    } else {
       setState(() {
-        coupons = mcoupon;
-        checkprice();
+        val = false;
       });
+      Fluttertoast.showToast(msg: "Coupon doesn't apply on empty field");
     }
   }
 
   refreshTotal() async {
     total = widget.data!.price;
+    coupons = null;
+    couponController.text = '';
     setState(() {});
   }
 
   checkprice() {
     // LoadingHelper.show();
-    if (int.parse(coupons!.minimum!) > total!) {
+    if (int.parse(coupons!.maximum!) > total!) {
       LoadingHelper.dismiss();
       Fluttertoast.showToast(
-          msg: 'Coupon not apply. Minimum price is' + coupons!.minimum!);
+          msg: 'Coupon not apply. Minimum price is ' + coupons!.maximum!);
+      coupons = null;
     } else {
       discount();
     }
@@ -211,6 +221,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getbalance();
+      couponController.text = '';
     });
     total = widget.data!.price;
     method = 'stripe';
@@ -317,18 +328,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Column(
                           children: [
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(LocaleKeys.Subtotal.tr(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600)),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
                                 Text(
-                                    'AED' +
-                                        ' ' +
-                                        widget.data!.price.toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600))
+                                    'AED' + ' ' + widget.data!.price.toString(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600))
                               ],
                             ),
                             Padding(
@@ -354,8 +362,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                             Divider(),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   LocaleKeys.Total_bill.tr(),

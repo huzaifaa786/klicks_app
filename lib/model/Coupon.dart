@@ -10,6 +10,5 @@ class Coupon {
     name = coupon['name'];
     percentage = coupon['percentage'];
     maximum = coupon['maximum'];
-    minimum = coupon['minimum'];
   }
 }
