@@ -28,14 +28,10 @@ class _TopbarState extends State<Topbar> {
         checkNoti = mcheckNotification;
         print(checkNoti);
       });
-    } else {
-      print('object');
-    }
+    } else {}
   }
 
   refreshData() {
-    print('i#########################');
-    print('it will work :)');
     checkNotifications();
   }
 
