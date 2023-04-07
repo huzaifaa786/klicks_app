@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PPaymentMethod extends StatefulWidget {
   PPaymentMethod(
@@ -31,7 +32,7 @@ class _PPaymentMethodState extends State<PPaymentMethod> {
     return InkWell(
       onTap: widget.onchaged,
       child: Container(
-        margin: EdgeInsets.only(left: 34),
+        margin:context.locale.toString() == 'en'? EdgeInsets.only(left: 34):EdgeInsets.only(left: 12),
         padding: EdgeInsets.only(top: 7, bottom: 7),
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -41,7 +42,7 @@ class _PPaymentMethodState extends State<PPaymentMethod> {
               width: MediaQuery.of(context).size.width,
               child: ListTile(
                 title: Transform.translate(
-                  offset: Offset(-25, 0),
+                  offset: context.locale.toString() == 'en'? Offset(-25, 0) :Offset(0, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

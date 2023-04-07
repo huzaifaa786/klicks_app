@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:convert';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +9,7 @@ import 'package:klicks_app/api/coupon.dart';
 import 'package:klicks_app/api/order.dart';
 import 'package:klicks_app/api/strip.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/Account.dart';
 import 'package:klicks_app/model/Coupon.dart';
 import 'package:klicks_app/screen/checkout/payment_method.dart';
@@ -37,6 +39,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   bool val1 = false;
   bool tip = false;
   String? method;
+  String? intent;
 
   TextEditingController tipcontroller = TextEditingController();
   TextEditingController couponController = TextEditingController();
@@ -68,8 +71,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     var data = await StripeApi.paymentIntent(total);
     data = jsonDecode(data.toString());
-    print('sdsa');
-    print(data['paymentIntent']);
+    setState(() {
+      intent = data['intent']['id'] ;
+    });
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: data['paymentIntent'],
@@ -102,7 +106,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       await Stripe.instance.presentPaymentSheet();
       print('object');
       check();
-      orderPlaced();
       Fluttertoast.showToast(msg: 'Payment succesfully completed');
       return true;
     } on Exception catch (e) {
@@ -122,15 +125,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final prefs = await SharedPreferences.getInstance();
     final String? authCheck = prefs.getString('api_token');
     if (authCheck == null) {
-      Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+      Navigator.of(context).pushReplacement(new MaterialPageRoute(
+          builder: (context) => new LoginScreen(
+                nextScreen: 'any',
+              )));
     } else
       orderPlaced();
   }
 
   orderPlaced() async {
+    var token = await SharedPreferencesHelper.getString('api_token');
     if (await OrderApi.placeorder(
-      tipcontroller.text,
       widget.data!.selectedcartype,
       widget.data!.company!.company_id,
       widget.data!.floorNumber,
@@ -139,9 +144,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       widget.data!.parkingNumber,
       total,
       widget.data!.extraService,
-      widget.data!.uid,
+      token,
       widget.data!.cityId,
       method,
+      intent,
     )) Navigator.pushNamed(context, 'booking_confirm');
   }
 
@@ -154,8 +160,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       account = mbalance;
     });
   }
-   checkCoupon() async{
-  
+
+  checkCoupon() async {
     print('dsfasdfasdfasdfasdfasdfasdfasdfasdf');
     print(coupons);
   }
@@ -201,20 +207,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   SelectedCarInfo? data;
 
-  void initState()async {
+  void initState() {
     super.initState();
-    print('object');
-   
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final prefs = await SharedPreferences.getInstance();
-    final String? data = prefs.getString('data');
-      String dataString = json.encode(widget.data!.toJson());
-      Map<String, dynamic> orderdata = json.decode(dataString);
-      print('object');
-      print(data);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getbalance();
     });
-    // total = widget.data!.price;
-
+    total = widget.data!.price;
     method = 'stripe';
   }
 
@@ -226,14 +224,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         child: Column(
           children: [
             TitleTopbar(
-              text: 'Checkout',
+              text: LocaleKeys.Checkout.tr(),
               ontap: () {
                 Navigator.pop(context);
               },
             ),
-            data != null?
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.89,
+              height: MediaQuery.of(context).size.height * 0.88,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: SingleChildScrollView(
@@ -270,7 +267,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               image: 'assets/images/providerCompany.svg',
                             ),
                             CheckOutTile(
-                              title: LocaleKeys.Number_Plate.tr() + ':',
+                              title: LocaleKeys.Plate_Number.tr() + ':',
                               discription: widget.data!.plateNumber,
                               image: 'assets/images/numberPlate.svg',
                             ),
@@ -290,10 +287,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 title: LocaleKeys.Extras.tr() + ':',
                                 discription: widget.data!.extraService == null
                                     ? 'No, Extra service added'
-                                    : widget.data!.extraService!.length
-                                            .toString() +
-                                        ' ' +
-                                        'Extra service added',
+                                    : widget.data!.extraServicenames!.join(','),
                                 image: 'assets/images/Extras.svg'),
                           ],
                         ),
@@ -302,11 +296,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       CheckOutInputField(
                         controller: couponController,
                         hint: LocaleKeys.Enter_Coupon_Code.tr(),
-                        onpressed: () async{
-                           await checkCoupon();
+                        onpressed: () async {
+                          await checkCoupon();
 
                           setState(() {
-                            val=!val;
+                            val = !val;
                           });
                           if (val == true) {
                             validatecoupon();
@@ -323,15 +317,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(LocaleKeys.Subtotal.tr(),
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600)),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600)),
                                 Text(
-                                    'AED' + ' ' + widget.data!.price.toString(),
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600))
+                                    'AED' +
+                                        ' ' +
+                                        widget.data!.price.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600))
                               ],
                             ),
                             Padding(
@@ -357,7 +354,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                             Divider(),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   LocaleKeys.Total_bill.tr(),
@@ -367,7 +365,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),
                                 Row(
                                   children: [
-                                    Text('${total}',
+                                    Text('${total} ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 20)),
@@ -405,7 +403,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                           ),
                           PPaymentMethod(
-                            title: 'Credit/Debit Card',
+                            title: LocaleKeys.Credit_debit_card.tr(),
                             image: "assets/images/credit-card.png",
                             groupvalue: _site,
                             value: PayMethod.materCard,
@@ -433,7 +431,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           //   },
                           // ),
                           PPaymentMethod(
-                            title: 'wallet Pay',
+                            title: LocaleKeys.Wallet_pay.tr(),
                             image: "assets/images/wallet.png",
                             groupvalue: _site,
                             value: PayMethod.walletpay,
@@ -466,7 +464,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                 ),
               ),
-            ):Container()
+            )
           ],
         ),
       ),

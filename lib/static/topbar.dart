@@ -3,9 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Topbar extends StatelessWidget {
-  const Topbar({super.key});
+class Topbar extends StatefulWidget {
+  const Topbar({super.key, this.checkNewNoti = false});
+  final checkNewNoti;
 
+  @override
+  State<Topbar> createState() => _TopbarState();
+}
+
+class _TopbarState extends State<Topbar> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -24,12 +30,35 @@ class Topbar extends StatelessWidget {
                   height: 63,
                   width: 63,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, 'notification');
-                  },
-                  child: SvgPicture.asset('assets/images/bell.svg'),
-                )
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.pushNamed(context, 'notification');
+                //   },
+                //   child: SvgPicture.asset('assets/images/bell.svg'),
+                // )
+                new Stack(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'notification');
+                      },
+                      child: SvgPicture.asset('assets/images/bell.svg'),
+                    ),
+                    widget.checkNewNoti != false
+                        ? new Positioned(
+                            right: 1,
+                            top: 1,
+                            child: new Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: new BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          )
+                        : new Container()
+                  ],
+                ),
               ],
             ),
             Padding(

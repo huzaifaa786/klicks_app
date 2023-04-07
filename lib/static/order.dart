@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui' as ui;
 
 class Order extends StatelessWidget {
   const Order({
@@ -58,7 +59,7 @@ class Order extends StatelessWidget {
                             ? Container(
                                 height: 60,
                                 width: 60,
-                                padding: EdgeInsets.only(left: 4,right: 4),
+                                padding: EdgeInsets.only(left: 4, right: 4),
                                 decoration: BoxDecoration(
                                   color: White,
                                   borderRadius:
@@ -80,7 +81,7 @@ class Order extends StatelessWidget {
                             : Container(
                                 height: 60,
                                 width: 60,
-                                padding: EdgeInsets.only(left: 4,right: 4),
+                                padding: EdgeInsets.only(left: 4, right: 4),
                                 decoration: BoxDecoration(
                                   color: White,
                                   borderRadius:
@@ -95,7 +96,7 @@ class Order extends StatelessWidget {
                                   ],
                                 ),
                                 child: Image(
-                                  image: AssetImage('assets/images/car1.png'),
+                                  image: AssetImage('assets/images/sedan1.png'),
                                   height: 12,
                                 ),
                               ),
@@ -104,30 +105,32 @@ class Order extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    LocaleKeys.order_id.tr() + ': ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: mainColor),
-                                  ),
-                                  Text(
-                                    orderId,
-                                    style: TextStyle(color: mainColor),
-                                  ),
-                                ],
+                              Directionality(
+                                textDirection: context.locale.toString() == 'en'? ui.TextDirection.ltr: ui.TextDirection.rtl,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      LocaleKeys.order_id.tr() + ': ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: mainColor),
+                                    ),
+                                    Text(
+                                      orderId,
+                                      style: TextStyle(color: mainColor),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Text(cartype),
                               Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(right:4.0),
+                                    padding: const EdgeInsets.only(right: 4.0),
                                     child: Container(
                                       padding: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
-                                        color:
-                                            Colors.grey[300],
+                                        color: Colors.grey[300],
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: FittedBox(

@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, unused_catch_clause
 
+import 'dart:convert';
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,15 +10,22 @@ import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
+import 'package:klicks_app/screen/login/login.dart';
+import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkbox.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui' as ui;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({super.key});
-
+  const SignUp({super.key, required this.nextScreen});
+  final String? nextScreen;
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -118,15 +126,27 @@ class _SignUpState extends State<SignUp> {
           Fluttertoast.showToast(
               msg: 'Password and Confirm Password field are not same');
         } else {
-          if (await AuthApi.register(
-            nameController,
-            emailController,
-            complete_phone,
-            passwordController,
-            'email'
-          ))
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CheckOutScreen()));
+          if (await AuthApi.register(nameController, emailController,
+              complete_phone, passwordController, 'email')) {
+            if (widget.nextScreen == 'checkout') {
+              final prefs = await SharedPreferences.getInstance();
+              var mdata = prefs.getString('data');
+              var jsonstring = jsonDecode(mdata!);
+              print(jsonstring);
+              SelectedCarInfo carinfo = SelectedCarInfo.fromJson(jsonstring);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CheckOutScreen(
+                            data: carinfo,
+                          )));
+            } else {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BottomNavScreen()));
+            }
+          }
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => CheckOutScreen()));
         }
       }
     } else {
@@ -176,161 +196,172 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image(
-                        image: AssetImage(
-                          'assets/images/logo1.png',
-                        ),
-                        height: 220,
-                        width: 220,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "User Name",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                ),
-              ),
-              IconInputField(
-                hint: 'Enter Username',
-                //  obscure: false,
-                imageIcon: 'assets/images/user.svg',
-                controller: nameController,
-                onChange: onNameChanged,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "Phone Number",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                ),
-              ),
-              SizedBox(
-                height: 70,
-                child: IntlPhoneField(
-                  controller: phoneController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 1),
-                    filled: true,
-                    fillColor: White,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: grey),
-                    ),
-                  ),
-                  initialCountryCode: 'AE',
-                  onChanged: (phone) {
-                    complete_phone = phone.completeNumber;
-                    log(complete_phone.toString());
-                  },
-                  keyboardType: TextInputType.phone,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "Enter Email",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                ),
-              ),
-              IconInputField(
-                onChange: onEmailChanged,
-                controller: emailController,
-                imageIcon: 'assets/images/email.svg',
-                hint: 'Email',
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "Password",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                ),
-              ),
-              InputFieldPassword(
-                controller: passwordController,
-                hint: 'Password',
-                toggle: _toggle,
-                imageIcon: 'assets/images/lock.svg',
-                obscure: _passwordVisible,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "Confirm Password",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                ),
-              ),
-              InputFieldPassword(
-                controller: cpasswordController,
-                hint: 'Confirm Password',
-                toggle: _toggle1,
-                imageIcon: 'assets/images/lock.svg',
-                obscure: _cpasswordVisible,
-              ),
-              MCheckBox(
-                  checkbox: checkboxval, onchanged: () => _togglecheckbox()),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 30),
-                child: LargeButton(
-                  title: "Sign up",
-                  onPressed: () {
-                    register();
-                    // sendToken();
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: Directionality(
+        textDirection: ui.TextDirection.ltr,
+        child: SafeArea(
+            child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
                   children: [
-                    Text(
-                      "I already have an account.",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'login');
-                      },
-                      child: Text(
-                        " Sign in",
-                        style: TextStyle(
-                          color: mainColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image(
+                          image: AssetImage(
+                            'assets/images/logo1.png',
+                          ),
+                          height: 220,
+                          width: 220,
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              )
-            ],
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.Username.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
+                ),
+                IconInputField(
+                  hint: LocaleKeys.Enter_username.tr(),
+                  //  obscure: false,
+                  imageIcon: 'assets/images/user.svg',
+                  controller: nameController,
+                  onChange: onNameChanged,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.phone_number.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
+                ),
+                SizedBox(
+                  height: 70,
+                  child: IntlPhoneField(
+                    controller: phoneController,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 1),
+                      filled: true,
+                      fillColor: White,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: grey),
+                      ),
+                    ),
+                    initialCountryCode: 'AE',
+                    onChanged: (phone) {
+                      complete_phone = phone.completeNumber;
+                      log(complete_phone.toString());
+                    },
+                    keyboardType: TextInputType.phone,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.Email.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
+                ),
+                IconInputField(
+                  onChange: onEmailChanged,
+                  controller: emailController,
+                  imageIcon: 'assets/images/email.svg',
+                  hint: LocaleKeys.Enter_email.tr(),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.Password.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
+                ),
+                InputFieldPassword(
+                  controller: passwordController,
+                  hint: LocaleKeys.Password.tr(),
+                  toggle: _toggle,
+                  imageIcon: 'assets/images/lock.svg',
+                  obscure: _passwordVisible,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.confirm_password.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
+                ),
+                InputFieldPassword(
+                  controller: cpasswordController,
+                  hint: LocaleKeys.confirm_password.tr(),
+                  toggle: _toggle1,
+                  imageIcon: 'assets/images/lock.svg',
+                  obscure: _cpasswordVisible,
+                ),
+                MCheckBox(
+                    checkbox: checkboxval, onchanged: () => _togglecheckbox()),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 30),
+                  child: LargeButton(
+                    title: LocaleKeys.sign_up.tr(),
+                    onPressed: () {
+                      register();
+                      // sendToken();
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Directionality(
+                    textDirection: context.locale.toString() == 'en'
+                        ? ui.TextDirection.ltr
+                        : ui.TextDirection.rtl,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          LocaleKeys.already.tr() + "? ",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                                new MaterialPageRoute(
+                                    builder: (context) =>
+                                        new LoginScreen(nextScreen: 'any')));
+                          },
+                          child: Text(
+                            LocaleKeys.Sign_in.tr(),
+                            style: TextStyle(
+                              color: mainColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }

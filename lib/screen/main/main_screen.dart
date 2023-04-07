@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
 import 'package:klicks_app/api/city_api.dart';
+import 'package:klicks_app/api/notification_api.dart';
+import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/User.dart';
@@ -52,23 +54,28 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   getcomapnys(id) async {
+    LoadingHelper.show();
     var mCompanys = await CityApi.getcompany(id);
     setState(() {
       companyValue = null;
       companys = mCompanys;
       companyValue = companys[0];
+      LoadingHelper.dismiss();
     });
   }
 
   User? user;
   getuser() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? authCheck = prefs.getString('api_token');
-    if (authCheck!=null) {
+    String? authCheck = prefs.getString('api_token');
+    print(authCheck);
+    if (authCheck != null) {
       var muser = await AuthApi.getuser();
       setState(() {
         user = muser;
       });
+    } else {
+      print('object');
     }
   }
 
@@ -108,12 +115,30 @@ class _MainScreenState extends State<MainScreen> {
     weekdayName = weekdays[now!.weekday];
   }
 
+  bool? checkNoti = false;
+
+  checkNotifications() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? authCheck = prefs.getString('api_token');
+    print(authCheck);
+    if (authCheck != null) {
+      var mcheckNotification = await NotificationApi.CheckNotications();
+      setState(() {
+        checkNoti = mcheckNotification;
+        print(checkNoti);
+      });
+    } else {
+      print('object');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getuser();
       date();
+      checkNotifications();
       getcity();
     });
   }
@@ -131,7 +156,9 @@ class _MainScreenState extends State<MainScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Topbar(),
+            Topbar(
+              checkNewNoti: checkNoti,
+            ),
             Flexible(
               child: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20),
@@ -147,7 +174,8 @@ class _MainScreenState extends State<MainScreen> {
                                 LocaleKeys.Hello.tr() + ", " + user!.name!,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                    fontSize: 25,
+                                    color: Colors.black.withOpacity(0.8),
                                     fontFamily: 'Poppins'),
                               ),
                             )
@@ -157,7 +185,8 @@ class _MainScreenState extends State<MainScreen> {
                                 LocaleKeys.Hello.tr(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                    fontSize: 25,
+                                    color: Colors.black.withOpacity(0.8),
                                     fontFamily: 'Poppins'),
                               ),
                             ),

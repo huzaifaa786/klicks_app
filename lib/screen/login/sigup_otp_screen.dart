@@ -1,17 +1,26 @@
 // ignore_for_file: unused_local_variable, unused_catch_clause
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
+import 'package:klicks_app/screen/select_car/select_car_obj.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/checkbox.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
+import 'dart:ui' as ui;
+import 'package:easy_localization/easy_localization.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpForOtpScreen extends StatefulWidget {
-  const SignUpForOtpScreen({super.key, this.phone});
+  const SignUpForOtpScreen({super.key, this.phone, required this.nextScreen});
   final String? phone;
+  final String? nextScreen;
   @override
   State<SignUpForOtpScreen> createState() => _SignUpForOtpScreenState();
 }
@@ -49,9 +58,26 @@ class _SignUpForOtpScreenState extends State<SignUpForOtpScreen> {
               msg: 'Password and Confirm Password field are not same');
         } else {
           if (await AuthApi.register(nameController, emailController,
-              widget.phone!, passwordController, 'otp'))
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => BottomNavScreen()));
+              widget.phone!, passwordController, 'otp')) {
+            if (widget.nextScreen == 'checkout') {
+              final prefs = await SharedPreferences.getInstance();
+              var mdata = prefs.getString('data');
+              var jsonstring = jsonDecode(mdata!);
+              print(jsonstring);
+              SelectedCarInfo carinfo = SelectedCarInfo.fromJson(jsonstring);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CheckOutScreen(
+                            data: carinfo,
+                          )));
+            } else {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BottomNavScreen()));
+            }
+          }
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => BottomNavScreen()));
         }
       }
     } else {
@@ -103,105 +129,109 @@ class _SignUpForOtpScreenState extends State<SignUpForOtpScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       print(widget.phone);
+      print(widget.nextScreen);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image(
-                        image: AssetImage(
-                          'assets/images/logo1.png',
+      body: Directionality(
+        textDirection: ui.TextDirection.ltr,
+        child: SafeArea(
+            child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image(
+                          image: AssetImage(
+                            'assets/images/logo1.png',
+                          ),
+                          height: 220,
+                          width: 220,
                         ),
-                        height: 220,
-                        width: 220,
-                      ),
-                    ],
+                      ],
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.Username.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                   ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "User Name",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
-              ),
-              IconInputField(
-                hint: 'Enter Username',
-                //  obscure: false,
-                imageIcon: 'assets/images/user.svg',
-                controller: nameController,
-                onChange: onNameChanged,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "Enter Email",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                IconInputField(
+                  hint: LocaleKeys.Enter_username.tr(),
+                  //  obscure: false,
+                  imageIcon: 'assets/images/user.svg',
+                  controller: nameController,
+                  onChange: onNameChanged,
                 ),
-              ),
-              IconInputField(
-                onChange: onEmailChanged,
-                controller: emailController,
-                imageIcon: 'assets/images/email.svg',
-                hint: 'Email',
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "Password",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.Email.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
                 ),
-              ),
-              InputFieldPassword(
-                controller: passwordController,
-                hint: 'Password',
-                toggle: _toggle,
-                imageIcon: 'assets/images/lock.svg',
-                obscure: _passwordVisible,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                child: Text(
-                  "Confirm Password",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                IconInputField(
+                  onChange: onEmailChanged,
+                  controller: emailController,
+                  imageIcon: 'assets/images/email.svg',
+                  hint: LocaleKeys.Enter_email.tr(),
                 ),
-              ),
-              InputFieldPassword(
-                controller: cpasswordController,
-                hint: 'Confirm Password',
-                toggle: _toggle1,
-                imageIcon: 'assets/images/lock.svg',
-                obscure: _cpasswordVisible,
-              ),
-              MCheckBox(
-                  checkbox: checkboxval, onchanged: () => _togglecheckbox()),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 30),
-                child: LargeButton(
-                  title: "Proceed",
-                  onPressed: () {
-                    register();
-                  },
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.Password.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
                 ),
-              ),
-            ],
+                InputFieldPassword(
+                  controller: passwordController,
+                  hint: LocaleKeys.Password.tr(),
+                  toggle: _toggle,
+                  imageIcon: 'assets/images/lock.svg',
+                  obscure: _passwordVisible,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
+                  child: Text(
+                    LocaleKeys.confirm_password.tr(),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  ),
+                ),
+                InputFieldPassword(
+                  controller: cpasswordController,
+                  hint: LocaleKeys.confirm_password.tr(),
+                  toggle: _toggle1,
+                  imageIcon: 'assets/images/lock.svg',
+                  obscure: _cpasswordVisible,
+                ),
+                MCheckBox(
+                    checkbox: checkboxval, onchanged: () => _togglecheckbox()),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 30),
+                  child: LargeButton(
+                    title: LocaleKeys.proceed.tr(),
+                    onPressed: () {
+                      register();
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }

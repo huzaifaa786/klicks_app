@@ -1,15 +1,15 @@
 import 'package:klicks_app/api/api.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/helpers/shared_pref.dart';
 import 'package:klicks_app/model/extra_services_detail.dart';
 import 'package:klicks_app/values/string.dart';
 
 class OrderApi {
-  static placeorder(tip, selectedcartype, company_id, floorNumber, id,
-      plateNumber, parkingNumber, price, extraService, uid, cityId,PMethod) async {
+  static placeorder(selectedcartype, company_id, floorNumber, id,
+      plateNumber, parkingNumber, price, extraService,token, cityId,PMethod,intent) async {
     LoadingHelper.show();
     var url = BASE_URL + 'ordersave';
     var data = {
-      'tip': tip,
       'cartype': selectedcartype,
       'company_id': company_id,
       'floor': floorNumber,
@@ -17,10 +17,11 @@ class OrderApi {
       'number_plate': plateNumber,
       'parking': parkingNumber,
       'totalpayment': price.toString(),
-      'user_id': uid,
       'city_id': cityId,
       'services': extraService,
       'paymentmethod': PMethod,
+      'api_token' :token,
+      'payment_intent' :intent,
     };
     var response = await Api.execute(url: url, data: data);
     LoadingHelper.dismiss();

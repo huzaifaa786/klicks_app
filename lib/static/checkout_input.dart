@@ -66,10 +66,10 @@ class CheckOutInputField extends StatelessWidget {
             onTap: onpressed,
             child: Padding(
               padding: const EdgeInsets.only(top: 10,right: 10),
-              child: readOnly == false? Text(LocaleKeys.Apply.tr(),style: TextStyle(color: mainColor),) : Text('Remove',style: TextStyle(color: Colors.red),),
+              child: readOnly == false? Text(LocaleKeys.Apply.tr(),style: TextStyle(color: mainColor),) : Text(LocaleKeys.Remove.tr(),style: TextStyle(color: Colors.red),),
             ),
           ),
-          contentPadding: EdgeInsets.only(left: 12),
+          contentPadding: context.locale.toString() == 'en'? EdgeInsets.only(left: 12) : EdgeInsets.only(right: 12),
           hintStyle: TextStyle(color: hintColor),
           enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Colors.grey[300]!),

@@ -26,7 +26,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   await EasyLocalization.ensureInitialized();
   // MessagingManager().configure();
   Stripe.publishableKey =
@@ -79,7 +79,6 @@ class _MyAppState extends State<MyApp> {
         initialRoute: 'splash',
         routes: {
           'splash': (context) => const SplashScreen(),
-          'login': (context) => const LoginScreen(),
           'home': (context) => const BottomNavScreen(),
           'booking_confirm': (context) => const BookingConfirm(),
           'order_status': (context) => const OrderStatus(),
@@ -88,7 +87,6 @@ class _MyAppState extends State<MyApp> {
           'order_histary': (context) => const OrderHistry(),
           'edit_profile': (context) => const EditProfile(),
           'intro': (context) => const IntroScreen(),
-          'signup': (context) => const SignUp(),
           'forgot_screen': (context) => ForgotScreen(),
           'Lang': (context) => TranslateScreen(),
         },

@@ -21,7 +21,7 @@ class StripeApi {
     var data;
     final prefs = await SharedPreferences.getInstance();
     data = {
-      'id': prefs.getString('user_id'),
+      'api_token': prefs.getString('api_token'),
     };
 
     var response = await Api.execute(
@@ -62,7 +62,7 @@ class StripeApi {
     var data;
     final prefs = await SharedPreferences.getInstance();
     data = {
-      'balance':int.parse(price.toString()) ,
+      'balance': int.parse(price.toString()),
       'id': prefs.getString('user_id'),
     };
 

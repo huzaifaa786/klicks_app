@@ -4,7 +4,7 @@ class Account {
 
 
   Account(account) {
-    user_id = account['id'];
+    user_id = account['user_id'];
     balance = account['balance'];
   
   }

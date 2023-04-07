@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CheckOutTile extends StatelessWidget {
   const CheckOutTile({super.key, this.title, this.discription, this.image});
@@ -22,7 +23,7 @@ class CheckOutTile extends StatelessWidget {
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: context.locale.toString() == 'en'? EdgeInsets.only(right: 8): EdgeInsets.only(left: 8),
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(

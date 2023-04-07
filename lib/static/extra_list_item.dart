@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:klicks_app/values/colors.dart';
 
@@ -21,10 +22,19 @@ class ExtraListTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image(
-                image: NetworkImage(image),
-                height: 35,
-                width: 35,
+              Container(
+                height: 45,
+                width: 50,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: image != null
+                      ? Image(
+                          image: CachedNetworkImageProvider(image.toString()),
+                          fit: BoxFit.fill)
+                      : Image(
+                          image: AssetImage('assets/images/logo1.png'),
+                          fit: BoxFit.contain),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8),

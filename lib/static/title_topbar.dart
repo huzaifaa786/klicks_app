@@ -20,7 +20,7 @@ class TitleTopbar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
+            InkWell(
               onTap: ontap,
               child: Container(
                 decoration: BoxDecoration(
@@ -33,6 +33,7 @@ class TitleTopbar extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.keyboard_arrow_left_outlined,
+                  size: 29,
                 ),
               ),
             ),
@@ -40,7 +41,7 @@ class TitleTopbar extends StatelessWidget {
               text,
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
             ),

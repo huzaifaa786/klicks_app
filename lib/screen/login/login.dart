@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_catch_clause, unused_field, unused_element
 
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -13,15 +15,22 @@ import 'package:klicks_app/screen/checkout/checkout.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/login/signin_otp.dart';
 import 'package:klicks_app/screen/login/signup-otp.dart';
+import 'package:klicks_app/screen/main/main_screen.dart';
+import 'package:klicks_app/screen/select_car/select_car_obj.dart';
+import 'package:klicks_app/screen/signup/signup.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/static/icon_inputfield.dart';
 import 'package:klicks_app/static/password_inputfield.dart';
 import 'package:klicks_app/static/toggle.dart';
+import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui' as ui;
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
+  const LoginScreen({super.key, required this.nextScreen});
+  final String? nextScreen;
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -46,9 +55,24 @@ class _LoginScreenState extends State<LoginScreen> {
       if (await AuthApi.login(
         emailController,
         passwordController,
-      ))
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => CheckOutScreen()));
+      )) {
+        if (widget.nextScreen == 'checkout') {
+          final prefs = await SharedPreferences.getInstance();
+          var mdata = prefs.getString('data');
+          var jsonstring = jsonDecode(mdata!);
+          print(jsonstring);
+          SelectedCarInfo carinfo = SelectedCarInfo.fromJson(jsonstring);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CheckOutScreen(
+                        data: carinfo,
+                      )));
+        } else {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BottomNavScreen()));
+        }
+      }
     }
   }
 
@@ -107,17 +131,42 @@ class _LoginScreenState extends State<LoginScreen> {
       print(email1);
       LoadingHelper.dismiss();
       if (await AuthApi.googlelogin(email1)) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BottomNavScreen()));
-      } else {
-        print(name);
-        if (await AuthApi.googleSignup(
-          name,
-          email1,
-          'google'
-        ))
+        if (widget.nextScreen == 'checkout') {
+          final prefs = await SharedPreferences.getInstance();
+          var mdata = prefs.getString('data');
+          var jsonstring = jsonDecode(mdata!);
+          print(jsonstring);
+          SelectedCarInfo carinfo = SelectedCarInfo.fromJson(jsonstring);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CheckOutScreen(
+                        data: carinfo,
+                      )));
+        } else {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => BottomNavScreen()));
+        }
+      } else {
+        print(name);
+        if (await AuthApi.googleSignup(name, email1, 'google')) {
+          if (widget.nextScreen == 'checkout') {
+            final prefs = await SharedPreferences.getInstance();
+            var mdata = prefs.getString('data');
+            var jsonstring = jsonDecode(mdata!);
+            print(jsonstring);
+            SelectedCarInfo carinfo = SelectedCarInfo.fromJson(jsonstring);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CheckOutScreen(
+                          data: carinfo,
+                        )));
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => BottomNavScreen()));
+          }
+        }
       }
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(msg: 'Google SignIn Failed');
@@ -145,15 +194,29 @@ class _LoginScreenState extends State<LoginScreen> {
           resendtoken = resendToken;
           LoadingHelper.dismiss();
           Fluttertoast.showToast(msg: 'OTP has been successfully send');
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SignInOtpScreen(
-                id: verificationid,
-                user: user,
+          if (widget.nextScreen == 'checkout') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignInOtpScreen(
+                  id: verificationid,
+                  user: user,
+                  nextScreen: 'checkout',
+                ),
               ),
-            ),
-          );
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignInOtpScreen(
+                  id: verificationid,
+                  user: user,
+                  nextScreen: "any",
+                ),
+              ),
+            );
+          }
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           verificationid = verificationId;
@@ -186,15 +249,29 @@ class _LoginScreenState extends State<LoginScreen> {
           resendtoken = resendToken;
           LoadingHelper.dismiss();
           Fluttertoast.showToast(msg: 'OTP has been successfully send');
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SignUpOtpScreen(
-                id: verificationid,
-                phone: complete_phone,
+          if (widget.nextScreen == 'checkout') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignUpOtpScreen(
+                  id: verificationid,
+                  phone: complete_phone,
+                  nextScreen: 'checkout',
+                ),
               ),
-            ),
-          );
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignUpOtpScreen(
+                  id: verificationid,
+                  phone: complete_phone,
+                  nextScreen: "any",
+                ),
+              ),
+            );
+          }
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           verificationid = verificationId;
@@ -223,266 +300,272 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30, right: 30),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.97,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Stack(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image(
-                                      image: AssetImage(
-                                        'assets/images/logo1.png',
-                                      ),
-                                      height: 220,
-                                      width: 220,
+      body: Directionality(
+        textDirection: ui.TextDirection.ltr,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.97,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    image: AssetImage(
+                                      'assets/images/logo1.png',
                                     ),
-                                  ],
-                                ),
-                                // Positioned(
-                                //   bottom: 10,
-                                //   left: 55,
-                                //   child: Text(
-                                //     "Sign in to continue",
-                                //     style: TextStyle(
-                                //       fontSize: 26,
-                                //       fontWeight: FontWeight.w600,
-                                //     ),
-                                //   ),
-                                // )
-                              ],
-                            ),
-                            Text(
-                              "Sign in to continue",
-                              style: TextStyle(
+                                    height: 220,
+                                    width: 220,
+                                  ),
+                                ],
+                              ),
+                              // Positioned(
+                              //   bottom: 10,
+                              //   left: 55,
+                              //   child: Text(
+                              //     "Sign in to continue",
+                              //     style: TextStyle(
+                              //       fontSize: 26,
+                              //       fontWeight: FontWeight.w600,
+                              //     ),
+                              //   ),
+                              // )
+                            ],
+                          ),
+                          Text(
+                            LocaleKeys.Sign_in_to_continue.tr(),
+                            style: TextStyle(
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600,
-                              ),
+                                color: Colors.black.withOpacity(0.8)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: TwoSwitchToggle(
+                              onPressed: () {},
+                              switchToggle: toggleFun,
+                              initialLabelIndex: index,
+                              text1: LocaleKeys.Email.tr(),
+                              text2: LocaleKeys.Otp.tr(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: TwoSwitchToggle(
-                                onPressed: () {},
-                                switchToggle: toggleFun,
-                                initialLabelIndex: index,
-                                text1: 'Email',
-                                text2: 'OTP',
-                              ),
-                            ),
-                            index == 0
-                                ? Column(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 20.0),
-                                        child: IconInputField(
-                                          controller: emailController,
-                                          imageIcon: 'assets/images/email.svg',
-                                          hint: 'Email',
-                                        ),
+                          ),
+                          index == 0
+                              ? Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0),
+                                      child: IconInputField(
+                                        controller: emailController,
+                                        imageIcon: 'assets/images/email.svg',
+                                        hint: LocaleKeys.Email.tr(),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 12.0),
-                                        child: InputFieldPassword(
-                                          controller: passwordController,
-                                          imageIcon: 'assets/images/lock.svg',
-                                          hint: 'Password',
-                                          toggle: _toggle,
-                                          obscure: _obscureText,
-                                        ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 12.0),
+                                      child: InputFieldPassword(
+                                        controller: passwordController,
+                                        imageIcon: 'assets/images/lock.svg',
+                                        hint: LocaleKeys.Password.tr(),
+                                        toggle: _toggle,
+                                        obscure: _obscureText,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, bottom: 8),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, 'forgot_screen');
-                                              },
-                                              child: Text(
-                                                'Forgot Passowrd?',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.black),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 25.0, bottom: 30),
-                                        child: LargeButton(
-                                          title: "Sign in",
-                                          onPressed: () {
-                                            login();
-                                          },
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Divider(
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 12.0, right: 12.0),
-                                            child: Text("OR"),
-                                          ),
-                                          Expanded(
-                                            child: Divider(
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 10.0, bottom: 8),
+                                      child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.end,
                                         children: [
-                                          // InkWell(
-                                          //   onTap: () {
-                                          //     _login();
-                                          //   },
-                                          //   child: Padding(
-                                          //     padding: const EdgeInsets.only(
-                                          //         right: 20.0),
-                                          //     child: Image(
-                                          //       image: AssetImage(
-                                          //           'assets/images/facebook.png'),
-                                          //       height: 50,
-                                          //       width: 50,
-                                          //     ),
-                                          //   ),
-                                          // ),
                                           InkWell(
                                             onTap: () {
-                                              signInwithGoogle();
+                                              Navigator.pushNamed(
+                                                  context, 'forgot_screen');
                                             },
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/google.png'),
-                                              height: 50,
-                                              width: 50,
+                                            child: Text(
+                                              LocaleKeys.Forgot_Password.tr(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black),
                                             ),
                                           ),
-                                          // Image(
-                                          //   image: AssetImage(
-                                          //       'assets/images/apple.png'),
-                                          //   height: 50,
-                                          //   width: 50,
-                                          // )
                                         ],
                                       ),
-                                    ],
-                                  )
-                                : Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 20),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "Enter Phone Number",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 25.0, bottom: 30),
+                                      child: LargeButton(
+                                        title: LocaleKeys.Sign_in.tr(),
+                                        onPressed: () {
+                                          login();
+                                        },
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 12),
-                                        child: Container(
-                                          height: 70,
-                                          child: IntlPhoneField(
-                                            controller: phoneController,
-                                            decoration: const InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.only(bottom: 1),
-                                              filled: true,
-                                              fillColor: White,
-                                              border: OutlineInputBorder(
-                                                borderSide: BorderSide(),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(color: grey),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(color: grey),
-                                              ),
-                                            ),
-                                            initialCountryCode: 'AE',
-                                            onChanged: (phone) {
-                                              complete_phone =
-                                                  phone.completeNumber;
-                                            },
-                                            keyboardType: TextInputType.phone,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Divider(
+                                            color: Colors.black,
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 12),
-                                        child: Text(
-                                            'By continuing you may an SMS for verification massage and data may apply',
-                                            textAlign: TextAlign.justify,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.w500,
-                                            )),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 25.0, bottom: 30),
-                                        child: LargeButton(
-                                          title: "Send Otp",
-                                          onPressed: () {
-                                            getuser();
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 12.0, right: 12.0),
+                                          child: Text(LocaleKeys.Or.tr()),
+                                        ),
+                                        Expanded(
+                                          child: Divider(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // InkWell(
+                                        //   onTap: () {
+                                        //     _login();
+                                        //   },
+                                        //   child: Padding(
+                                        //     padding: const EdgeInsets.only(
+                                        //         right: 20.0),
+                                        //     child: Image(
+                                        //       image: AssetImage(
+                                        //           'assets/images/facebook.png'),
+                                        //       height: 50,
+                                        //       width: 50,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        InkWell(
+                                          onTap: () {
+                                            signInwithGoogle();
                                           },
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/images/google.png'),
+                                            height: 50,
+                                            width: 50,
+                                          ),
+                                        ),
+                                        // Image(
+                                        //   image: AssetImage(
+                                        //       'assets/images/apple.png'),
+                                        //   height: 50,
+                                        //   width: 50,
+                                        // )
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            LocaleKeys.Enter_phone_number.tr(),
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 12),
+                                      child: Container(
+                                        height: 75,
+                                        child: IntlPhoneField(
+                                          style: TextStyle(fontSize: 14),
+                                          controller: phoneController,
+                                          decoration: const InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.only(bottom: 0.5),
+                                            hintStyle: TextStyle(fontSize: 12),
+                                            filled: true,
+                                            fillColor: White,
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide(),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide:
+                                                  BorderSide(color: grey),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide:
+                                                  BorderSide(color: grey),
+                                            ),
+                                          ),
+                                          initialCountryCode: 'AE',
+                                          onChanged: (phone) {
+                                            complete_phone =
+                                                phone.completeNumber;
+                                          },
+                                          keyboardType: TextInputType.phone,
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 12),
+                                      child: Text(
+                                          LocaleKeys
+                                                  .By_continuing_you_may_an_sms_for_verification_massege_and_data_may_apply
+                                              .tr(),
+                                          textAlign: TextAlign.justify,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w500,
+                                          )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 25.0, bottom: 30),
+                                      child: LargeButton(
+                                        title: LocaleKeys.Send_Otp.tr(),
+                                        onPressed: () {
+                                          getuser();
+                                        },
                                       ),
-                                    ],
-                                  )
-                          ],
-                        ),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                  ],
+                                )
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0, top: 25),
+                      child: Directionality(
+                        textDirection: context.locale.toString() == 'en'
+                            ? ui.TextDirection.ltr
+                            : ui.TextDirection.rtl,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "I dont have an account.",
+                              LocaleKeys.I_Dont_have_an_Account.tr() + '? ',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -490,10 +573,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, 'signup');
+                                // if(widget.nextScreen == 'checkout')
+                                // Navigator.pushNamed(context, 'signup');
+                                if (widget.nextScreen == 'checkout') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignUp(
+                                                nextScreen: widget.nextScreen,
+                                              )));
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignUp(
+                                                nextScreen: 'any',
+                                              )));
+                                }
                               },
                               child: Text(
-                                " Sign up",
+                                LocaleKeys.sign_up.tr(),
                                 style: TextStyle(
                                   color: mainColor,
                                   fontSize: 16,
@@ -503,11 +602,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ],
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

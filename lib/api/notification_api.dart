@@ -46,4 +46,32 @@ class NotificationApi {
       return false;
     }
   }
+
+  static CheckNotications() async {
+    LoadingHelper.show();
+    var url = BASE_URL + 'check/userNotification';
+    final prefs = await SharedPreferences.getInstance();
+    (prefs.getString('api_token'));
+    var data = {'api_token': prefs.getString('api_token')};
+    var response = await Api.execute(url: url, data: data);
+
+    LoadingHelper.dismiss();
+    if (response['exist'] == true) {
+      print("kjkjkjhkjhkjh");
+      return true;
+    } else {
+      print("kjkjkjhkjhkjhghjgjhgjhg");
+      return false;
+    }
+  }
+
+  static readnotifications(noti_id) async {
+    LoadingHelper.show();
+    var url = BASE_URL + 'read/notifcation';
+    var data;
+    data = {'notification_id': noti_id};
+
+    await Api.execute(url: url, data: data);
+    LoadingHelper.dismiss();
+  }
 }
