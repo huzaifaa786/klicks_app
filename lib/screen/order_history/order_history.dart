@@ -153,7 +153,7 @@ class _OrderHistryState extends State<OrderHistry> {
                                 ),
                                 SizedBox(height: 13),
                                 Container(
-                                  height: MediaQuery.of(context).size.height * 0.70,
+                                  height: MediaQuery.of(context).size.height * 0.68,
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: SearchOrders.length,
@@ -163,6 +163,7 @@ class _OrderHistryState extends State<OrderHistry> {
                                         String monthName = monthNames[
                                             SearchOrders[index].dateTime!.month];
                                         return Order(
+                                          status:  SearchOrders[index].status,
                                           orderId:
                                               SearchOrders[index].id.toString(),
                                           price: SearchOrders[index].price,

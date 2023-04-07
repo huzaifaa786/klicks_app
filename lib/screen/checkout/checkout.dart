@@ -152,6 +152,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   int? Addtip = 0;
+  String? percentage = '0';
 
   Account? account;
   getbalance() async {
@@ -175,7 +176,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       if (mcoupon != null) {
         setState(() {
           coupons = mcoupon;
-          checkprice();
+          discount();
         });
       }
     } else {
@@ -190,29 +191,33 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     total = widget.data!.price;
     coupons = null;
     couponController.text = '';
+    percentage = '0';
     setState(() {});
-  }
-
-  checkprice() {
-    // LoadingHelper.show();
-    if (int.parse(coupons!.maximum!) > total!) {
-      LoadingHelper.dismiss();
-      Fluttertoast.showToast(
-          msg: 'Coupon not apply. Minimum price is ' + coupons!.maximum!);
-      coupons = null;
-    } else {
-      discount();
-    }
   }
 
   discount() {
     var per = int.parse(coupons!.percentage!) / 100;
     var discount = per * total!;
-    var totalp = total! - discount;
-    total = totalp.toInt();
-
-    setState(() {});
-    LoadingHelper.dismiss();
+    print(discount);
+    print(double.parse(coupons!.maximum!));
+    if (discount <= double.parse(coupons!.maximum!)) {
+      var totalp = total! - discount;
+      total = totalp.toInt();
+      percentage = coupons!.percentage!;
+      setState(() {});
+      LoadingHelper.dismiss();
+    } else {
+      var per = int.parse(coupons!.maximum!) / widget.data!.price;
+      // percentage = per.toStringAsFixed(3);
+      var discount = per * 100;
+      percentage = discount.toStringAsFixed(2);
+      var perVal = double.parse(percentage.toString()) / 100;
+      var discountval = perVal * total!;
+      var totalp = total! - discountval;
+      total = totalp.toInt();
+      setState(() {});
+      LoadingHelper.dismiss();
+    }
   }
 
   SelectedCarInfo? data;
@@ -349,7 +354,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600)),
                                   coupons != null
-                                      ? Text(coupons!.percentage! + '%',
+                                      ? Text(percentage! + '%',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14))

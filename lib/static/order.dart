@@ -1,13 +1,16 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:klicks_app/static/badge.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:ui' as ui;
 
-class Order extends StatelessWidget {
+class Order extends StatefulWidget {
   const Order({
     Key? key,
     this.text,
@@ -21,25 +24,39 @@ class Order extends StatelessWidget {
     this.orderId,
     this.shadowColor,
     this.type = 'suv',
+    this.status = 1,
   }) : super(key: key);
   final text;
   final orderId;
   final icon;
   final color;
   final cartype;
+  final status;
   final price;
   final dateTime;
   final ontap;
   final imageicon;
   final type;
   final shadowColor;
+
+  @override
+  State<Order> createState() => _OrderState();
+}
+
+class _OrderState extends State<Order> {
+  @override
+  void initState() {
+    super.initState();
+    print(widget.status);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 80,
       width: MediaQuery.of(context).size.width,
       child: GestureDetector(
-        onTap: ontap,
+        onTap: widget.ontap,
         child: Card(
           elevation: 3,
           shadowColor: grey,
@@ -55,7 +72,7 @@ class Order extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        type == 'suv'
+                        widget.type == 'suv'
                             ? Container(
                                 height: 60,
                                 width: 60,
@@ -106,7 +123,9 @@ class Order extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Directionality(
-                                textDirection: context.locale.toString() == 'en'? ui.TextDirection.ltr: ui.TextDirection.rtl,
+                                textDirection: context.locale.toString() == 'en'
+                                    ? ui.TextDirection.ltr
+                                    : ui.TextDirection.rtl,
                                 child: Row(
                                   children: [
                                     Text(
@@ -116,13 +135,13 @@ class Order extends StatelessWidget {
                                           color: mainColor),
                                     ),
                                     Text(
-                                      orderId,
+                                      widget.orderId,
                                       style: TextStyle(color: mainColor),
                                     ),
                                   ],
                                 ),
                               ),
-                              Text(cartype),
+                              Text(widget.cartype),
                               Row(
                                 children: [
                                   Padding(
@@ -143,7 +162,7 @@ class Order extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Text(dateTime,
+                                  Text(widget.dateTime,
                                       style: TextStyle(color: hintColor)),
                                 ],
                               ),
@@ -152,11 +171,50 @@ class Order extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 33),
-                      child: Text(price + ' AED',
-                          style: TextStyle(
-                              color: hintColor, fontWeight: FontWeight.w600)),
+                    Container(
+                      height: 50,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          widget.status == 3
+                              ? MBadge(
+                                  title: LocaleKeys.Completed.tr(),
+                                  color: Colors.green,
+                                  ontap: () {},
+                                  paddingBottom: 4.0,
+                                  paddingTop: 4.0,
+                                  padTop: 0.0,
+                                  textSize: 8.0,
+                                  width: 0.2,
+                                )
+                              : widget.status == 2
+                                  ? MBadge(
+                                      title: LocaleKeys.Rejected.tr(),
+                                      color: Colors.red,
+                                      ontap: () {},
+                                      paddingBottom: 4.0,
+                                      paddingTop: 4.0,
+                                      padTop: 0.0,
+                                      textSize: 8.0,
+                                      width: 0.2,
+                                    )
+                                  : MBadge(
+                                      title: LocaleKeys.In_progress.tr(),
+                                      color: InprocessColor,
+                                      ontap: () {},
+                                      paddingBottom: 4.0,
+                                      paddingTop: 4.0,
+                                      textSize: 8.0,
+                                      width: 0.2,
+                                      padTop: 0.0,
+                                    ),
+                          Text(widget.price + ' AED',
+                              style: TextStyle(
+                                  color: hintColor,
+                                  fontWeight: FontWeight.w600)),
+                        ],
+                      ),
                     ),
                   ],
                 ),
