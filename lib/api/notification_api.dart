@@ -57,8 +57,10 @@ class NotificationApi {
 
     LoadingHelper.dismiss();
     if (response['exist'] == true) {
+      print("kjkjkjhkjhkjh");
       return true;
     } else {
+      print("kjkjkjhkjhkjhghjgjhgjhg");
       return false;
     }
   }

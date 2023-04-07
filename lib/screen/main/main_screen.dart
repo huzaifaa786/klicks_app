@@ -67,12 +67,15 @@ class _MainScreenState extends State<MainScreen> {
   User? user;
   getuser() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? authCheck = prefs.getString('api_token');
+    String? authCheck = prefs.getString('api_token');
+    print(authCheck);
     if (authCheck != null) {
       var muser = await AuthApi.getuser();
       setState(() {
         user = muser;
       });
+    } else {
+      print('object');
     }
   }
 
@@ -112,14 +115,21 @@ class _MainScreenState extends State<MainScreen> {
     weekdayName = weekdays[now!.weekday];
   }
 
-    bool? checkNoti = false;
+  bool? checkNoti = false;
 
   checkNotifications() async {
-    var mcheckNotification = await NotificationApi.CheckNotications();
-    setState(() {
-      checkNoti = mcheckNotification;
-      print(checkNoti);
-    });
+    final prefs = await SharedPreferences.getInstance();
+    String? authCheck = prefs.getString('api_token');
+    print(authCheck);
+    if (authCheck != null) {
+      var mcheckNotification = await NotificationApi.CheckNotications();
+      setState(() {
+        checkNoti = mcheckNotification;
+        print(checkNoti);
+      });
+    } else {
+      print('object');
+    }
   }
 
   @override
