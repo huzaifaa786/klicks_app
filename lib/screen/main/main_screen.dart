@@ -115,22 +115,7 @@ class _MainScreenState extends State<MainScreen> {
     weekdayName = weekdays[now!.weekday];
   }
 
-  bool? checkNoti = false;
 
-  checkNotifications() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? authCheck = prefs.getString('api_token');
-    print(authCheck);
-    if (authCheck != null) {
-      var mcheckNotification = await NotificationApi.CheckNotications();
-      setState(() {
-        checkNoti = mcheckNotification;
-        print(checkNoti);
-      });
-    } else {
-      print('object');
-    }
-  }
 
   @override
   void initState() {
@@ -138,7 +123,6 @@ class _MainScreenState extends State<MainScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       getuser();
       date();
-      checkNotifications();
       getcity();
     });
   }
@@ -156,9 +140,7 @@ class _MainScreenState extends State<MainScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Topbar(
-              checkNewNoti: checkNoti,
-            ),
+            Topbar(),
             Flexible(
               child: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20),
