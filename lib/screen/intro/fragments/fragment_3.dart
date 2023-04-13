@@ -28,26 +28,14 @@ class _FragmentThreeState extends State<FragmentThree> {
             height: 300,
           ),
           Container(
-            padding: EdgeInsets.only(top: 25),
-            width: MediaQuery.of(context).size.width * 0.85,
-            child: Text(
-              'Wash your Car from our professional trained workers.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'OpenSans'),
-            ),
-          ),
-          Container(
             padding: EdgeInsets.only(top: 12),
             width: MediaQuery.of(context).size.width * 0.85,
             child: Text(
               'A civilized method of car wash services in malls in which the car wash professional does not have to wait in hot weathers to provide the service .',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                   fontFamily: 'OpenSans'),
             ),
           ),
@@ -58,8 +46,8 @@ class _FragmentThreeState extends State<FragmentThree> {
               'طريقة حضارية لخدمات غسيل السيارات في المولات حيث لا يضطر متخصص غسيل السياراتللانتظار في الأجواء الحارة لتقديم الخدمة',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                   fontFamily: 'OpenSans'),
             ),
           ),

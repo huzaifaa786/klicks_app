@@ -25,26 +25,14 @@ class _FragmentTwoState extends State<FragmentTwo> {
               height: 300,
             ),
             Container(
-              padding: EdgeInsets.only(top: 25),
-              width: MediaQuery.of(context).size.width * 0.85,
-              child: Text(
-                'Wash your Car from our professional trained workers.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'OpenSans'),
-              ),
-            ),
-            Container(
               padding: EdgeInsets.only(top: 12),
               width: MediaQuery.of(context).size.width * 0.85,
               child: Text(
                 'All you have to do is fill up the required information , and a car wash professional will be available instantly to wash your car while you are enjoying your coffee',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                     fontFamily: 'OpenSans'),
               ),
             ),
@@ -55,8 +43,8 @@ class _FragmentTwoState extends State<FragmentTwo> {
                 'كل ما عليك فعله هو تعبئة البيانات المطلوبة و بعدها سوف يأتي محترف غسيل السيارات مباشرةً لغسيل سيارتك في الوقت الذي تستمتع به في شراب قهوتك',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                     fontFamily: 'OpenSans'),
               ),
             ),
