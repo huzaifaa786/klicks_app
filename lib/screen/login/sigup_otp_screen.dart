@@ -15,6 +15,7 @@ import 'package:klicks_app/static/password_inputfield.dart';
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
+import 'package:klicks_app/values/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpForOtpScreen extends StatefulWidget {
@@ -136,6 +137,7 @@ class _SignUpForOtpScreenState extends State<SignUpForOtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: Directionality(
         textDirection: ui.TextDirection.ltr,
         child: SafeArea(

@@ -115,8 +115,6 @@ class _MainScreenState extends State<MainScreen> {
     weekdayName = weekdays[now!.weekday];
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -131,12 +129,13 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<String> imgList = [
     'assets/images/car_wash.jpg',
-    'assets/images/logo1.png',
+    'assets/images/mainLogo.png',
     'assets/images/car_wash.jpg',
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: SafeArea(
         child: Column(
           children: [

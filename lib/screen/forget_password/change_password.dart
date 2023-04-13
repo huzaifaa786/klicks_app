@@ -7,6 +7,7 @@ import 'package:klicks_app/static/password_inputfield.dart';
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
+import 'package:klicks_app/values/colors.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key, required this.email});
@@ -51,6 +52,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: Directionality(
         textDirection: ui.TextDirection.ltr,
         child: SafeArea(

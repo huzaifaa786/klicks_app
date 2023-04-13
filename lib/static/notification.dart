@@ -46,7 +46,6 @@ class NotificationTile extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          textAlign: TextAlign.justify,
                           style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,

@@ -300,6 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: Directionality(
         textDirection: ui.TextDirection.ltr,
         child: SafeArea(
@@ -565,7 +566,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              LocaleKeys.I_Dont_have_an_Account.tr() + '? ',
+                              LocaleKeys.I_Dont_have_an_Account.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,

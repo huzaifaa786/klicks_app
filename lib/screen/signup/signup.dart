@@ -196,6 +196,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: Directionality(
         textDirection: ui.TextDirection.ltr,
         child: SafeArea(

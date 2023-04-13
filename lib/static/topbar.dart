@@ -53,7 +53,7 @@ class _TopbarState extends State<Topbar> {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Padding(
-        padding: const EdgeInsets.only(left: 5.0, right: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20,top: 12),
         child: Column(
           children: [
             Row(
@@ -63,8 +63,8 @@ class _TopbarState extends State<Topbar> {
                   image: AssetImage(
                     'assets/images/logo1.png',
                   ),
-                  height: 63,
-                  width: 63,
+                  height: 45,
+                  width: 45,
                 ),
                 // GestureDetector(
                 //   onTap: () {
@@ -99,10 +99,7 @@ class _TopbarState extends State<Topbar> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Divider(),
-            )
+            Divider()
           ],
         ),
       ),

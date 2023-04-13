@@ -14,43 +14,57 @@ class _FragmentThreeState extends State<FragmentThree> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Container(
-        padding: EdgeInsets.only(top: 20),
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width*0.8,
-              child: SvgPicture.asset('assets/images/frag3.svg',height: 280)),
-            Text(
-              'Friendly Environemnt',
+        body: SafeArea(
+            child: Container(
+      padding: EdgeInsets.only(top: 20),
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image(
+            image: AssetImage(
+              'assets/images/ii1.jpg',
+            ),
+            height: 300,
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 25),
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: Text(
+              'Wash your Car from our professional trained workers.',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
                   fontFamily: 'OpenSans'),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                'Lorem ipsum dolor sit amet ',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Poppins'),
-              ),
-            ),
-            Text(
-              'consectetur. Elementum purus id',
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 12),
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: Text(
+              'A civilized method of car wash services in malls in which the car wash professional does not have to wait in hot weathers to provide the service .',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  fontFamily: 'Poppins'),
+                  fontFamily: 'OpenSans'),
             ),
-          ],
-        ),
-      )),
-    );
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 12),
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: Text(
+              'طريقة حضارية لخدمات غسيل السيارات في المولات حيث لا يضطر متخصص غسيل السياراتللانتظار في الأجواء الحارة لتقديم الخدمة',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'OpenSans'),
+            ),
+          ),
+        ],
+      ),
+    )));
   }
 }

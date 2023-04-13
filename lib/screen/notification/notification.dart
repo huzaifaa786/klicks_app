@@ -119,7 +119,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 title: LocaleKeys.Sign_in.tr(),
                                 onPressed: () {
                                   Navigator.of(context)
-                                      .pushReplacement(new MaterialPageRoute(
+                                      .push(new MaterialPageRoute(
                                           builder: (context) => new LoginScreen(
                                                 nextScreen: 'any',
                                               )));

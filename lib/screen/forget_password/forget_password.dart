@@ -8,6 +8,8 @@ import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:ui' as ui;
 
+import 'package:klicks_app/values/colors.dart';
+
 class ForgotScreen extends StatefulWidget {
   const ForgotScreen({super.key});
 
@@ -41,6 +43,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: Directionality(
         textDirection: ui.TextDirection.ltr,
         child: SafeArea(

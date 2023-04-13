@@ -6,7 +6,7 @@
     "Forgot_Password": "Forgot Password?",
     "Sign_in": "SIGN IN",
     "Or": "Or",
-    "I_Dont_have_an_Account": "I Dont have an Account",
+    "I_Dont_have_an_Account": "I Dont have an Account ?",
     "Enter_phone_number": "Enter phone number",
     "By_continuing_you_may_an_sms_for_verification_massege_and_data_may_apply": "By continuing you may an sms for verification massege and data may apply",
     "Send_Otp": "SEND OTP",
@@ -118,7 +118,7 @@
     "home": "Home",
     "orders": "Orders",
     "add_extra": "Add Extra",
-    "New_Order_Placed": "New order placed." ,
+    "New_Order_Placed": "New order placed.",
     "Order_has_rejected": "Your order has been rejected and order amount was refunded.",
     "Order_has_accepted": "Your order has been accepted.",
     "Order_has_completed": "Your order has been completed."

@@ -15,13 +15,12 @@ class _FragmentTwoState extends State<FragmentTwo> {
           child: Container(
         padding: EdgeInsets.only(top: 20),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(
               image: AssetImage(
-                'assets/images/i2.png',
+                'assets/images/ii1.jpg',
               ),
               height: 300,
             ),
@@ -29,18 +28,36 @@ class _FragmentTwoState extends State<FragmentTwo> {
               padding: EdgeInsets.only(top: 25),
               width: MediaQuery.of(context).size.width * 0.85,
               child: Text(
-                'And we offering extra services with best rates.',
+                'Wash your Car from our professional trained workers.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600,fontFamily: 'OpenSans'),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'OpenSans'),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 12),
               width: MediaQuery.of(context).size.width * 0.85,
               child: Text(
-                'Extra services include Oil change, tyre service, engine service and much more.',
+                'All you have to do is fill up the required information , and a car wash professional will be available instantly to wash your car while you are enjoying your coffee',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,fontFamily: 'OpenSans'),
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'OpenSans'),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 12),
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: Text(
+                'كل ما عليك فعله هو تعبئة البيانات المطلوبة و بعدها سوف يأتي محترف غسيل السيارات مباشرةً لغسيل سيارتك في الوقت الذي تستمتع به في شراب قهوتك',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'OpenSans'),
               ),
             ),
           ],

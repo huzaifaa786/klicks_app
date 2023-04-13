@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klicks_app/screen/intro/fragments/fragment_1.dart';
 import 'package:klicks_app/screen/intro/fragments/fragment_2.dart';
+import 'package:klicks_app/screen/intro/fragments/fragment_3.dart';
 import 'package:klicks_app/static/button.dart';
 import 'package:klicks_app/values/colors.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -25,6 +26,7 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -36,7 +38,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: StepProgressIndicator(
                       currentStep: slideIndex + 1,
-                      totalSteps: 2,
+                      totalSteps: 3,
                       selectedColor: mainColor,
                       unselectedColor: grey,
                       selectedSize: 3,
@@ -44,7 +46,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       roundedEdges: Radius.circular(45),
                     )),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.65,
+                  height: MediaQuery.of(context).size.height * 0.72,
                   child: PageView(
                     controller: controller,
                     onPageChanged: (index) {
@@ -55,6 +57,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     children: <Widget>[
                       FragmentOne(controller: controller!),
                       FragmentTwo(controller: controller!),
+                      FragmentThree(controller: controller!),
                     ],
                   ),
                 ),
@@ -73,13 +76,29 @@ class _IntroScreenState extends State<IntroScreen> {
                           });
                         },
                       )
-                    : LargeButton(
-                        screenRatio: 0.75,
-                        title: "GET STARTED",
-                        onPressed: () {
-                          Navigator.popAndPushNamed(context, 'home');
-                        },
-                      ),
+                    : slideIndex == 1
+                        ? LargeButton(
+                            screenRatio: 0.75,
+                            title: "NEXT",
+                            onPressed: () {
+                              setState(() {
+                                setState(() {
+                                  slideIndex++;
+                                  controller!.animateToPage(slideIndex,
+                                      duration:
+                                          const Duration(milliseconds: 400),
+                                      curve: Curves.ease);
+                                });
+                              });
+                            },
+                          )
+                        : LargeButton(
+                            screenRatio: 0.75,
+                            title: "GET STARTED",
+                            onPressed: () {
+                              Navigator.popAndPushNamed(context, 'home');
+                            },
+                          ),
               ],
             ),
           ),

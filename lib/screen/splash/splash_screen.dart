@@ -5,6 +5,7 @@ import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/screen/home/navigation_screen.dart';
 import 'package:klicks_app/screen/intro/intro.dart';
 import 'package:klicks_app/screen/login/login.dart';
+import 'package:klicks_app/values/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -50,11 +51,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: White,
       body: SafeArea(
         child: const Center(
           child: Image(
             image: AssetImage(
-              'assets/images/logo1.png',
+              'assets/images/mainLogo.png',
             ),
             height: 350,
             width: 350,
