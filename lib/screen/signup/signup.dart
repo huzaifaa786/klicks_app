@@ -332,7 +332,7 @@ class _SignUpState extends State<SignUp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          LocaleKeys.already.tr() + "? ",
+                          LocaleKeys.already.tr(),
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
