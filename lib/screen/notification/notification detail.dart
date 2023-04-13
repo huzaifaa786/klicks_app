@@ -275,7 +275,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               ontap: () {},
                             )
                           : MBadge(
-                              title: LocaleKeys.Accepted.tr(),
+                              title: LocaleKeys.In_progress.tr(),
                               color: InprocessColor,
                               ontap: () {},
                             ),
