@@ -9,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:klicks_app/api/auth.dart';
-import 'package:klicks_app/api/otp.dart';
 import 'package:klicks_app/helpers/loading.dart';
 import 'package:klicks_app/model/mobile_user.dart';
 import 'package:klicks_app/screen/checkout/checkout.dart';
@@ -87,8 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         user = muser;
         LoadingHelper.dismiss();
-        // sendToken();
-        OtpApi.sendOtp(phoneController.text.toString());
+        sendToken();
       });
     }
   }
@@ -176,60 +174,60 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // void sendToken() async {
-  //   LoadingHelper.show();
-  //   try {
-  //     FirebaseAuth auth = FirebaseAuth.instance;
-  //     int? resendtoken;
-  //     String verificationid = "";
-  //     await auth.verifyPhoneNumber(
-  //       timeout: const Duration(minutes: 2),
-  //       phoneNumber: complete_phone,
-  //       verificationCompleted: (PhoneAuthCredential credential) async {},
-  //       verificationFailed: (FirebaseAuthException e) {
-  //         LoadingHelper.dismiss();
-  //         Fluttertoast.showToast(msg: e.message!);
-  //       },
-  //       forceResendingToken: resendtoken,
-  //       codeSent: (String verificationId, int? resendToken) {
-  //         verificationid = verificationId;
-  //         resendtoken = resendToken;
-  //         LoadingHelper.dismiss();
-  //         Fluttertoast.showToast(msg: 'OTP has been successfully send');
-  //         if (widget.nextScreen == 'checkout') {
-  //           Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) => SignInOtpScreen(
-  //                 id: verificationid,
-  //                 user: user,
-  //                 nextScreen: 'checkout',
-  //               ),
-  //             ),
-  //           );
-  //         } else {
-  //           Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) => SignInOtpScreen(
-  //                 id: verificationid,
-  //                 user: user,
-  //                 nextScreen: "any",
-  //               ),
-  //             ),
-  //           );
-  //         }
-  //       },
-  //       codeAutoRetrievalTimeout: (String verificationId) {
-  //         verificationid = verificationId;
-  //         // Fluttertoast.showToast(msg: 'TIMEOUT');
-  //       },
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     LoadingHelper.dismiss();
-  //     Fluttertoast.showToast(msg: e.message!);
-  //   }
-  // }
+  void sendToken() async {
+    LoadingHelper.show();
+    try {
+      FirebaseAuth auth = FirebaseAuth.instance;
+      int? resendtoken;
+      String verificationid = "";
+      await auth.verifyPhoneNumber(
+        timeout: const Duration(minutes: 2),
+        phoneNumber: complete_phone,
+        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationFailed: (FirebaseAuthException e) {
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: e.message!);
+        },
+        forceResendingToken: resendtoken,
+        codeSent: (String verificationId, int? resendToken) {
+          verificationid = verificationId;
+          resendtoken = resendToken;
+          LoadingHelper.dismiss();
+          Fluttertoast.showToast(msg: 'OTP has been successfully send');
+          if (widget.nextScreen == 'checkout') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignInOtpScreen(
+                  id: verificationid,
+                  user: user,
+                  nextScreen: 'checkout',
+                ),
+              ),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignInOtpScreen(
+                  id: verificationid,
+                  user: user,
+                  nextScreen: "any",
+                ),
+              ),
+            );
+          }
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationid = verificationId;
+          // Fluttertoast.showToast(msg: 'TIMEOUT');
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      LoadingHelper.dismiss();
+      Fluttertoast.showToast(msg: e.message!);
+    }
+  }
 
   void sendTokenforSignUP() async {
     LoadingHelper.show();
