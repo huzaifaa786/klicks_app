@@ -150,7 +150,7 @@ class _MainScreenState extends State<MainScreen> {
                     children: [
                       user != null
                           ? Padding(
-                              padding: EdgeInsets.only(top: 4, bottom: 4),
+                              padding: EdgeInsets.only(top: 2, bottom: 2),
                               child: Text(
                                 LocaleKeys.Hello.tr() + ", " + user!.name!,
                                 style: TextStyle(
@@ -161,7 +161,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             )
                           : Padding(
-                              padding: EdgeInsets.only(top: 4, bottom: 4),
+                              padding: EdgeInsets.only(top: 2, bottom: 2),
                               child: Text(
                                 LocaleKeys.Hello.tr(),
                                 style: TextStyle(
@@ -243,7 +243,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
                       Padding(
-                          padding: EdgeInsets.only(top: 20.0),
+                          padding: EdgeInsets.only(top: 12.0),
                           child: MainScreenText(
                             image: 'assets/images/locationIcon.svg',
                             text: LocaleKeys.Select_Location.tr(),
@@ -265,7 +265,7 @@ class _MainScreenState extends State<MainScreen> {
                         },
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 15.0),
+                        padding: EdgeInsets.only(top: 12.0),
                         child: MainScreenText(
                           image: 'assets/images/mallIcon.svg',
                           text: LocaleKeys.Select_Mall.tr(),
@@ -307,7 +307,7 @@ class _MainScreenState extends State<MainScreen> {
                       //   },
                       // ),
                       Padding(
-                        padding: EdgeInsets.only(top: 50, bottom: 40),
+                        padding: EdgeInsets.only(top: 23, bottom: 40),
                         child: LargeButton(
                           title: LocaleKeys.Submit.tr(),
                           onPressed: () {

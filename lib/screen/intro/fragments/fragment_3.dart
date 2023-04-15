@@ -16,40 +16,42 @@ class _FragmentThreeState extends State<FragmentThree> {
     return Scaffold(
       backgroundColor: White,
         body: SafeArea(
-            child: Container(
-      // padding: EdgeInsets.only(top: 20),
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image(
-            image: AssetImage(
-              'assets/images/ii3.png',
-            ),
-            height: MediaQuery.of(context).size.height * 0.35,
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 8,right: 8,left: 8),
-            child: Text(
-              'A civilized method of car wash services in malls in which the car wash professional does not have to wait in hot weathers to provide the service .',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 12,right: 8,left: 8),
-            child: Text(
-              'طريقة حضارية لخدمات غسيل السيارات في المولات حيث لا يضطر متخصص غسيل السياراتللانتظار في الأجواء الحارة لتقديم الخدمة',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    )));
+            child: SingleChildScrollView(
+              child: Container(
+                  // padding: EdgeInsets.only(top: 20),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image(
+              image: AssetImage(
+                'assets/images/ii3.png',
+              ),
+              height: MediaQuery.of(context).size.height * 0.35,
+                      ),
+                      Container(
+              padding: EdgeInsets.only(top: 8,right: 8,left: 8,bottom : 2),
+              child: Text(
+                'A civilized method of car wash services in malls in which the car wash professional does not have to wait in hot weathers to provide the service .',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600),
+              ),
+                      ),
+                      Container(
+              padding: EdgeInsets.only(top: 12,right: 8,left: 8,bottom : 8),
+              child: Text(
+                'طريقة حضارية لخدمات غسيل السيارات في المولات حيث لا يضطر متخصص غسيل السياراتللانتظار في الأجواء الحارة لتقديم الخدمة',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600),
+              ),
+                      ),
+                    ],
+                  ),
+                ),
+            )));
   }
 }

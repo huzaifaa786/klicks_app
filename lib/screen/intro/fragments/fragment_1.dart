@@ -17,37 +17,39 @@ class _FragmentOneState extends State<FragmentOne> {
     return Scaffold(
       backgroundColor: White,
       body: SafeArea(
-          child: Container(
-        // padding: EdgeInsets.only(top: 20),
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage(
-                'assets/images/mainLogo.png',
+          child: SingleChildScrollView(
+            child: Container(
+                  // padding: EdgeInsets.only(top: 20),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage(
+                  'assets/images/mainLogo.png',
+                ),
+                height: MediaQuery.of(context).size.height * 0.35,
               ),
-              height: MediaQuery.of(context).size.height * 0.35,
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 8, right: 8, left: 8),
-              child: Text(
-                'Klick wash is a platform that provides a convenient car wash experience while you are enjoying your stay at your preferred mall . ',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              Container(
+                padding: EdgeInsets.only(top: 8, right: 8, left: 8,bottom : 2),
+                child: Text(
+                  'Klick wash is a platform that provides a convenient car wash experience while you are enjoying your stay at your preferred mall . ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 12, right: 8, left: 8),
-              child: Text(
-                'كليك ووش هي منصة توفر تجربة غسيل سيارات مريحة أثناء قضاء وقتك في المركزالتجاري المفضل لديك',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              Container(
+                padding: EdgeInsets.only(top: 12, right: 8, left: 8,bottom : 8),
+                child: Text(
+                  'كليك ووش هي منصة توفر تجربة غسيل سيارات مريحة أثناء قضاء وقتك في المركزالتجاري المفضل لديك',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-          ],
-        ),
-      )),
+            ],
+                  ),
+                ),
+          )),
     );
   }
 }

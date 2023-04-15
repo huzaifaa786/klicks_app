@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
         builder: EasyLoading.init(),
         theme: Styles.lightTheme,
         title: "Klicks",
-        initialRoute: 'splash',
+        initialRoute: 'intro',
         routes: {
           'splash': (context) => const SplashScreen(),
           'home': (context) => const BottomNavScreen(),
