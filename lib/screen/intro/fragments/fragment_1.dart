@@ -30,7 +30,7 @@ class _FragmentOneState extends State<FragmentOne> {
               height: MediaQuery.of(context).size.height * 0.35,
             ),
             Container(
-              padding: EdgeInsets.only(top: 12, right: 8, left: 8),
+              padding: EdgeInsets.only(top: 8, right: 8, left: 8),
               child: Text(
                 'Klick wash is a platform that provides a convenient car wash experience while you are enjoying your stay at your preferred mall . ',
                 textAlign: TextAlign.center,

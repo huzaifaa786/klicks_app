@@ -24,12 +24,12 @@ class _FragmentThreeState extends State<FragmentThree> {
         children: [
           Image(
             image: AssetImage(
-              'assets/images/ii2.jpg',
+              'assets/images/ii3.png',
             ),
             height: MediaQuery.of(context).size.height * 0.35,
           ),
           Container(
-            padding: EdgeInsets.only(top: 12,right: 8,left: 8),
+            padding: EdgeInsets.only(top: 8,right: 8,left: 8),
             child: Text(
               'A civilized method of car wash services in malls in which the car wash professional does not have to wait in hot weathers to provide the service .',
               textAlign: TextAlign.center,

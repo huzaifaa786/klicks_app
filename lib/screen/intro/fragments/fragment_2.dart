@@ -27,7 +27,7 @@ class _FragmentTwoState extends State<FragmentTwo> {
               height: MediaQuery.of(context).size.height * 0.35,
             ),
             Container(
-              padding: EdgeInsets.only(top: 12,right: 8,left: 8),
+              padding: EdgeInsets.only(top: 8,right: 8,left: 8),
               child: Text(
                 'All you have to do is fill up the required information , and a car wash professional will be available instantly to wash your car while you are enjoying your coffee',
                 textAlign: TextAlign.center,
