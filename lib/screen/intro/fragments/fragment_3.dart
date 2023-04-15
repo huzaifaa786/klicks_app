@@ -30,7 +30,7 @@ class _FragmentThreeState extends State<FragmentThree> {
               height: MediaQuery.of(context).size.height * 0.35,
                       ),
                       Container(
-              padding: EdgeInsets.only(top: 8,right: 8,left: 8,bottom : 2),
+              padding: EdgeInsets.only(top: 8,right: 8,left: 8,bottom : 10),
               child: Text(
                 'A civilized method of car wash services in malls in which the car wash professional does not have to wait in hot weathers to provide the service .',
                 textAlign: TextAlign.center,

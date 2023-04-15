@@ -24,7 +24,9 @@ abstract class  LocaleKeys {
   static const phone_number = 'phone_number';
   static const Enter_email = 'Enter_email';
   static const confirm_password = 'confirm_password';
-  static const I_agree_to_terms_and_conditions = 'I_agree_to_terms_and_conditions';
+  static const I_agree_to = 'I_agree_to';
+  static const terms = 'terms';
+  static const conditions = 'conditions';
   static const sign_up = 'sign_up';
   static const proceed = 'proceed';
   static const Notification = 'Notification';
@@ -124,5 +126,6 @@ abstract class  LocaleKeys {
   static const Order_has_rejected = 'Order_has_rejected';
   static const Order_has_accepted = 'Order_has_accepted';
   static const Order_has_completed = 'Order_has_completed';
+  static const amount_deducted = 'amount_deducted';
 
 }

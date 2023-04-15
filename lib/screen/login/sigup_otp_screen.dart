@@ -49,17 +49,15 @@ class _SignUpForOtpScreenState extends State<SignUpForOtpScreen> {
       if (emailValid == false ||
           nameValid == false ||
           nameController.text == '' ||
-          emailController.text == '' ||
-          passwordController.text == '' ||
-          cpasswordController.text == '') {
+          emailController.text == '') {
         Fluttertoast.showToast(msg: 'Fill out all the Fields. Invalid!');
       } else {
         if (passwordController.text != cpasswordController.text) {
           Fluttertoast.showToast(
               msg: 'Password and Confirm Password field are not same');
         } else {
-          if (await AuthApi.register(nameController, emailController,
-              widget.phone!, passwordController, 'otp')) {
+          if (await AuthApi.otp_register(
+              nameController, emailController, widget.phone!, 'otp')) {
             if (widget.nextScreen == 'checkout') {
               final prefs = await SharedPreferences.getInstance();
               var mdata = prefs.getString('data');
@@ -189,34 +187,6 @@ class _SignUpForOtpScreenState extends State<SignUpForOtpScreen> {
                   controller: emailController,
                   imageIcon: 'assets/images/email.svg',
                   hint: LocaleKeys.Enter_email.tr(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                  child: Text(
-                    LocaleKeys.Password.tr(),
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                  ),
-                ),
-                InputFieldPassword(
-                  controller: passwordController,
-                  hint: LocaleKeys.Password.tr(),
-                  toggle: _toggle,
-                  imageIcon: 'assets/images/lock.svg',
-                  obscure: _passwordVisible,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 12.0, bottom: 6),
-                  child: Text(
-                    LocaleKeys.confirm_password.tr(),
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                  ),
-                ),
-                InputFieldPassword(
-                  controller: cpasswordController,
-                  hint: LocaleKeys.confirm_password.tr(),
-                  toggle: _toggle1,
-                  imageIcon: 'assets/images/lock.svg',
-                  obscure: _cpasswordVisible,
                 ),
                 MCheckBox(
                     checkbox: checkboxval, onchanged: () => _togglecheckbox()),

@@ -22,7 +22,9 @@
     "phone_number": "رقم الهاتف",
     "Enter_email": "أدخل البريد الإلكتروني",
     "confirm_password": "تأكيد كلمة السر",
-    "I_agree_to_terms_and_conditions": "أوافق على الشروط والأحكام",
+    "I_agree_to": "أوافق على",
+    "terms": "الشروط",
+    "conditions": "الظروف",
     "sign_up": "تسجيل",
     "proceed": "أكمل",
     "Notification": "الإشعارات",
@@ -121,5 +123,6 @@
     "New_Order_Placed": "تم وضع طلب جديد",
     "Order_has_rejected": "تم رفض طلبك و تم استرداد المبلغ",
     "Order_has_accepted": "تم قبول طلبك",
-    "Order_has_completed": "تم إكمال طلبك"
+    "Order_has_completed": "تم إكمال طلبك",
+    "amount_deducted": "المبلغ المخصوم"
 }

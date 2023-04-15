@@ -56,7 +56,7 @@ class AuthApi {
     }
   }
 
-  static register(name, email, phone, password,type) async {
+  static register(name, email, phone, password, type) async {
     LoadingHelper.show();
     var token = await FirebaseMessaging.instance.getToken();
     var url = BASE_URL + 'register';
@@ -66,6 +66,37 @@ class AuthApi {
       'email': email.text.toString(),
       'phone': phone.toString(),
       'password': password.text.toString(),
+      'firebase_token': token,
+      'user_type': type
+    };
+
+    var response = await Api.execute(
+      url: url,
+      data: data,
+    );
+    print(response);
+    LoadingHelper.dismiss();
+    if (!response['error']) {
+      User user = User(response['user']);
+      SharedPreferencesHelper.setString('api_token', user.apiToken!);
+      SharedPreferencesHelper.setString('user_id', user.id.toString());
+      return true;
+    } else {
+      print('error');
+      Fluttertoast.showToast(msg: response['error_data']);
+      return false;
+    }
+  }
+
+  static otp_register(name, email, phone, type) async {
+    LoadingHelper.show();
+    var token = await FirebaseMessaging.instance.getToken();
+    var url = BASE_URL + 'register';
+    var data;
+    data = {
+      'name': name.text.toString(),
+      'email': email.text.toString(),
+      'phone': phone.toString(),
       'firebase_token': token,
       'user_type': type
     };

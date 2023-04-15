@@ -38,7 +38,9 @@ class CodegenLoader extends AssetLoader{
   "phone_number": "رقم الهاتف",
   "Enter_email": "أدخل البريد الإلكتروني",
   "confirm_password": "تأكيد كلمة السر",
-  "I_agree_to_terms_and_conditions": "أوافق على الشروط والأحكام",
+  "I_agree_to": "أوافق على",
+  "terms": "الشروط",
+  "conditions": "الظروف",
   "sign_up": "تسجيل",
   "proceed": "أكمل",
   "Notification": "الإشعارات",
@@ -137,7 +139,8 @@ class CodegenLoader extends AssetLoader{
   "New_Order_Placed": "تم وضع طلب جديد",
   "Order_has_rejected": "تم رفض طلبك و تم استرداد المبلغ",
   "Order_has_accepted": "تم قبول طلبك",
-  "Order_has_completed": "تم إكمال طلبك"
+  "Order_has_completed": "تم إكمال طلبك",
+  "amount_deducted": "المبلغ المخصوم"
 };
 static const Map<String,dynamic> en = {
   "Hello": "Hello",
@@ -163,9 +166,11 @@ static const Map<String,dynamic> en = {
   "phone_number": "phone number",
   "Enter_email": "Enter email",
   "confirm_password": "confirm password",
-  "I_agree_to_terms_and_conditions": "I agree to terms & conditions",
+  "I_agree_to": "I agree to ",
+  "terms": "Terms ",
+  "conditions": "Conditions",
   "sign_up": "sign up",
-  "proceed": "proceed",
+  "proceed": "Proceed",
   "Notification": "Notification",
   "Order_history": "Order history",
   "Order_id": "Order ID",
@@ -262,7 +267,8 @@ static const Map<String,dynamic> en = {
   "New_Order_Placed": "New order placed.",
   "Order_has_rejected": "Your order has been rejected and order amount was refunded.",
   "Order_has_accepted": "Your order has been accepted.",
-  "Order_has_completed": "Your order has been completed."
+  "Order_has_completed": "Your order has been completed.",
+  "amount_deducted": "Amount deducted"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

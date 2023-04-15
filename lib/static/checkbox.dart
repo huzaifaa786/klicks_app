@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:klicks_app/translations/locale_keys.g.dart';
 import 'package:klicks_app/values/colors.dart';
@@ -34,12 +35,33 @@ class _MCheckBoxState extends State<MCheckBox> {
       activeColor: mainColor,
       title: RichText(
         text: TextSpan(
-          text: LocaleKeys.I_agree_to_terms_and_conditions.tr(),
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 15,
-          ),
-        ),
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              TextSpan(
+                text: LocaleKeys.I_agree_to.tr() + ' ',
+                style: TextStyle(fontSize: 16, color: Colors.black),
+              ),
+              TextSpan(
+                  text: LocaleKeys.terms.tr() + ' ',
+                  style:
+                      TextStyle(fontWeight: FontWeight.w600, color: mainColor),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // Navigator.pushNamed(context, 'privacy');
+                    }),
+              TextSpan(
+                text: '&  ',
+                style: TextStyle(fontSize: 12, color: Colors.black),
+              ),
+              TextSpan(
+                  text: LocaleKeys.conditions.tr(),
+                  style:
+                      TextStyle(fontWeight: FontWeight.w600, color: mainColor),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // Navigator.pushNamed(context, 'terms');
+                    }),
+            ]),
       ),
       value: widget.checkbox,
       onChanged: (value) {

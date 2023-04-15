@@ -153,6 +153,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   int? Addtip = 0;
   String? percentage = '0';
+  String? amountDeducted = '0';
 
   Account? account;
   getbalance() async {
@@ -192,6 +193,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     coupons = null;
     couponController.text = '';
     percentage = '0';
+    amountDeducted = '0';
     setState(() {});
   }
 
@@ -201,7 +203,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     print(discount);
     print(double.parse(coupons!.maximum!));
     if (discount <= double.parse(coupons!.maximum!)) {
-      var totalp = total! - discount;
+      amountDeducted = discount.toStringAsFixed(0);
+      var amount = int.parse(amountDeducted!);
+      var totalp = total! - amount;
       total = totalp.toInt();
       percentage = coupons!.percentage!;
       setState(() {});
@@ -213,7 +217,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       percentage = discount.toStringAsFixed(2);
       var perVal = double.parse(percentage.toString()) / 100;
       var discountval = perVal * total!;
-      var totalp = total! - discountval;
+      amountDeducted = discountval.toStringAsFixed(0);
+      var amount = int.parse(amountDeducted!);
+      var totalp = total! - amount;
       total = totalp.toInt();
       setState(() {});
       LoadingHelper.dismiss();
@@ -350,18 +356,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(LocaleKeys.discount_amount.tr(),
+                                  Text(LocaleKeys.amount_deducted.tr(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600)),
                                   coupons != null
-                                      ? Text(percentage! + '%',
+                                      ? Text('AED ' + amountDeducted.toString(),
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 14))
-                                      : Text('0%',
+                                              fontSize: 14,
+                                              color: Colors.red))
+                                      : Text('AED 0',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 14))
+                                              fontSize: 14,
+                                              color: Colors.red))
                                 ],
                               ),
                             ),
