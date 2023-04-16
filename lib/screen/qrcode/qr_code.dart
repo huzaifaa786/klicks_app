@@ -1,7 +1,10 @@
 // ignore_for_file: unnecessary_cast
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:klicks_app/api/city_api.dart';
 import 'package:klicks_app/screen/qrcode/qr_overlay.dart';
+import 'package:klicks_app/screen/select_car/select_car.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrCodeScreen extends StatefulWidget {
@@ -16,6 +19,19 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  getCompanyWithMall(id) async {
+    var response = await CityApi.getcompanywithmall(id);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CarSelect(
+                  mall: response[0]!,
+                  company: response[1]!,
+                  city: response[2]!,
+                  // uid: user!.id!,
+                )));
   }
 
   Widget build(BuildContext context) {
@@ -64,10 +80,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                 controller: cameraController,
                 onDetect: (barcode, args) async {
                   if (barcode.rawValue == null) {
-                    debugPrint('Failed to scan Barcode');
+                    Fluttertoast.showToast(
+                        msg: 'Error in scanning');
                   } else {
                     final String? code = barcode.rawValue!;
-                    print(code);
+                    var company_id = code!.split("=").last;
+                    getCompanyWithMall(company_id);
                   }
                 }),
             QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5)),
