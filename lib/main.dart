@@ -30,8 +30,8 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   // MessagingManager().configure();
   Stripe.publishableKey =
-      'pk_test_51MlTmPAN8zi2vyFswyWqxxJKbe8NnGRtoOo55Z2P65V8EykUYWk034zKSkXkh2THsQZ6OYZzdoQOUxXmSmPiPz9G00dQnMo69A';
-  Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+      'pk_live_51MlTmPAN8zi2vyFsLuiIyZ2kKKBcDLPDU9SgGZau5mYJXSjSLzlEw4LvHRc0ztiT4rSl8nsBnKCU7nTvpuYsMu7u00wg6yt3km';
+  Stripe.merchantIdentifier = 'merchant.flutter.stripe';
   Stripe.urlScheme = 'flutterstripe';
   await Stripe.instance.applySettings();
   runApp(EasyLocalization(
