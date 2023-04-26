@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:klicks_app/api/auth.dart';
+import 'package:klicks_app/api/banner_api.dart';
 import 'package:klicks_app/api/city_api.dart';
-import 'package:klicks_app/api/notification_api.dart';
 import 'package:klicks_app/helpers/loading.dart';
+import 'package:klicks_app/model/Banner.dart';
 import 'package:klicks_app/model/City.dart';
 import 'package:klicks_app/model/Mall.dart';
 import 'package:klicks_app/model/User.dart';
@@ -33,10 +35,13 @@ class _MainScreenState extends State<MainScreen> {
   List<dynamic> cities = [];
   List<dynamic> malls = [];
   List<dynamic> companys = [];
+  List<dynamic> bannerList = [];
   String? name;
   City? cityvalue;
   Mall? mallValue;
   Company? companyValue;
+  BannerModal? bannerValue;
+
   getcity() async {
     cities = [];
     var mcities = await CityApi.getcities();
@@ -79,6 +84,17 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  // BannerModal? banner;
+  sliderImages() async {
+    var mbanner = await BannerApi.sliderImages();
+
+    setState(() {
+      bannerValue = null;
+      bannerList = mbanner;
+      bannerValue = bannerList[0];
+    });
+  }
+
   DateTime? now;
   String? monthName;
   String? weekdayName;
@@ -119,6 +135,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      sliderImages();
       getuser();
       date();
       getcity();
@@ -126,14 +143,19 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   int _current = 0;
-
-  final List<String> imgList = [
-    'assets/images/car_wash.jpg',
-    'assets/images/mainLogo.png',
-    'assets/images/car_wash.jpg',
-  ];
   @override
   Widget build(BuildContext context) {
+    final List<String> imgList = [
+      bannerValue != null
+          ? bannerValue!.image1!
+          : 'https://klickwash.net/assets/img/logo1.png',
+      bannerValue != null
+          ? bannerValue!.image2!
+          : 'https://klickwash.net/assets/img/logo1.png',
+      bannerValue != null
+          ? bannerValue!.image3!
+          : 'https://klickwash.net/assets/img/logo1.png',
+    ];
     return Scaffold(
       backgroundColor: White,
       body: SafeArea(
@@ -184,6 +206,8 @@ class _MainScreenState extends State<MainScreen> {
                             fontSize: 16,
                             fontFamily: 'Poppins'),
                       ),
+                      // banner != null
+                      //     ?
                       Padding(
                         padding: const EdgeInsets.only(top: 16),
                         child: Stack(
@@ -205,16 +229,20 @@ class _MainScreenState extends State<MainScreen> {
                                   return Builder(
                                     builder: (BuildContext context) {
                                       return Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                        ),
-                                        child: Image.asset(
-                                          i,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      );
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                          ),
+                                          child: CachedNetworkImage(
+                                            imageUrl: i,
+                                            fit: BoxFit.cover,
+                                          )
+                                          //  Image.asset(
+                                          //   i,
+                                          //   fit: BoxFit.cover,
+                                          // ),
+                                          );
                                     },
                                   );
                                 }).toList(),
@@ -242,6 +270,9 @@ class _MainScreenState extends State<MainScreen> {
                           ],
                         ),
                       ),
+                      // : Container(
+                      //     padding: EdgeInsets.only(top: 16),
+                      //   ),
                       Padding(
                           padding: EdgeInsets.only(top: 12.0),
                           child: MainScreenText(
