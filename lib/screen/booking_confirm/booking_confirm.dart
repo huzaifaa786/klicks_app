@@ -45,7 +45,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                 Padding(
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
-                    LocaleKeys.Your_order_has_been_placed_successfully.tr(),
+                    LocaleKeys.You_will_be_notified_when_your_car_is_ready.tr(),
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,

@@ -128,7 +128,7 @@ class _OrderHistryState extends State<OrderHistry> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20),
-                                  child: SearchBar(
+                                  child: MSearchBar(
                                     onChange: searchOrders,
                                     imageIcon: 'assets/images/search.png',
                                     hint: LocaleKeys.search.tr(),

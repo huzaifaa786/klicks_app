@@ -106,9 +106,7 @@ class _OtpScreenState extends State<OtpScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
-                  LocaleKeys
-                          .Enter_the_6_Digit_code_receive_on_your_mobile_device
-                      .tr(),
+                  LocaleKeys.Enter_the_6_Digit_code_receive_on_your_email.tr(),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   style: TextStyle(

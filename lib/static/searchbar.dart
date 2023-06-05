@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:klicks_app/values/colors.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar(
+class MSearchBar extends StatelessWidget {
+  const MSearchBar(
       {Key? key,
       this.controller,
       this.hint,

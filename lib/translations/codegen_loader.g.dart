@@ -93,6 +93,7 @@ class CodegenLoader extends AssetLoader{
   "continu": "مباشرة",
   "Booking_Confirmed": "تم تأكيد الطلب",
   "Your_order_has_been_placed_successfully": "تم وضع طلبك بنجاح",
+  "You_will_be_notified_when_your_car_is_ready": "سيتم إشعارك عندما يتم غسل سيارتك",
   "Got_IT": "حسناً",
   "order_id": "رقم الطلب",
   "search": "بحث",
@@ -140,7 +141,9 @@ class CodegenLoader extends AssetLoader{
   "Order_has_rejected": "تم رفض طلبك و تم استرداد المبلغ",
   "Order_has_accepted": "تم قبول طلبك",
   "Order_has_completed": "تم إكمال طلبك",
-  "amount_deducted": "المبلغ المخصوم"
+  "amount_deducted": "المبلغ المخصوم",
+  "Reset_your_account_password": "إعادة ضبط كلمة السر",
+  "Enter_the_6_Digit_code_receive_on_your_email": "أدخل الرمز المكون من ٦ ارقام الذي وصل الى بريدك الالكتروني"
 };
 static const Map<String,dynamic> en = {
   "Hello": "Hello",
@@ -221,6 +224,7 @@ static const Map<String,dynamic> en = {
   "continu": "Continue",
   "Booking_Confirmed": "Booking Confirmed",
   "Your_order_has_been_placed_successfully": "Your order has been placed successfully",
+  "You_will_be_notified_when_your_car_is_ready": "You will be notified when your car is ready",
   "Got_IT": "Got IT",
   "order_id": "Order ID",
   "search": "search",
@@ -268,7 +272,9 @@ static const Map<String,dynamic> en = {
   "Order_has_rejected": "Your order has been rejected and order amount was refunded.",
   "Order_has_accepted": "Your order has been accepted.",
   "Order_has_completed": "Your order has been completed.",
-  "amount_deducted": "Amount deducted"
+  "amount_deducted": "Amount deducted",
+  "Reset_your_account_password": "Reset your account’s password",
+  "Enter_the_6_Digit_code_receive_on_your_email": "Enter the 6 Digit code receive on your email"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

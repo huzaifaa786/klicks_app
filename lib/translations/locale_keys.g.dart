@@ -79,6 +79,7 @@ abstract class  LocaleKeys {
   static const continu = 'continu';
   static const Booking_Confirmed = 'Booking_Confirmed';
   static const Your_order_has_been_placed_successfully = 'Your_order_has_been_placed_successfully';
+  static const You_will_be_notified_when_your_car_is_ready = 'You_will_be_notified_when_your_car_is_ready';
   static const Got_IT = 'Got_IT';
   static const order_id = 'order_id';
   static const search = 'search';
@@ -127,5 +128,7 @@ abstract class  LocaleKeys {
   static const Order_has_accepted = 'Order_has_accepted';
   static const Order_has_completed = 'Order_has_completed';
   static const amount_deducted = 'amount_deducted';
+  static const Reset_your_account_password = 'Reset_your_account_password';
+  static const Enter_the_6_Digit_code_receive_on_your_email = 'Enter_the_6_Digit_code_receive_on_your_email';
 
 }

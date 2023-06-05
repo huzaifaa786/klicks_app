@@ -78,7 +78,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ],
                   ),
                   Text(
-                    LocaleKeys.Reset_Password_Of_Your_Account.tr(),
+                    LocaleKeys.Reset_your_account_password.tr(),
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style: TextStyle(
