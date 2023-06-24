@@ -148,13 +148,13 @@ class _MainScreenState extends State<MainScreen> {
     final List<String> imgList = [
       bannerValue != null
           ? bannerValue!.image1!
-          : 'https://klickwash.net/assets/img/logo1.png',
+          : 'https://admin.klickwash.net/assets/img/logo1.png',
       bannerValue != null
           ? bannerValue!.image2!
-          : 'https://klickwash.net/assets/img/logo1.png',
+          : 'https://admin.klickwash.net/assets/img/logo1.png',
       bannerValue != null
           ? bannerValue!.image3!
-          : 'https://klickwash.net/assets/img/logo1.png',
+          : 'https://admin.klickwash.net/assets/img/logo1.png',
     ];
     return Scaffold(
       backgroundColor: White,
